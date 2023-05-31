@@ -8,17 +8,16 @@
   # Enable nix flakes and nix cli
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [
+  ];
 
   # Bootloader.
+  # TODO check desktop for these
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
-  networking.hostName = "nixos"; # Define your hostname.
+  # TODO figure out how to handle this with networking.networkmanager
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -47,6 +46,7 @@
   };
 
   # Enable the X11 windowing system.
+  # TODO determine if we need this
   services.xserver.enable = true;
 
   # Enable the GNOME Desktop Environment.
@@ -63,6 +63,7 @@
   services.printing.enable = true;
 
   # Enable sound with pipewire.
+  # TODO determine if any of this needs to be system-specific
   sound.enable = true;
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -79,17 +80,13 @@
     #media-session.enable = true;
   };
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
+  # TODO figure out what to do with this / home-manager
   users.users.chan = {
     isNormalUser = true;
     description = "Cars Chandler";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
-      firefox
-      git
     #  thunderbird
     ];
   };
@@ -100,7 +97,9 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    firefox
+    git
+    neovim 
     wget
   ];
 
