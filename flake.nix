@@ -1,17 +1,19 @@
 {
-  description = "A very basic flake";
+  description = "Chan's NixOS & Home Manager configuration flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-22.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
+    home-manager.url = "github:nix-community/home-manager/release-23.05";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { self, nixpkgs, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, ... }@inputs: {
     nixosConfigurations = {
       desktop = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = { inherit inputs; };
 	modules = [
-	  ./hosts/desktop
+	  ./system/desktop
 	];
       };
 
@@ -19,10 +21,30 @@
         system = "x86_64-linux";
         specialArgs = { inherit inputs; };
 	modules = [
-	  ./hosts/laptop
+	  ./system/laptop
 	];
       };
     };
-  };
 
+    homeConfigurations = {
+      "chan@desktop" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        extraSpecialArgs = {
+          inherit inputs;
+        };
+        modules = [
+          ./home/home.nix
+        ];
+      };
+      "chan@laptop" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        extraSpecialArgs = {
+          inherit inputs;
+        };
+        modules = [
+          ./home/home.nix
+        ];
+      };
+    };
+  };
 }
