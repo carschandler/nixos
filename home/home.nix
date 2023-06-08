@@ -46,7 +46,12 @@
   # Add stuff for your user as you see fit
   # programs.neovim.enable = true;
   home.packages = with pkgs; [
+    alacritty
+    kitty
+    neovim
     neofetch
+    wezterm
+    wget
   ];
 
   # Enable home-manager and git
@@ -54,6 +59,10 @@
     enable = true;
     userName = "carschandler";
     userEmail = "carschandler7@gmail.com";
+  };
+
+  programs.firefox = {
+    enable = true;
   };
 
   # Nicely reload system units when changing configs

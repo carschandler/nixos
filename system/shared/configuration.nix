@@ -87,7 +87,6 @@
     description = "Cars Chandler";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
-    #  thunderbird
     ];
   };
 
@@ -97,10 +96,6 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    firefox
-    git
-    neovim 
-    wget
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
