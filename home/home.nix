@@ -39,19 +39,23 @@
   };
 
   home = {
-    username = "chan";
-    homeDirectory = "/home/chan";
+      username = "chan";
+      homeDirectory = "/home/chan";
   };
 
   # Add stuff for your user as you see fit
-  # programs.neovim.enable = true;
   home.packages = with pkgs; [
     alacritty
+    foot
     kitty
+    micromamba
     neovim
     neofetch
+    ripgrep
+    tmux
     wezterm
     wget
+    xplr
   ];
 
   # Enable home-manager and git
@@ -64,6 +68,9 @@
   programs.firefox = {
     enable = true;
   };
+
+  home.file.".config/nvim".source = 
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos/dotfiles/nvim/dot-config/nvim";
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
