@@ -1,4 +1,13 @@
-{ inputs, outputs, lib, config, pkgs, ... }: {
+{ inputs, outputs, lib, config, pkgs, ... }: 
+# let
+#   symlinkAllToHome = dirs: (
+#     builtins.mapAttrs (name: value: 
+#       home.file.${name}.source = config.lib.file.mkOutOfStoreSymlink value;
+#     ) dirs;
+#   );
+#   dotfiles = "../dotfiles/";
+# in
+{
   # You can import other home-manager modules here
   imports = [
     # If you want to use modules your own flake exports (from modules/home-manager):
@@ -38,6 +47,10 @@
     };
   };
 
+  # symLinkAllToHome {
+  #   ".config/nvim" = dotfiles + "nvim/dot-config/nvim";
+  # };
+
   home = {
       username = "chan";
       homeDirectory = "/home/chan";
@@ -57,6 +70,8 @@
     wget
     xplr
   ];
+
+  wayland.windowManager.hyprland.enable = true;
 
   # Enable home-manager and git
   programs.git = {
