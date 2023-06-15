@@ -44,7 +44,19 @@
   };
 
   # Add stuff for your user as you see fit
-  home.packages = with pkgs; [
+  home.packages = let
+    pypkgs = ps: with ps; [
+      jupyter
+      ipython
+      numpy
+      pandas
+      matplotlib
+      sympy
+      scipy
+
+    ];
+  in
+  with pkgs; [
     alacritty
     foot
     kitty
@@ -56,6 +68,8 @@
     wezterm
     wget
     xplr
+
+    (python311.withPackages pypkgs)
   ];
 
   # Enable home-manager and git
