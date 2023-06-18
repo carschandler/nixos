@@ -34,11 +34,23 @@
 
   environment.systemPackages = with pkgs; [
     ## Required by hyprland
-    # notification daemon
-#   mako
+    # Notification Daemon
+    mako
     # pipewire
-#   pipewire
-#   wireplumber
+    pipewire
+    wireplumber
+    polkit-kde-agent
+    libsForQt5.qt5.qtwayland
+    qt6.qtwayland
+    ## Status bar
+    waybar
+    ## App Launcher
+    tofi
+    ## Wallpaper
+    hyprpaper
+    ## Clipboard
+    wl-clipboard
+    cliphist
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

@@ -71,7 +71,16 @@
     xplr
   ];
 
-  wayland.windowManager.hyprland.enable = true;
+
+  wayland.windowManager.hyprland = {
+    enable = true;
+    nvidiaPatches = true;
+    recommendedEnvironment = true;
+    extraConfig = "source=~/.config/hypr/hypr_config_content.conf";
+  };
+  home.file.".config/hypr/hypr_config_content.conf".source = 
+    config.lib.file.mkOutOfStoreSymlink
+    "${config.home.homeDirectory}/nixos/dotfiles/hyprland/dot-config/hypr/hypr_config_content.conf";
 
   # Enable home-manager and git
   programs.git = {
