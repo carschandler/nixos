@@ -68,6 +68,8 @@
     wezterm
     wget
     xplr
+    libreoffice-fresh
+
 
     (python311.withPackages pypkgs)
   ];

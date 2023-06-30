@@ -20,9 +20,9 @@
       laptop = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = { inherit inputs; };
-	modules = [
-	  ./system/laptop
-	];
+        modules = [
+          ./system/laptop
+        ];
       };
     };
 

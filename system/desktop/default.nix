@@ -15,6 +15,9 @@
 
   networking.hostName = "desktop"; # Define your hostname.
 
+  boot.loader.grub.gfxmodeEfi = "1280x1024";
+  boot.loader.grub.font = "${pkgs.source-code-pro}/share/fonts/opentype/SourceCodePro-Medium.otf";
+
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";

@@ -12,7 +12,14 @@
   ];
 
   # Bootloader.
-  boot.loader.systemd-boot.enable = true;
+  # boot.loader.systemd-boot.enable = true;
+  boot.loader.grub = {
+    enable = true;
+    efiSupport = true;
+    device = "nodev";
+    useOSProber = true;
+    fontSize = 16;
+  };
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
@@ -28,6 +35,10 @@
 
   # Set your time zone.
   time.timeZone = "America/Chicago";
+
+  # This keeps NixOS from throwing the system time on our Windows install out of
+  # whack
+  time.hardwareClockInLocalTime = true;
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
@@ -63,7 +74,6 @@
 
   # Enable sound with pipewire.
   # TODO determine if any of this needs to be system-specific
-  sound.enable = true;
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
@@ -78,6 +88,9 @@
     # no need to redefine it in your config for now)
     #media-session.enable = true;
   };
+
+  hardware.bluetooth.enable = true;
+  services.blueman.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   # TODO figure out what to do with this / home-manager
@@ -95,6 +108,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    pavucontrol
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
