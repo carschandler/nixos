@@ -39,18 +39,28 @@
     # pipewire
     pipewire
     wireplumber
-    polkit-kde-agent
+    # qt stuff / authentication agent
     libsForQt5.qt5.qtwayland
+    libsForQt5.polkit-kde-agent
     qt6.qtwayland
-    ## Status bar
+    # XDPH is handled by the module (?)
+
+    ## Optional
+    # Status bar
     waybar
-    ## App Launcher
+    # App Launcher
     tofi
-    ## Wallpaper
+    # Wallpaper
     hyprpaper
-    ## Clipboard
+    # Clipboard
     wl-clipboard
     cliphist
+    # Audio control GUI
+    pavucontrol
+    # Brightness control
+    brightnessctl
+    # Media control
+    playerctl
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

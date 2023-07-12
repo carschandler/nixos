@@ -45,6 +45,10 @@
       };
       "chan@laptop" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        # pkgs = import nixpkgs {
+        #   inherit system;
+        #   overlays = [];
+        # }; 
         extraSpecialArgs = {
           inherit inputs;
         };
