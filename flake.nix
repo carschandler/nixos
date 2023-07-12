@@ -24,6 +24,14 @@
           ./system/laptop
         ];
       };
+
+      work = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = { inherit inputs; };
+        modules = [
+          ./system/work
+        ];
+      };
     };
 
     homeConfigurations = {
@@ -37,6 +45,15 @@
         ];
       };
       "chan@laptop" = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        extraSpecialArgs = {
+          inherit inputs;
+        };
+        modules = [
+          ./home/home.nix
+        ];
+      };
+      "chan@work" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
         extraSpecialArgs = {
           inherit inputs;
