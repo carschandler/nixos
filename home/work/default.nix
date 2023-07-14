@@ -15,4 +15,17 @@
   home.packages = with pkgs; [
   ];
 
+  programs.ssh = {
+    enable = true;
+    matchBlocks = {
+      "canasta" = {
+        hostname = "canasta.torch2003.com";
+        user = "rchandler";
+      };
+      "fs2" = {
+        hostname = "fs2.torch2003.com";
+        user = "rchandler";
+      };
+    };
+  };
 }

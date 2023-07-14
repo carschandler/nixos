@@ -1,4 +1,8 @@
-{ inputs, outputs, lib, config, pkgs, ... }: {
+{ inputs, outputs, lib, config, pkgs, ... }: 
+let
+  dotfiles = "${config.home.homeDirectory}/nixos/dotfiles";
+in
+{
   # You can import other home-manager modules here
   imports = [
     # If you want to use modules your own flake exports (from modules/home-manager):
@@ -61,7 +65,6 @@
     foot
     kitty
     micromamba
-    neovim
     neofetch
     ripgrep
     tmux
@@ -70,9 +73,20 @@
     xplr
     libreoffice-fresh
     nodePackages.pyright
+    fzf
+    starship
+    bat
 
     (python311.withPackages pypkgs)
   ];
+
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
+    viAlias = true;
+    vimAlias = true;
+    vimdiffAlias = true;
+  };
 
   # Enable home-manager and git
   programs.git = {
@@ -85,8 +99,23 @@
     enable = true;
   };
 
-  home.file.".config/nvim".source = 
-    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos/dotfiles/nvim/dot-config/nvim";
+  home.sessionVariables = {
+    EDITOR = "nvim";
+  };
+
+  programs.bash = {
+    enable = true;
+    shellAliases = {
+      hms = "home-manager switch --flake $HOME/nixos";
+      nrs = "sudo nixos-rebuild switch --flake $HOME/nixos";
+    };
+  };
+
+  xdg.configFile."wezterm".source = config.lib.file.mkOutOfStoreSymlink
+    "${dotfiles}/wezterm/dot-config/wezterm";
+  
+  xdg.configFile."nvim".source = config.lib.file.mkOutOfStoreSymlink
+    "${dotfiles}/nvim/dot-config/nvim";
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
