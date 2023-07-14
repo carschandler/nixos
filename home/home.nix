@@ -69,7 +69,7 @@
     wget
     xplr
     libreoffice-fresh
-
+    nodePackages.pyright
 
     (python311.withPackages pypkgs)
   ];
@@ -77,7 +77,7 @@
   # Enable home-manager and git
   programs.git = {
     enable = true;
-    userName = "carschandler";
+    userName = "Cars Chandler";
     userEmail = "carschandler7@gmail.com";
   };
 

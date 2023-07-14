@@ -2,6 +2,7 @@ To start up a new system:
 - Make new entries in `flake.nix` for `nixosConfigurations` and
   `homeConfigurations`
 - Add configuration to `system` directory as appropriate
+  - Don't forget `networking.hostName`
 - `nix-shell -p git home-manager`
   - Ensure that files have been added to git
   - `sudo nixos-rebuild switch --flake .#<hostname>`
