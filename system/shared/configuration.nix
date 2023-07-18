@@ -55,32 +55,33 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-  # Enable the X11 windowing system.
-  # TODO determine if we need this
-  services.xserver.enable = true;
+  # # Enable the X11 windowing system.
+  # # TODO determine if we need this
+  # services.xserver.enable = true;
 
-  # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  # # Enable the GNOME Desktop Environment.
+  # services.xserver.displayManager.gdm.enable = true;
+  # services.xserver.desktopManager.gnome.enable = true;
 
-  # Configure keymap in X11
-  services.xserver = {
-    layout = "us";
-    xkbVariant = "";
-  };
+  # # Configure keymap in X11
+  # services.xserver = {
+  #   layout = "us";
+  #   xkbVariant = "";
+  # };
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
   # Enable sound with pipewire.
   # TODO determine if any of this needs to be system-specific
-  hardware.pulseaudio.enable = false;
+  # sound.enable = true; # Removed per https://nixos.wiki/wiki/PipeWire
+  hardware.pulseaudio.enable = false; # Required by NixOS to use PipeWire
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
-    pulse.enable = true;
+    pulse.enable = true; # Set to true per https://nixos.wiki/wiki/PipeWire
     # If you want to use JACK applications, uncomment this
     #jack.enable = true;
 
@@ -89,7 +90,9 @@
     #media-session.enable = true;
   };
 
+  # Enable bluetooth
   hardware.bluetooth.enable = true;
+  # Enable blueman for managing connections
   services.blueman.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.

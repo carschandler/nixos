@@ -1,6 +1,32 @@
 { inputs, outputs, lib, config, pkgs, ... }: 
 let
   dotfiles = "${config.home.homeDirectory}/nixos/dotfiles";
+
+  # symlinkAllToHome = dotfilesDir: (
+  #   let 
+  #     subdirs = map 
+  #       (subdir: dotfilesDir + "/${subdir}")
+  #       (lib.mapAttrsToList (name: value: name) (builtins.readDir dotfilesDir));
+  #     # subdirs = "test";
+  #       #(lib.mapAttrsToList (name: value: name) (builtins.readDir dotfilesDir));
+  #       #
+  #     recursivelyLink = (dir: set:
+  #       builtins.mapAttrs (name: type:
+  #         if !isNull (builtins.match ".*\.link-target.*" name) then
+  #           #builtins.trace "test"
+  #           {
+  #             "${builtins.replaceStrings ["dot-" ".link-target"] ["." ""] dir}".source = lib.file.mkOutOfStoreSymlink (dotfilesDir + "/${dir}");
+  #           }
+  #         else if type == "directory" then
+  #           #builtins.trace "test3"
+  #           mkMerge [set (recursivelyLink (dir + "/${name}") set)]
+  #         else
+  #           {}
+  #       ) (builtins.readDir dir)
+  #     );
+  #   in
+  #     mkMerge (map (recursivelyLink dir {}) subdirs)
+  # );
 in
 {
   # You can import other home-manager modules here
@@ -12,7 +38,7 @@ in
     # inputs.nix-colors.homeManagerModules.default
 
     # You can also split up your configuration and import pieces of it here:
-    # ./nvim.nix
+    # nvim.nix
   ];
 
   nixpkgs = {
@@ -27,6 +53,17 @@ in
       # neovim-nightly-overlay.overlays.default
 
       # Or define it inline, for example:
+      #   gruvbox-gtk-theme = prev.gruvbox-gtk-theme.overrideAttrs (oldAttrs: {
+      #     installPhase = ''
+      #       runHook preInstall
+      #       mkdir -p $out/share/themes
+      #       cp -a themes/* $out/share/themes
+      #       mkdir -p $out/share/icons
+      #       cp -a icons/* $out/share/icons
+      #       runHook postInstall
+      #     '';
+      #   });
+      #
       # (final: prev: {
       #   hi = final.hello.overrideAttrs (oldAttrs: {
       #     patches = [ ./change-hello-to-hi.patch ];
@@ -39,6 +76,9 @@ in
       allowUnfree = true;
       # Workaround for https://github.com/nix-community/home-manager/issues/2942
       allowUnfreePredicate = (_: true);
+
+      # Input has a funky license
+      input-fonts.acceptLicense = true;
     };
   };
 
@@ -73,6 +113,8 @@ in
     xplr
     libreoffice-fresh
     nodePackages.pyright
+    htop
+    toipe
     fzf
     starship
     bat
@@ -83,49 +125,131 @@ in
     spotify
     meld
 
-    (python311.withPackages pypkgs)
+    # (python311.withPackages pypkgs)
+
+    # Fonts
+    (nerdfonts.override { fonts = [
+      "SourceCodePro"
+      "Hack"
+      "Iosevka"
+      "Hasklig"
+    ]; })
+
+    cantarell-fonts
+    input-fonts
+
+    # Replaced by NerdFonts
+    #source-code-pro
+    #hack-font
+    #iosevka
+    #hasklig
   ];
 
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-    viAlias = true;
-    vimAlias = true;
-    vimdiffAlias = true;
-  };
+  fonts.fontconfig.enable = true;
 
-  # Enable home-manager and git
-  programs.git = {
-    enable = true;
-    userName = "Cars Chandler";
-    userEmail = "carschandler7@gmail.com";
-  };
+  programs = {
+    bash = {
+      enable = true;
+      shellAliases = {
+        hms = "home-manager switch --flake $HOME/nixos";
+        nrs = "sudo nixos-rebuild switch --flake $HOME/nixos";
+      };
+    };
 
-  programs.firefox = {
-    enable = true;
+    firefox = {
+      enable = true;
+    };
+
+    git = {
+      enable = true;
+      userName = "Cars Chandler";
+      userEmail = "carschandler7@gmail.com";
+    };
+
+    home-manager = {
+      enable = true;
+    };
+
+    neovim = {
+      enable = true;
+      defaultEditor = true;
+      viAlias = true;
+      vimAlias = true;
+      vimdiffAlias = true;
+    };
   };
 
   home.sessionVariables = {
     EDITOR = "nvim";
   };
 
-  programs.bash = {
+  xdg.configFile = {
+    "wezterm".source = config.lib.file.mkOutOfStoreSymlink
+      "${dotfiles}/wezterm/dot-config/wezterm";
+  
+    "nvim".source = config.lib.file.mkOutOfStoreSymlink
+      "${dotfiles}/nvim/dot-config/nvim";
+
+    "tofi".source = config.lib.file.mkOutOfStoreSymlink
+      "${dotfiles}/tofi/dot-config/tofi";
+
+    "hypr/hyprland-source.conf".source = 
+      config.lib.file.mkOutOfStoreSymlink
+      "${dotfiles}/hyprland/dot-config/hypr/hyprland-source.conf";
+  };
+
+  gtk = {
     enable = true;
-    shellAliases = {
-      hms = "home-manager switch --flake $HOME/nixos";
-      nrs = "sudo nixos-rebuild switch --flake $HOME/nixos";
+    font = {
+      package = pkgs.cantarell-fonts;
+      name = "Cantarell";
+    };
+    # theme = {
+    #   name = "Gruvbox-Dark-BL";
+    #   package = pkgs.gruvbox-gtk-theme;
+    # };
+    # iconTheme = {
+    #   name = "Gruvbox-Dark";
+    #   package = pkgs.gruvbox-gtk-theme;
+    # };
+    # cursorTheme = {
+    #   name = "Gruvbox-Dark";
+    #   package = pkgs.gruvbox-gtk-theme;
+    # };
+    theme = {
+      name = "adw-gtk3-dark";
+      package = pkgs.adw-gtk3;
+    };
+    cursorTheme = {
+      name = "Adwaita";
+      package = pkgs.gnome.gnome-themes-extra;
+    };
+    iconTheme = {
+      name = "Adwaita";
+      package = pkgs.gnome.gnome-themes-extra;
+    };
+    gtk3.extraConfig = {
+      gtk-application-prefer-dark-theme = 1;
+    };
+    gtk4.extraConfig = {
+      gtk-application-prefer-dark-theme = 1;
     };
   };
 
-  xdg.configFile."wezterm".source = config.lib.file.mkOutOfStoreSymlink
-    "${dotfiles}/wezterm/dot-config/wezterm";
-  
-  xdg.configFile."nvim".source = config.lib.file.mkOutOfStoreSymlink
-    "${dotfiles}/nvim/dot-config/nvim";
+  qt = {
+    enable = true;
+    platformTheme = "gtk";
+  };
+
+  wayland.windowManager.hyprland = {
+    enable = true;
+    nvidiaPatches = true;
+    recommendedEnvironment = true;
+    extraConfig = "source=./hyprland-source.conf";
+  };
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
 
-  programs.home-manager.enable = true;
   home.stateVersion = "22.11";
 }
