@@ -50,6 +50,7 @@
         };
         modules = [
           ./home/home.nix
+          ./home/hyprland
           hyprland.homeManagerModules.default
         ];
       };
@@ -59,7 +60,8 @@
           inherit inputs;
         };
         modules = [
-          ./home/home.nix
+          ./home/home.nixpkgs
+          ./home/hyprland
           hyprland.homeManagerModules.default
         ];
       };

@@ -136,7 +136,7 @@ in
     ]; })
 
     cantarell-fonts
-    input-fonts
+    #input-fonts
 
     # Replaced by NerdFonts
     #source-code-pro
@@ -189,13 +189,6 @@ in
   
     "nvim".source = config.lib.file.mkOutOfStoreSymlink
       "${dotfiles}/nvim/dot-config/nvim";
-
-    "tofi".source = config.lib.file.mkOutOfStoreSymlink
-      "${dotfiles}/tofi/dot-config/tofi";
-
-    "hypr/hyprland-source.conf".source = 
-      config.lib.file.mkOutOfStoreSymlink
-      "${dotfiles}/hyprland/dot-config/hypr/hyprland-source.conf";
   };
 
   gtk = {
@@ -239,13 +232,6 @@ in
   qt = {
     enable = true;
     platformTheme = "gtk";
-  };
-
-  wayland.windowManager.hyprland = {
-    enable = true;
-    nvidiaPatches = true;
-    recommendedEnvironment = true;
-    extraConfig = "source=./hyprland-source.conf";
   };
 
   # Nicely reload system units when changing configs

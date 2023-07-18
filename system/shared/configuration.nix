@@ -23,6 +23,14 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
+  # console = {
+  #   earlySetup = true;
+  #   packages = with pkgs; [
+  #     source-code-pro
+  #   ];
+  #   font = "Source Code Pro";
+  # };
+
   # TODO figure out how to handle this with networking.networkmanager
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
