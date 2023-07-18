@@ -76,6 +76,11 @@ in
     fzf
     starship
     bat
+    exa
+    lsd
+    fd
+    skim
+    spotify
 
     (python311.withPackages pypkgs)
   ];
