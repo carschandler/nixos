@@ -81,6 +81,7 @@ in
     fd
     skim
     spotify
+    meld
 
     (python311.withPackages pypkgs)
   ];
