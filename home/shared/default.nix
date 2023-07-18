@@ -153,6 +153,9 @@ in
       shellAliases = {
         hms = "home-manager switch --flake $HOME/nixos";
         nrs = "sudo nixos-rebuild switch --flake $HOME/nixos";
+        #FIXME: override lesspipe somehow?
+        ls = "COLUMNS=$COLUMNS exa --icons --color=always -G | less -rF";
+        ll = "COLUMNS=$COLUMNS exa --icons --color=always --git -lg | less -rF";
       };
     };
 
