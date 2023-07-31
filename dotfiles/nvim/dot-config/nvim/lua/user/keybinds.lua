@@ -1,7 +1,7 @@
-vim.g.mapleader = 's'
+--vim.g.mapleader = 's'
 vim.cmd([[
 noremap <Space> :
-noremap s <NOP>
+" noremap s <NOP>
 
 noremap <M-r> <Esc>:set formatoptions+=t<CR>
 inoremap <M-r> <Esc>:set formatoptions+=t<CR>a

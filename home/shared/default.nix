@@ -1,32 +1,7 @@
 { inputs, outputs, lib, config, pkgs, ... }: 
 let
   dotfiles = "${config.home.homeDirectory}/nixos/dotfiles";
-
-  # symlinkAllToHome = dotfilesDir: (
-  #   let 
-  #     subdirs = map 
-  #       (subdir: dotfilesDir + "/${subdir}")
-  #       (lib.mapAttrsToList (name: value: name) (builtins.readDir dotfilesDir));
-  #     # subdirs = "test";
-  #       #(lib.mapAttrsToList (name: value: name) (builtins.readDir dotfilesDir));
-  #       #
-  #     recursivelyLink = (dir: set:
-  #       builtins.mapAttrs (name: type:
-  #         if !isNull (builtins.match ".*\.link-target.*" name) then
-  #           #builtins.trace "test"
-  #           {
-  #             "${builtins.replaceStrings ["dot-" ".link-target"] ["." ""] dir}".source = lib.file.mkOutOfStoreSymlink (dotfilesDir + "/${dir}");
-  #           }
-  #         else if type == "directory" then
-  #           #builtins.trace "test3"
-  #           mkMerge [set (recursivelyLink (dir + "/${name}") set)]
-  #         else
-  #           {}
-  #       ) (builtins.readDir dir)
-  #     );
-  #   in
-  #     mkMerge (map (recursivelyLink dir {}) subdirs)
-  # );
+  xdgUserDir = "${config.home.homeDirectory}/xdg";
 in
 {
   # You can import other home-manager modules here
@@ -156,6 +131,8 @@ in
         #FIXME: override lesspipe somehow?
         ls = "COLUMNS=$COLUMNS exa --icons --color=always -G | less -rF";
         ll = "COLUMNS=$COLUMNS exa --icons --color=always --git -lg | less -rF";
+        nf = "nvim $(fzf)";
+        battery = "cat /sys/class/power_supply/BAT0/capacity";
       };
     };
 
@@ -186,12 +163,26 @@ in
     EDITOR = "nvim";
   };
 
-  xdg.configFile = {
-    "wezterm".source = config.lib.file.mkOutOfStoreSymlink
-      "${dotfiles}/wezterm/dot-config/wezterm";
-  
-    "nvim".source = config.lib.file.mkOutOfStoreSymlink
-      "${dotfiles}/nvim/dot-config/nvim";
+  xdg = {
+    configFile = {
+      "wezterm".source = config.lib.file.mkOutOfStoreSymlink
+        "${dotfiles}/wezterm/dot-config/wezterm";
+    
+      "nvim".source = config.lib.file.mkOutOfStoreSymlink
+        "${dotfiles}/nvim/dot-config/nvim";
+    };
+
+    userDirs = {
+      enable = true;
+      desktop = "${xdgUserDir}/Desktop";
+      documents = "${xdgUserDir}/Documents";
+      download = "${xdgUserDir}/Downloads";
+      music = "${xdgUserDir}/Music";
+      pictures = "${xdgUserDir}/Pictures";
+      publicShare = "${xdgUserDir}/Public";
+      templates = "${xdgUserDir}/Templates";
+      videos = "${xdgUserDir}/Videos";
+    };
   };
 
   gtk = {
