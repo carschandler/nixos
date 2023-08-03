@@ -2,32 +2,7 @@
 let
   homedir = "${config.home.homeDirectory}";
   dotfiles = "${homedir}/nixos/dotfiles";
-
-  # symlinkAllToHome = dotfilesDir: (
-  #   let 
-  #     subdirs = map 
-  #       (subdir: dotfilesDir + "/${subdir}")
-  #       (lib.mapAttrsToList (name: value: name) (builtins.readDir dotfilesDir));
-  #     # subdirs = "test";
-  #       #(lib.mapAttrsToList (name: value: name) (builtins.readDir dotfilesDir));
-  #       #
-  #     recursivelyLink = (dir: set:
-  #       builtins.mapAttrs (name: type:
-  #         if !isNull (builtins.match ".*\.link-target.*" name) then
-  #           #builtins.trace "test"
-  #           {
-  #             "${builtins.replaceStrings ["dot-" ".link-target"] ["." ""] dir}".source = lib.file.mkOutOfStoreSymlink (dotfilesDir + "/${dir}");
-  #           }
-  #         else if type == "directory" then
-  #           #builtins.trace "test3"
-  #           mkMerge [set (recursivelyLink (dir + "/${name}") set)]
-  #         else
-  #           {}
-  #       ) (builtins.readDir dir)
-  #     );
-  #   in
-  #     mkMerge (map (recursivelyLink dir {}) subdirs)
-  # );
+  xdgUserDir = "${homedir}/xdg";
 in
 {
   # You can import other home-manager modules here
@@ -126,6 +101,16 @@ in
   programs = {
     home-manager = {
       enable = true;
+    }  
+      shellAliases = {
+        hms = "home-manager switch --flake $HOME/nixos";
+        nrs = "sudo nixos-rebuild switch --flake $HOME/nixos";
+        #FIXME: override lesspipe somehow?
+        ls = "COLUMNS=$COLUMNS exa --icons --color=always -G | less -rF";
+        ll = "COLUMNS=$COLUMNS exa --icons --color=always --git -lg | less -rF";
+        nf = "nvim $(fzf)";
+        battery = "cat /sys/class/power_supply/BAT0/capacity";
+      };
     };
 
     firefox = {
@@ -171,6 +156,8 @@ in
         #FIXME: override lesspipe somehow?
         ls = "exa --icons --color=always";
         ll = "exa --icons --color=always --git -lg";
+        nf = "nvim $(fzf)";
+        battery = "cat /sys/class/power_supply/BAT0/capacity";
       };
       bashrcExtra = ''
         eval "$(zoxide init bash)"
@@ -186,12 +173,26 @@ in
     DOTFILES = "${homedir}/nixos/dotfiles";
   };
 
-  xdg.configFile = {
-    "wezterm".source = config.lib.file.mkOutOfStoreSymlink
-      "${dotfiles}/wezterm/dot-config/wezterm";
-  
-    "nvim".source = config.lib.file.mkOutOfStoreSymlink
-      "${dotfiles}/nvim/dot-config/nvim";
+  xdg = {
+    configFile = {
+      "wezterm".source = config.lib.file.mkOutOfStoreSymlink
+        "${dotfiles}/wezterm/dot-config/wezterm";
+    
+      "nvim".source = config.lib.file.mkOutOfStoreSymlink
+        "${dotfiles}/nvim/dot-config/nvim";
+    };
+
+    userDirs = {
+      enable = true;
+      desktop = "${xdgUserDir}/Desktop";
+      documents = "${xdgUserDir}/Documents";
+      download = "${xdgUserDir}/Downloads";
+      music = "${xdgUserDir}/Music";
+      pictures = "${xdgUserDir}/Pictures";
+      publicShare = "${xdgUserDir}/Public";
+      templates = "${xdgUserDir}/Templates";
+      videos = "${xdgUserDir}/Videos";
+    };
   };
 
   gtk = {
