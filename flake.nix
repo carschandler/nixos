@@ -50,6 +50,7 @@
         };
         modules = [
           ./home/shared/default.nix
+          ./home/personal
           ./home/hyprland
           hyprland.homeManagerModules.default
         ];
@@ -60,7 +61,9 @@
           inherit inputs;
         };
         modules = [
+          #FIXME: figure out how to import a module from inside another module
           ./home/shared/default.nix
+          ./home/personal
           ./home/hyprland
           hyprland.homeManagerModules.default
         ];
@@ -72,6 +75,7 @@
         };
         modules = [
           ./home/shared/default.nix
+          ./home/fonts
           ./home/work
         ];
       };

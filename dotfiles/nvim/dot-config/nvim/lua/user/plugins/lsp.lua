@@ -1,16 +1,72 @@
 return {
-  'neovim/nvim-lspconfig',
+  {
+    'folke/neodev.nvim'
+  },
+  {
+    'neovim/nvim-lspconfig',
 
-  config = function()
-    -- Set up lspconfig.
-    local capabilities = require('cmp_nvim_lsp').default_capabilities()
+    config = function()
+      print('hello')
+      -- Must set up neodev before LSP.
+      require('neodev').setup({})
 
-    -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
-    require('lspconfig')['rust_analyzer'].setup {
-      capabilities = capabilities
-    }
-    require('lspconfig')['pyright'].setup {
-      capabilities = capabilities
-    }
-  end
+      -- Set up lspconfig.
+      local lspconfig = require('lspconfig')
+
+      local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+      lspconfig.lua_ls.setup {
+        settings = {
+          Lua = {
+            runtime = {
+              -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+              version = 'LuaJIT',
+            },
+            diagnostics = {
+              -- Get the language server to recognize the `vim` global
+              globals = {'vim'},
+            },
+            workspace = {
+              -- Make the server aware of Neovim runtime files
+              library = vim.api.nvim_get_runtime_file("", true),
+              -- Prevent the LS from prompting about workspace every time on
+              -- startup
+              checkThirdParty = false,
+            },
+            -- Do not send telemetry data containing a randomized but unique identifier
+            telemetry = {
+              enable = false,
+            },
+            -- Per neodev.nvim's instructions (?)
+            completion = {
+              callSnippet = "Replace"
+            },
+          }
+        }
+      }
+
+      lspconfig.rust_analyzer.setup {
+        capabilities = capabilities
+      }
+
+      lspconfig.pyright.setup {
+        capabilities = capabilities
+      }
+    end
+  },
+
+  {
+    'mfussenegger/nvim-jdtls',
+
+    -- ft = 'java',
+
+    -- config = function ()
+    --   print('$HOME/.cache/jdtls/' .. '$PWD')
+    --   local cfg = {
+    --     cmd = { 'jdt-language-server', '-data', '$HOME/.cache/jdtls/' .. '$PWD' },
+    --     root_dir = vim.fs.dirname(vim.fs.find({'gradlew', '.git', 'mvnw'}, { upward = true })[1]),
+    --   }
+    --   require('jdtls').start_or_attach(cfg)
+    -- end,
+  }
 }

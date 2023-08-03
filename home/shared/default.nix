@@ -1,6 +1,7 @@
 { inputs, outputs, lib, config, pkgs, ... }: 
 let
-  dotfiles = "${config.home.homeDirectory}/nixos/dotfiles";
+  homedir = "${config.home.homeDirectory}";
+  dotfiles = "${homedir}/nixos/dotfiles";
 
   # symlinkAllToHome = dotfilesDir: (
   #   let 
@@ -76,9 +77,6 @@ in
       allowUnfree = true;
       # Workaround for https://github.com/nix-community/home-manager/issues/2942
       allowUnfreePredicate = (_: true);
-
-      # Input has a funky license
-      input-fonts.acceptLicense = true;
     };
   };
 
@@ -87,76 +85,47 @@ in
       homeDirectory = "/home/chan";
   };
 
-  # Add stuff for your user as you see fit
-  home.packages = let
-    pypkgs = ps: with ps; [
-      jupyter
-      ipython
-      numpy
-      pandas
-      matplotlib
-      sympy
-      scipy
-
-    ];
-  in
-  with pkgs; [
+  home.packages = with pkgs; [
+    # terminal emulators
     alacritty
     foot
     kitty
-    micromamba
-    neofetch
-    ripgrep
-    tmux
     wezterm
-    wget
-    xplr
-    libreoffice-fresh
-    nodePackages.pyright
-    htop
-    toipe
-    fzf
-    starship
+
+    # cli programs
     bat
     exa
-    lsd
     fd
+    fzf
+    htop
+    lsd
+    neofetch
+    ripgrep
     skim
+    starship
+    tmux
+    toipe
+    unzip
+    wget
+    xplr
+    zoxide
+    zsh
+    
+    # gui apps
     spotify
+    #libreoffice-fresh
     meld
 
-    # (python311.withPackages pypkgs)
-
-    # Fonts
-    (nerdfonts.override { fonts = [
-      "SourceCodePro"
-      "Hack"
-      "Iosevka"
-      "Hasklig"
-    ]; })
-
-    cantarell-fonts
-    #input-fonts
-
-    # Replaced by NerdFonts
-    #source-code-pro
-    #hack-font
-    #iosevka
-    #hasklig
+    # language servers
+    nodePackages.pyright
+    lua-language-server
   ];
 
   fonts.fontconfig.enable = true;
 
   programs = {
-    bash = {
+    home-manager = {
       enable = true;
-      shellAliases = {
-        hms = "home-manager switch --flake $HOME/nixos";
-        nrs = "sudo nixos-rebuild switch --flake $HOME/nixos";
-        #FIXME: override lesspipe somehow?
-        ls = "COLUMNS=$COLUMNS exa --icons --color=always -G | less -rF";
-        ll = "COLUMNS=$COLUMNS exa --icons --color=always --git -lg | less -rF";
-      };
     };
 
     firefox = {
@@ -167,10 +136,10 @@ in
       enable = true;
       userName = "Cars Chandler";
       userEmail = "carschandler7@gmail.com";
-    };
-
-    home-manager = {
-      enable = true;
+      aliases = {
+        lg = "log --all --oneline --graph --color=always --decorate";
+        lgg = "log --oneline --graph --color=always --decorate";
+      };
     };
 
     neovim = {
@@ -180,10 +149,41 @@ in
       vimAlias = true;
       vimdiffAlias = true;
     };
+
+    direnv = {
+      enable = true;
+      enableBashIntegration = true;
+      nix-direnv.enable = true;
+    };
+
+    readline = {
+      enable = true;
+      extraConfig = ''
+        set completion-ignore-case on
+      '';
+    };
+
+    bash = {
+      enable = true;
+      shellAliases = {
+        hms = "home-manager switch --flake $HOME/nixos";
+        nrs = "sudo nixos-rebuild switch --flake $HOME/nixos";
+        #FIXME: override lesspipe somehow?
+        ls = "exa --icons --color=always";
+        ll = "exa --icons --color=always --git -lg";
+      };
+      bashrcExtra = ''
+        eval "$(zoxide init bash)"
+        PATH="$PATH:${homedir}/.local/bin"
+      '';
+    };
   };
 
   home.sessionVariables = {
     EDITOR = "nvim";
+    HMDIR = "${homedir}/nixos/home";
+    HMFILE = "${homedir}/nixos/home/shared/default.nix";
+    DOTFILES = "${homedir}/nixos/dotfiles";
   };
 
   xdg.configFile = {
@@ -199,6 +199,7 @@ in
     font = {
       package = pkgs.cantarell-fonts;
       name = "Cantarell";
+      size = 12;
     };
     # theme = {
     #   name = "Gruvbox-Dark-BL";

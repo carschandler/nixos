@@ -1,40 +1,113 @@
-vim.g.mapleader = 's'
-vim.cmd([[
-noremap <Space> :
-noremap s <NOP>
+--          Mode  | Norm | Ins | Cmd | Vis | Sel | Opr | Term | Lang |
+-- Command        +------+-----+-----+-----+-----+-----+------+------+
+-- [nore]map      | yes  |  -  |  -  | yes | yes | yes |  -   |  -   |
+-- n[nore]map     | yes  |  -  |  -  |  -  |  -  |  -  |  -   |  -   |
+-- [nore]map!     |  -   | yes | yes |  -  |  -  |  -  |  -   |  -   |
+-- i[nore]map     |  -   | yes |  -  |  -  |  -  |  -  |  -   |  -   |
+-- c[nore]map     |  -   |  -  | yes |  -  |  -  |  -  |  -   |  -   |
+-- v[nore]map     |  -   |  -  |  -  | yes | yes |  -  |  -   |  -   |
+-- x[nore]map     |  -   |  -  |  -  | yes |  -  |  -  |  -   |  -   |
+-- s[nore]map     |  -   |  -  |  -  |  -  | yes |  -  |  -   |  -   |
+-- o[nore]map     |  -   |  -  |  -  |  -  |  -  | yes |  -   |  -   |
+-- t[nore]map     |  -   |  -  |  -  |  -  |  -  |  -  | yes  |  -   |
+-- l[nore]map     |  -   | yes | yes |  -  |  -  |  -  |  -   | yes  |
 
-noremap <M-r> <Esc>:set formatoptions+=t<CR>
-inoremap <M-r> <Esc>:set formatoptions+=t<CR>a
-noremap <M-R> <Esc>:set formatoptions-=t<CR>
-inoremap <M-R> <Esc>:set formatoptions-=t<CR>a
+vim.g.mapleader = ';'
 
-" Window Navigation
-noremap <M-H> <C-W>h 
-noremap <M-J> <C-W>j 
-noremap <M-K> <C-W>k 
-noremap <M-L> <C-W>l 
-noremap! <M-H> <Esc><C-W>h 
-noremap! <M-J> <Esc><C-W>j 
-noremap! <M-K> <Esc><C-W>k 
-noremap! <M-L> <Esc><C-W>l 
-tnoremap <M-H> <C-\><C-n><C-W>h 
-tnoremap <M-J> <C-\><C-n><C-W>j 
-tnoremap <M-K> <C-\><C-n><C-W>k 
-tnoremap <M-L> <C-\><C-n><C-W>l 
+local km = vim.keymap.set
 
-" Resizing
-noremap <C-h> <C-W><
-noremap <C-j> <C-W>+ 
-noremap <C-k> <C-W>- 
-noremap <C-l> <C-W>> 
+km('n', '<Space>', ':')
 
-" Moving Windows
-noremap <M-C-h> <C-W>H 
-noremap <M-C-j> <C-W>J 
-noremap <M-C-k> <C-W>K 
-noremap <M-C-l> <C-W>L 
-tnoremap <M-C-h> <C-\><C-n><C-W>H 
-tnoremap <M-C-j> <C-\><C-n><C-W>J 
-tnoremap <M-C-k> <C-\><C-n><C-W>K 
-tnoremap <M-C-l> <C-\><C-n><C-W>L 
-]])
+km('n', ';;', ';')
+
+-- System Clipboard Copy/Paste
+km({ 'n', 'v' }, '<leader>y', '"+y')
+km({ 'n', 'v' }, '<leader>p', '"+p')
+
+-- Don't copy x deletions to register
+km('n', 'x', '"_x')
+km('n', 'X', '"_X')
+
+-- Deletions that don't copy
+km('n', '<leader>d', '"_d')
+km('n', '<leader>D', '"_D')
+
+-- Source current file
+km('n', '<leader>so', ':so %<CR>')
+
+-- Show full path of current buffer
+km('n', '<leader>fp', '1<C-g>')
+km('n', 'q:', '<NOP>')
+
+-- Window Navigation on Corne Keyboard
+km({ 'n', 't', '!' }, '<S-Left>', '<C-w>h')
+km({ 'n', 't', '!' }, '<S-Down>', '<C-w>j')
+km({ 'n', 't', '!' }, '<S-Up>', '<C-w>k')
+km({ 'n', 't', '!' }, '<S-Right>', '<C-w>l')
+
+-- Netrw automatically remaps Shift-Up/Down: change that
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'netrw',
+  callback = function()
+    vim.keymap.del('n', '<S-Down>', { buffer = true })
+    vim.keymap.del('n', '<S-Up>', { buffer = true })
+    print('hello from aucmd!')
+  end,
+  desc = 'Unmap Shift-Up/Down netrw mappings'
+})
+
+-- Window Navigation on QWERTY Keyboard
+km({ 'n', 't', '!' }, '<M-H>', '<C-w>h')
+km({ 'n', 't', '!' }, '<M-J>', '<C-w>j')
+km({ 'n', 't', '!' }, '<M-K>', '<C-w>k')
+km({ 'n', 't', '!' }, '<M-L>', '<C-w>l')
+-- Window Resizing on Corne Keyboard
+km({ 'n', 't', '!' }, '<C-Left>', '<C-w><')
+km({ 'n', 't', '!' }, '<C-Down>', '<C-w>+')
+km({ 'n', 't', '!' }, '<C-Up>', '<C-w>-')
+km({ 'n', 't', '!' }, '<C-Right>', '<C-w>>')
+-- Window Resizing on QWERTY Keyboard
+km({ 'n', 't', '!' }, '<C-h>', '<C-w><')
+km({ 'n', 't', '!' }, '<C-j>', '<C-w>+')
+km({ 'n', 't', '!' }, '<C-k>', '<C-w>-')
+km({ 'n', 't', '!' }, '<C-l>', '<C-w>>')
+-- Moving Windows on Corne Keyboard
+km({ 'n', 't', '!' }, '<M-Left>', '<C-w>H')
+km({ 'n', 't', '!' }, '<M-Down>', '<C-w>J')
+km({ 'n', 't', '!' }, '<M-Up>', '<C-w>K')
+km({ 'n', 't', '!' }, '<M-Right>', '<C-w>L')
+-- Moving Windows on QWERTY Keyboard
+km({ 'n', 't', '!' }, '<M-C-h>', '<C-w>H')
+km({ 'n', 't', '!' }, '<M-C-j>', '<C-w>J')
+km({ 'n', 't', '!' }, '<M-C-k>', '<C-w>K')
+km({ 'n', 't', '!' }, '<M-C-l>', '<C-w>L')
+
+-- Set text wrapping
+km({ 'n', 'i' }, '<C-p>', function() vim.opt.formatoptions:append('t') end)
+km({ 'n', 'i' }, '<C-M-p>', function() vim.opt.formatoptions:remove('t') end)
+
+-- Messed with this a bit... was trying to get t to behave like / on a single
+-- character... worked decently well but then worrying about disabling
+-- highlighting meant we needed to remap / as well and then that broke
+-- everything... just going to stick with normal t
+
+-- local search_char = function()
+--   local keycode = vim.fn.getchar()
+--   if keycode == 27 then
+--     return
+--   end
+--   local key = vim.fn.nr2char(keycode)
+--   local count = vim.v.count
+--   if count == 0 then
+--     count = 1
+--   end
+--   vim.cmd('exe "normal ' .. count .. '/' .. key .. [[\<CR>"]])
+--   vim.cmd('noh')
+-- end
+--
+-- vim.keymap.set('n', 't', search_char)
+--
+-- vim.keymap.set('n', '/', function ()
+--   vim.opt.hlsearch = true
+--   vim.api.nvim_feedkeys('/', 'n', true)
+-- end)

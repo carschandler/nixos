@@ -14,6 +14,9 @@
   # Add stuff for your user as you see fit
   home.packages = with pkgs; [
   ];
+  
+  home.file.".local/bin/clip.exe".source = config.lib.file.mkOutOfStoreSymlink "/mnt/c/Windows/System32/clip.exe";
+  home.file.".local/bin/powershell.exe".source = config.lib.file.mkOutOfStoreSymlink "/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe";
 
   programs.ssh = {
     enable = true;
