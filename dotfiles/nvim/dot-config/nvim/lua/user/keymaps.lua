@@ -35,9 +35,16 @@ km('n', '<leader>D', '"_D')
 -- Source current file
 km('n', '<leader>so', ':so %<CR>')
 
+-- Maximize current window
+km('n', '<leader>z', '<C-w>_<C-w>|')
+
 -- Show full path of current buffer
 km('n', '<leader>fp', '1<C-g>')
 km('n', 'q:', '<NOP>')
+
+-- Set text wrapping
+km({ 'n', 'i' }, '<C-p>', function() vim.opt.formatoptions:append('t') end)
+km({ 'n', 'i' }, '<C-M-p>', function() vim.opt.formatoptions:remove('t') end)
 
 -- Window Navigation on Corne Keyboard
 km({ 'n', 't', '!' }, '<S-Left>', '<C-w>h')
@@ -49,9 +56,12 @@ km({ 'n', 't', '!' }, '<S-Right>', '<C-w>l')
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'netrw',
   callback = function()
-    vim.keymap.del('n', '<S-Down>', { buffer = true })
-    vim.keymap.del('n', '<S-Up>', { buffer = true })
-    print('hello from aucmd!')
+    if vim.fn.mapcheck('<S-Down', 'n') == ':Nexplore<CR>' then
+      vim.keymap.del('n', '<S-Down>', { buffer = true })
+    end
+    if vim.fn.mapcheck('<S-Up', 'n') ~= ':Pexplore<CR>' then
+      vim.keymap.del('n', '<S-Up>', { buffer = true })
+    end
   end,
   desc = 'Unmap Shift-Up/Down netrw mappings'
 })
@@ -82,9 +92,6 @@ km({ 'n', 't', '!' }, '<M-C-j>', '<C-w>J')
 km({ 'n', 't', '!' }, '<M-C-k>', '<C-w>K')
 km({ 'n', 't', '!' }, '<M-C-l>', '<C-w>L')
 
--- Set text wrapping
-km({ 'n', 'i' }, '<C-p>', function() vim.opt.formatoptions:append('t') end)
-km({ 'n', 'i' }, '<C-M-p>', function() vim.opt.formatoptions:remove('t') end)
 
 -- Messed with this a bit... was trying to get t to behave like / on a single
 -- character... worked decently well but then worrying about disabling

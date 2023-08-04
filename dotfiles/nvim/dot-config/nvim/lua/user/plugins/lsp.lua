@@ -6,7 +6,6 @@ return {
     'neovim/nvim-lspconfig',
 
     config = function()
-      print('hello')
       -- Must set up neodev before LSP.
       require('neodev').setup({})
 
@@ -58,6 +57,42 @@ return {
   {
     'mfussenegger/nvim-jdtls',
 
+    ft = 'java',
+
+    config = function()
+      local cfg = {
+        cmd = {
+          'jdt-language-server',
+          '-data',
+          os.getenv("HOME") .. '/.cache/jdtls/' .. os.getenv('PWD')
+        },
+
+        root_dir = vim.fs.dirname(
+          vim.fs.find(
+            { '.git', 'gradlew', 'mvnw', 'pom.xml' },
+            { upward = true }
+          )[1]
+        ),
+
+        -- Maven should handle the Java version, but here's an example of how to
+        -- set it manually:
+
+        -- settings = {
+        --   java = {
+        --     configuration = {
+        --       runtimes = {
+        --         {
+        --           name = "JavaSE-1.8",
+        --           path = os.getenv("JAVA_HOME")
+        --         }
+        --       }
+        --     }
+        --   }
+        -- }
+      }
+
+      require('jdtls').start_or_attach(cfg)
+    end
     -- ft = 'java',
 
     -- config = function ()

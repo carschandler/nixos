@@ -8,6 +8,7 @@ return {
     'hrsh7th/cmp-cmdline',  -- Added
     'hrsh7th/cmp-nvim-lua', -- Optional
     'hrsh7th/cmp-nvim-lsp-signature-help',
+    'petertriho/cmp-git',
     -- Snippets
     'L3MON4D3/LuaSnip',             -- Required
     'saadparwaiz1/cmp_luasnip',     -- Optional
@@ -66,7 +67,25 @@ return {
           end
         end),
 
-        -- "exiT"
+        -- Scroll 4 at a time
+        ['<C-M-n>'] = cmp.mapping(function(fallback)
+          if cmp.visible() then
+            cmp.select_next_item({ behavior = cmp.SelectBehavior.Select, count = 4 })
+          else
+            fallback()
+          end
+        end),
+
+        -- Scroll 4 at a time
+        ['<C-M-p>'] = cmp.mapping(function(fallback)
+          if cmp.visible() then
+            cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select, count = 4 })
+          else
+            fallback()
+          end
+        end),
+
+        -- "aborT"
         ['<C-t>'] = cmp.mapping.abort(),
         -- cmp.mapping.close() also exists, which will exit and leave any text that cmp
         -- generated up to that point
@@ -74,21 +93,22 @@ return {
         -- cmp.mapping.complete_common_string() exists... only completes a
         -- string whose start matches some other existing one (like bash)
 
-        -- Accept currently selected item.
+        -- Accept currently selected item or the first in the list.
         -- Set `select` to `false` to only confirm explicitly selected items.
-        -- "Insert"
-
-        ['<C-i>'] = cmp.mapping.confirm({
+        -- "Yes"
+        ['<C-y>'] = cmp.mapping.confirm({
           select = true,
-          --behavior = cmp.ConfirmBehavior.Replace
+          behavior = cmp.ConfirmBehavior.Replace
         }),
 
+        -- Leaving this out for now and making the default replace...
         -- "Erase and insert" (replace)
         -- ['<C-e>'] = cmp.mapping.confirm({
         --   select = true,
         --   behavior = cmp.ConfirmBehavior.Replace
         -- }),
 
+        -- TODO: see if we like tab or want CTRL keys
         --['<C-f>'] = cmp.mapping(function(fallback)
         ['<Tab>'] = cmp.mapping(function(fallback)
           if luasnip.jumpable(1) then
@@ -113,6 +133,8 @@ return {
           end
         end, { 'i', 's' }),
 
+        -- TODO: Do we need this for custom snippets? I think they should show up in
+        -- our cmp menu like normal...
         --['<C-k>'] = cmp.mapping(function()
         --  if luasnip.expandable() then
         --    luasnip.expand()
@@ -122,10 +144,7 @@ return {
       sources = cmp.config.sources({
         { name = 'nvim_lsp_signature_help' },
         { name = 'nvim_lsp' },
-        -- { name = 'vsnip' }, -- For vsnip users.
-        { name = 'luasnip' }, -- For luasnip users.
-        -- { name = 'ultisnips' }, -- For ultisnips users.
-        -- { name = 'snippy' }, -- For snippy users.
+        { name = 'luasnip' },
       }, {
         {
           name = 'buffer',
@@ -141,7 +160,7 @@ return {
     -- Set configuration for specific filetype.
     cmp.setup.filetype('gitcommit', {
       sources = cmp.config.sources({
-        { name = 'git' }, -- You can specify the `git` source if [you were installed it](https://github.com/petertriho/cmp-git).
+        { name = 'git' },
       }, {
         { name = 'buffer' },
       })
