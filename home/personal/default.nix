@@ -1,7 +1,10 @@
-{ pkgs, ... }: 
-{
+{ pkgs, ... }: {
+  imports = [
+    ../fonts
+  ];
+
   home.packages = [
-    libreoffice-fresh
+    pkgs.libreoffice-fresh
   ];
 }
 

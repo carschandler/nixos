@@ -71,7 +71,6 @@ in
     bat
     exa
     fd
-    fzf
     htop
     lsd
     neofetch
@@ -85,6 +84,9 @@ in
     xplr
     zoxide
     zsh
+
+    # language tools/compilers
+    libgccjit
     
     # gui apps
     spotify
@@ -94,6 +96,7 @@ in
     # language servers
     nodePackages.pyright
     lua-language-server
+    nixd
   ];
 
   fonts.fontconfig.enable = true;
@@ -101,20 +104,19 @@ in
   programs = {
     home-manager = {
       enable = true;
-    }  
-      shellAliases = {
-        hms = "home-manager switch --flake $HOME/nixos";
-        nrs = "sudo nixos-rebuild switch --flake $HOME/nixos";
-        #FIXME: override lesspipe somehow?
-        ls = "COLUMNS=$COLUMNS exa --icons --color=always -G | less -rF";
-        ll = "COLUMNS=$COLUMNS exa --icons --color=always --git -lg | less -rF";
-        nf = "nvim $(fzf)";
-        battery = "cat /sys/class/power_supply/BAT0/capacity";
-      };
     };
 
     firefox = {
       enable = true;
+    };
+
+    fzf = {
+      enable = true;
+      enableBashIntegration = true;
+      defaultOptions = [
+        "-m"
+        "--bind ctrl-a:toggle-all"
+      ];
     };
 
     git = {
@@ -156,12 +158,17 @@ in
         #FIXME: override lesspipe somehow?
         ls = "exa --icons --color=always";
         ll = "exa --icons --color=always --git -lg";
-        nf = "nvim $(fzf)";
         battery = "cat /sys/class/power_supply/BAT0/capacity";
       };
       bashrcExtra = ''
         eval "$(zoxide init bash)"
         PATH="$PATH:${homedir}/.local/bin"
+        function nf() {
+          result="$(fzf -m $@)"
+          if [[ $? == 0 ]]; then
+            nvim $result
+          fi
+        }
       '';
     };
   };

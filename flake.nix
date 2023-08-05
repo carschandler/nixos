@@ -2,11 +2,10 @@
   description = "Chan's NixOS & Home Manager configuration flake";
 
   inputs = {
-    # nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-23.05";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -49,7 +48,7 @@
           inherit inputs;
         };
         modules = [
-          ./home/shared/default.nix
+          ./home/shared
           ./home/personal
           ./home/hyprland
           hyprland.homeManagerModules.default
@@ -61,8 +60,7 @@
           inherit inputs;
         };
         modules = [
-          #FIXME: figure out how to import a module from inside another module
-          ./home/shared/default.nix
+          ./home/shared
           ./home/personal
           ./home/hyprland
           hyprland.homeManagerModules.default
@@ -74,7 +72,7 @@
           inherit inputs;
         };
         modules = [
-          ./home/shared/default.nix
+          ./home/shared
           ./home/fonts
           ./home/work
         ];

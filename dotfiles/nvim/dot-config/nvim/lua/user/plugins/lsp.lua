@@ -44,11 +44,15 @@ return {
         }
       }
 
-      lspconfig.rust_analyzer.setup {
+      lspconfig.nixd.setup {
         capabilities = capabilities
       }
 
       lspconfig.pyright.setup {
+        capabilities = capabilities
+      }
+
+      lspconfig.rust_analyzer.setup {
         capabilities = capabilities
       }
     end
