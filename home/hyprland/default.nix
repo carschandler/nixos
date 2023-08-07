@@ -12,6 +12,8 @@ in
       "${dotfiles}/tofi/dot-config/tofi";
   };
 
+  home.file.".local/bin/wrappedhl".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos/home/hyprland/wrappedhl.sh";
+
   wayland.windowManager.hyprland = {
     enable = true;
     nvidiaPatches = true;

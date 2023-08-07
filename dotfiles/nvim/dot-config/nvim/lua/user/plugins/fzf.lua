@@ -14,7 +14,8 @@ return {
     vim.keymap.set('n', '<Leader>fb', fzf.buffers)
     vim.keymap.set('n', '<Leader>fl', fzf.blines)
     vim.keymap.set('n', '<Leader>fL', fzf.lines)
-    vim.keymap.set('n', '<Leader>fw', fzf.live_grep)
+    vim.keymap.set('n', '<Leader>fw', fzf.grep_project)
+    vim.keymap.set('n', '<Leader>fW', fzf.live_grep)
     vim.keymap.set('n', '<Leader>ftw', fzf.grep_cword)
     vim.keymap.set('n', '<Leader>ftW', fzf.grep_cWORD)
 
@@ -36,8 +37,8 @@ return {
     vim.keymap.set('n', '<Leader>flf', fzf.lsp_finder)
     vim.keymap.set('n', '<Leader>fln', fzf.lsp_incoming_calls)
     vim.keymap.set('n', '<Leader>flo', fzf.lsp_outgoing_calls)
-    vim.keymap.set('n', '<Leader>flg', fzf.diagnostics_document)
-    vim.keymap.set('n', '<Leader>flG', fzf.diagnostics_workspace)
+    vim.keymap.set('n', '<Leader>fle', fzf.diagnostics_document)
+    vim.keymap.set('n', '<Leader>flE', fzf.diagnostics_workspace)
 
     vim.keymap.set('n', '<Leader>fch', fzf.command_history)
     vim.keymap.set('n', '<Leader>fsh', fzf.search_history)
