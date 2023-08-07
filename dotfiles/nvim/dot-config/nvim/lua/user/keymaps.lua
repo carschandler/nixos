@@ -16,21 +16,21 @@ vim.g.mapleader = ';'
 
 local km = vim.keymap.set
 
-km('n', '<Space>', ':')
+km({ 'n', 'v' }, '<Space>', ':')
 
-km('n', ';;', ';')
+km({ 'n', 'v' }, ';;', ';')
 
 -- System Clipboard Copy/Paste
 km({ 'n', 'v' }, '<leader>y', '"+y')
 km({ 'n', 'v' }, '<leader>p', '"+p')
 
 -- Don't copy x deletions to register
-km('n', 'x', '"_x')
-km('n', 'X', '"_X')
+km({ 'n', 'v' }, 'x', '"_x')
+km({ 'n', 'v' }, 'X', '"_X')
 
 -- Deletions that don't copy
-km('n', '<leader>d', '"_d')
-km('n', '<leader>D', '"_D')
+km({ 'n', 'v' }, '<leader>d', '"_d')
+km({ 'n', 'v' }, '<leader>D', '"_D')
 
 -- Source current file
 km('n', '<leader>so', ':so %<CR>')
@@ -56,12 +56,8 @@ km({ 'n', 't', '!' }, '<S-Right>', '<C-w>l')
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'netrw',
   callback = function()
-    if vim.fn.mapcheck('<S-Down', 'n') == ':Nexplore<CR>' then
-      vim.keymap.del('n', '<S-Down>', { buffer = true })
-    end
-    if vim.fn.mapcheck('<S-Up', 'n') ~= ':Pexplore<CR>' then
-      vim.keymap.del('n', '<S-Up>', { buffer = true })
-    end
+    km({ 'n', 't', '!' }, '<S-Down>', '<C-w>j', { buffer = true })
+    km({ 'n', 't', '!' }, '<S-Up>', '<C-w>k', { buffer = true })
   end,
   desc = 'Unmap Shift-Up/Down netrw mappings'
 })

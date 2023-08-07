@@ -86,7 +86,7 @@ in
     zsh
 
     # language tools/compilers
-    libgccjit
+    libgccjit # needed for nvim-treesitter
     
     # gui apps
     spotify
@@ -104,6 +104,12 @@ in
   programs = {
     home-manager = {
       enable = true;
+    };
+
+    direnv = {
+      enable = true;
+      enableBashIntegration = true;
+      nix-direnv.enable = true;
     };
 
     firefox = {
@@ -135,12 +141,6 @@ in
       viAlias = true;
       vimAlias = true;
       vimdiffAlias = true;
-    };
-
-    direnv = {
-      enable = true;
-      enableBashIntegration = true;
-      nix-direnv.enable = true;
     };
 
     readline = {
@@ -178,6 +178,8 @@ in
     HMDIR = "${homedir}/nixos/home";
     HMFILE = "${homedir}/nixos/home/shared/default.nix";
     DOTFILES = "${homedir}/nixos/dotfiles";
+    NVIMCFG = "${dotfiles}/nvim/dot-config/nvim";
+    PLUGDIR = "${dotfiles}/nvim/dot-config/nvim/lua/user/plugins";
   };
 
   xdg = {
