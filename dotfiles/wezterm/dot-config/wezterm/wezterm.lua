@@ -13,8 +13,7 @@ config = {
     -- family = 'IosevkaNerdFont',
     weight = 'Medium',
   },
-  --freetype_load_target = "Light",
-  --freetype_load_flags = 'NO_HINTING',
+  freetype_load_flags = 'NO_HINTING',
   color_scheme = "GruvboxDark",
   enable_tab_bar = false,
   window_padding = {
@@ -23,6 +22,5 @@ config = {
   },
   window_background_opacity = 0.90,
 }
-
 
 return config

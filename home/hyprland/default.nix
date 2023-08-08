@@ -20,4 +20,9 @@ in
     recommendedEnvironment = true;
     extraConfig = "source=./hyprland-source.conf";
   };
+  
+  home.packages = [
+    inputs.hyprland-contrib.packages.${pkgs.system}.grimblast
+    pkgs.hyprpicker
+  ];
 }

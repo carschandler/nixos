@@ -23,12 +23,18 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
-  # console = {
-  #   earlySetup = true;
-  #   packages = with pkgs; [
-  #     source-code-pro
-  #   ];
-  #   font = "Source Code Pro";
+  # services.xserver.enable = true;
+  # services.xserver.displayManager = {
+  #   sddm = {
+  #     enable = true;
+  #     # theme = "${(pkgs.fetchFromGitHub {
+  #     #   owner = "mathieujobin";
+  #     #   repo = "sddm-breeze-theme";
+  #     #   rev = "a771815d41fdcd275a2538dd24a1c1bc3881594d";
+  #     #   sha256 = "sha256-ym3M/CItchs4g79ntvc7+keeBGZTStbx0giEPCXPZ90=";
+  #     # })}";
+  #     theme = "breath";
+  #   };
   # };
 
   # TODO figure out how to handle this with networking.networkmanager
@@ -119,7 +125,6 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    pavucontrol
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
