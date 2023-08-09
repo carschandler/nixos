@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ inputs, pkgs, lib, ... }:
 
 {
   nix.settings = {
@@ -8,8 +8,12 @@
 
   programs.hyprland = {
     enable = true;
+    package = inputs.hyprland.packages.x86_64-linux.hyprland;
     nvidiaPatches = true;
+    xwayland.enable = true;
   };
+
+  xdg.portal.wlr.enable = lib.mkForce false;
 
   environment.systemPackages = with pkgs; [
     ## Required by hyprland

@@ -5,49 +5,23 @@ return {
     local configs = require("nvim-treesitter.configs")
 
     configs.setup({
-      ensure_installed = {
-        "bash",
-        "c",
-        "comment",
-        "cpp",
-        "css",
-        "diff",
-        "git_config",
-        "git_rebase",
-        "gitattributes",
-        "gitcommit",
-        "gitignore",
-        "html",
-        "java",
-        "javascript",
-        "json",
-        "lua",
-        "make",
-        "markdown",
-        "markdown_inline",
-        "ninja",
-        "nix",
-        "python",
-        "query",
-        "rust",
-        "toml",
-        "typescript",
-        "vim",
-        "vimdoc",
-        "yaml",
-      },
-      sync_install = false,
+      ensure_installed = "all",
       highlight = { enable = true },
       indent = { enable = true },
       incremental_selection = {
         enable = true,
         keymaps = {
-          init_selection = "gnn", -- set to `false` to disable one of the mappings
-          node_incremental = "grn",
-          scope_incremental = "grc",
-          node_decremental = "grm",
+          -- set to `false` to disable one of the mappings
+          init_selection = "<BS>",
+          node_incremental = "<BS>",
+          scope_incremental = "<M-BS>",
+          node_decremental = "<S-BS>",
         },
       },
+      sync_install = false,
+      ignore_install = {},
+      auto_install = false,
+      modules = {},
     })
   end
 }

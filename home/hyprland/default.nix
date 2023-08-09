@@ -12,13 +12,13 @@ in
       "${dotfiles}/tofi/dot-config/tofi";
   };
 
-  home.file.".local/bin/wrappedhl".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos/home/hyprland/wrappedhl.sh";
+  home.file.".local/bin/h".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos/home/hyprland/hyprland_wrapped.sh";
 
   wayland.windowManager.hyprland = {
     enable = true;
-    nvidiaPatches = true;
-    recommendedEnvironment = true;
+    package = inputs.hyprland.packages.x86_64-linux.hyprland;
     extraConfig = "source=./hyprland-source.conf";
+    systemdIntegration = true;
   };
   
   home.packages = [

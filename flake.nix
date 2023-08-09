@@ -9,7 +9,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hyprland.url = "github:hyprwm/Hyprland";
+    hyprland = {
+      url = "github:/hyprwm/hyprland";
+      # Don't override hyprland's nixpkgs or the Cachix won't work
+    };
 
     hyprland-contrib = {
       url = "github:hyprwm/contrib";
@@ -17,14 +20,13 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, hyprland, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, ... }@inputs: {
     nixosConfigurations = {
       desktop = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = { inherit inputs; };
         modules = [
           ./system/desktop
-          hyprland.nixosModules.default
         ];
       };
 
@@ -33,7 +35,6 @@
         specialArgs = { inherit inputs; };
         modules = [
           ./system/laptop
-          hyprland.nixosModules.default
         ];
       };
 
@@ -55,8 +56,6 @@
         modules = [
           ./home/shared
           ./home/personal
-          ./home/hyprland
-          hyprland.homeManagerModules.default
         ];
       };
       "chan@laptop" = home-manager.lib.homeManagerConfiguration {
@@ -67,8 +66,6 @@
         modules = [
           ./home/shared
           ./home/personal
-          ./home/hyprland
-          hyprland.homeManagerModules.default
         ];
       };
       "chan@work" = home-manager.lib.homeManagerConfiguration {
@@ -78,7 +75,6 @@
         };
         modules = [
           ./home/shared
-          ./home/fonts
           ./home/work
         ];
       };

@@ -61,11 +61,6 @@ in
   };
 
   home.packages = with pkgs; [
-    # terminal emulators
-    alacritty
-    foot
-    kitty
-    wezterm
 
     # cli programs
     bat
@@ -86,11 +81,8 @@ in
     zsh
 
     # language tools/compilers
-    libgccjit # needed for nvim-treesitter
     
     # gui apps
-    spotify
-    #libreoffice-fresh
     meld
 
     # language servers
@@ -137,6 +129,7 @@ in
 
     neovim = {
       enable = true;
+      extraPackages = [pkgs.gcc];
       defaultEditor = true;
       viAlias = true;
       vimAlias = true;
