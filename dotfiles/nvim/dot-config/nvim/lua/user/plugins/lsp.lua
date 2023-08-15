@@ -11,13 +11,24 @@ return {
 
       -- Set up lspconfig.
       local lspconfig = require('lspconfig')
-
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-      vim.keymap.set('n', '<Leader>e', vim.diagnostic.open_float, {desc = "Show diagnostics"})
-      vim.keymap.set('n', '[e', vim.diagnostic.goto_prev, {desc = "Previous diagnostic"})
-      vim.keymap.set('n', ']e', vim.diagnostic.goto_next, {desc = "Next diagnostic"})
-      vim.keymap.set('n', '<Leader>le', vim.diagnostic.setloclist, {desc = "Send diagnostics to location list"})
+      local wk = require('which-key')
+
+      wk.register(
+        {
+          l = {
+            name = 'LSP',
+            w = { 'workspace' },
+          }
+        },
+        { prefix = '<Leader>' }
+      )
+
+      vim.keymap.set('n', '<Leader>le', vim.diagnostic.open_float, { desc = "Show diagnostics" })
+      vim.keymap.set('n', '[e', vim.diagnostic.goto_prev, { desc = "Previous diagnostic" })
+      vim.keymap.set('n', ']e', vim.diagnostic.goto_next, { desc = "Next diagnostic" })
+      vim.keymap.set('n', '<Leader>lE', vim.diagnostic.setloclist, { desc = "Send diagnostics to location list" })
 
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('UserLspConfig', {}),
@@ -27,24 +38,29 @@ return {
 
           -- Buffer local mappings.
           -- See `:help vim.lsp.*` for documentation on any of the below functions
-          local opts = { buffer = ev.buf }
-          vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-          vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-          vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-          vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-          vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-          vim.keymap.set('n', '<Leader>wa', vim.lsp.buf.add_workspace_folder, opts)
-          vim.keymap.set('n', '<Leader>wr', vim.lsp.buf.remove_workspace_folder, opts)
-          vim.keymap.set('n', '<Leader>wl', function()
+          local opts_desc = function(d)
+            return { buffer = ev.buf, desc = d }
+          end
+
+
+          vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts_desc('Go to declaration'))
+          vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts_desc('Go to definition'))
+          vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts_desc('Show hover pane'))
+          vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts_desc('Go to implementation'))
+          vim.keymap.set({'n', 'i'}, '<C-k>', vim.lsp.buf.signature_help, opts_desc('LSP signature help'))
+          vim.keymap.set('n', '<Leader>lwa', vim.lsp.buf.add_workspace_folder, opts_desc('Add workspace dir'))
+          vim.keymap.set('n', '<Leader>lwr', vim.lsp.buf.remove_workspace_folder, opts_desc('Remove workspace dir'))
+          vim.keymap.set('n', '<Leader>lwl', function()
             print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-          end, opts)
-          vim.keymap.set('n', '<Leader>D', vim.lsp.buf.type_definition, opts)
-          vim.keymap.set('n', '<Leader>rn', vim.lsp.buf.rename, opts)
-          vim.keymap.set({ 'n', 'v' }, '<Leader>ca', vim.lsp.buf.code_action, opts)
-          vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-          vim.keymap.set('n', '<Leader>f', function()
+          end, opts_desc('List workspace dirs'))
+          vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, opts_desc('Go to definiton of this type'))
+          vim.keymap.set('n', '<Leader>lr', vim.lsp.buf.rename, opts_desc('Rename symbol'))
+          vim.keymap.set('n', '<F2>', vim.lsp.buf.rename, opts_desc('Rename symbol'))
+          vim.keymap.set({ 'n', 'v' }, '<Leader>la', vim.lsp.buf.code_action, opts_desc('Code actions'))
+          vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts_desc('Go to references'))
+          vim.keymap.set('n', '<Leader>lf', function()
             vim.lsp.buf.format { async = true }
-          end, opts)
+          end, opts_desc('Format buffer'))
         end,
       })
 
@@ -57,7 +73,7 @@ return {
             },
             diagnostics = {
               -- Get the language server to recognize the `vim` global
-              globals = {'vim'},
+              globals = { 'vim' },
             },
             workspace = {
               -- Make the server aware of Neovim runtime files

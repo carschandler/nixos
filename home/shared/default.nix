@@ -129,7 +129,17 @@ in
 
     neovim = {
       enable = true;
-      extraPackages = [pkgs.gcc];
+      # Ensure that neovim has access to gcc from nix, not whatever the system's
+      # gcc is. This is so treesitter doesn't piss the bed. Thanks to
+      # https://www.reddit.com/r/neovim/comments/15lvm44/comment/jvflvyq
+      # for the help!
+      package = pkgs.neovim-unwrapped.overrideAttrs (attrs: {
+        disallowedReferences = [];
+        nativeBuildInputs = attrs.nativeBuildInputs ++ [pkgs.makeWrapper];
+        postFixup = ''
+          wrapProgram $out/bin/nvim --prefix PATH : ${lib.makeBinPath [pkgs.gcc]}
+        '';
+      });
       defaultEditor = true;
       viAlias = true;
       vimAlias = true;

@@ -1,11 +1,16 @@
-{ inputs, outputs, lib, config, pkgs, ... }: {
+{ inputs, outputs, lib, config, pkgs, nixgl, ... }: {
   # You can import other home-manager modules here
   imports = [
     ../fonts
   ];
 
+  nixpkgs = {
+  };
+
   # Add stuff for your user as you see fit
   home.packages = with pkgs; [
+    # TODO: find out if there is a way to make nixGL work with nvidia on WSL
+    # pkgs.nixgl.auto.nixGLNvidia
   ];
   
   home.file.".local/bin/clip.exe".source = config.lib.file.mkOutOfStoreSymlink "/mnt/c/Windows/System32/clip.exe";

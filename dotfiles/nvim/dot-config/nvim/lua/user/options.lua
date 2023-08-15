@@ -18,6 +18,6 @@ set history=1000
 set relativenumber
 set ttimeoutlen=5
 set textwidth=80
-set formatoptions=cqjon
+set formatoptions=cqjn
 set number
 ]])

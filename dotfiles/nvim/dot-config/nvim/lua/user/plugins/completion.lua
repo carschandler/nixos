@@ -68,7 +68,7 @@ return {
         end),
 
         -- Scroll 4 at a time
-        ['<C-M-n>'] = cmp.mapping(function(fallback)
+        ['<C-f>'] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_next_item({ behavior = cmp.SelectBehavior.Select, count = 4 })
           else
@@ -77,7 +77,7 @@ return {
         end),
 
         -- Scroll 4 at a time
-        ['<C-M-p>'] = cmp.mapping(function(fallback)
+        ['<C-b>'] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select, count = 4 })
           else

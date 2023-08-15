@@ -32,11 +32,15 @@ return {
         --   italic = false
         -- },
         Cursor = {
-           reverse = true,
+          reverse = true,
+        },
+        -- Transparent Mode makes floating windows hard to view
+        NormalFloat = {
+          bg = "#3c3836"
         },
       },
       dim_inactive = false,
       transparent_mode = true,
     },
-  },     
+  },
 }

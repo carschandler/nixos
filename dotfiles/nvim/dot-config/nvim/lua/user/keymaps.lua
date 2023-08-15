@@ -21,30 +21,40 @@ km({ 'n', 'v' }, '<Space>', ':')
 km({ 'n', 'v' }, ';;', ';')
 
 -- System Clipboard Copy/Paste
-km({ 'n', 'v' }, '<leader>y', '"+y')
-km({ 'n', 'v' }, '<leader>p', '"+p')
+km({ 'n', 'v' }, '<leader>y', '"+y', {desc = "Copy to sys clipboard"})
+km({ 'n', 'v' }, '<leader>p', '"+p', {desc = "Paste from sys clipboard"})
 
 -- Don't copy x deletions to register
-km({ 'n', 'v' }, 'x', '"_x')
-km({ 'n', 'v' }, 'X', '"_X')
+km({ 'n', 'v' }, 'x', '"_x', {desc = "Delete char to void"})
+km({ 'n', 'v' }, 'X', '"_X', {desc = "Del char backward to void"})
 
 -- Deletions that don't copy
-km({ 'n', 'v' }, '<leader>d', '"_d')
-km({ 'n', 'v' }, '<leader>D', '"_D')
+km({ 'n', 'v' }, '<leader>d', '"_d', {desc = "Delete without copying"})
+km({ 'n', 'v' }, '<leader>D', '"_D', {desc = "Delete without copying"})
+
+-- QuickFix List
+km('n', '<Leader>qn', function() vim.cmd('cn') end, {desc = "Next item in qfl"})
+km('n', '<Leader>qp', function() vim.cmd('cn') end, {desc = "Prev item in qfl"})
+-- km('n', '<Leader>qt', function()
+--   vim.cmd('cn')
+-- end)
 
 -- Source current file
-km('n', '<leader>so', ':so %<CR>')
+km('n', '<leader>so', ':so %<CR>', {desc = "Source current file"})
 
 -- Maximize current window
-km('n', '<leader>z', '<C-w>_<C-w>|')
+km('n', '<leader>z', '<C-w>_<C-w>|', {desc = "Maximize window"})
+
+-- Close current window
+km('n', '<leader>c', '<C-w>c', {desc = "Close window"})
 
 -- Show full path of current buffer
-km('n', '<leader>fp', '1<C-g>')
+km('n', '<leader>fp', '1<C-g>', {desc = "Print buffer filepath"})
 km('n', 'q:', '<NOP>')
 
 -- Set text wrapping
-km({ 'n', 'i' }, '<C-p>', function() vim.opt.formatoptions:append('t') end)
-km({ 'n', 'i' }, '<C-M-p>', function() vim.opt.formatoptions:remove('t') end)
+km({ 'n', 'i' }, '<C-p>', function() vim.opt.formatoptions:append('t') end, {desc = "Wrap text"})
+km({ 'n', 'i' }, '<C-M-p>', function() vim.opt.formatoptions:remove('t') end, {desc = "Don't wrap"})
 
 -- Window Navigation on Corne Keyboard
 km({ 'n', 't', '!' }, '<S-Left>', '<C-w>h')

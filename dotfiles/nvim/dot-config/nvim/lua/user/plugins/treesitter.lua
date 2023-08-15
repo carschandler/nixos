@@ -14,8 +14,8 @@ return {
           -- set to `false` to disable one of the mappings
           init_selection = "<BS>",
           node_incremental = "<BS>",
-          scope_incremental = "<M-BS>",
-          node_decremental = "<S-BS>",
+          scope_incremental = "<C-H>", -- <C-BS> reads as <C-H>
+          node_decremental = "<M-BS>",
         },
       },
       sync_install = false,
@@ -23,5 +23,9 @@ return {
       auto_install = false,
       modules = {},
     })
+
+    vim.go.foldlevelstart = 99
+    vim.wo.foldmethod = "expr"
+    vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
   end
 }
