@@ -83,12 +83,16 @@ in
     # language tools/compilers
     
     # gui apps
+    feh
     meld
 
     # language servers
     nodePackages.pyright
     lua-language-server
     nixd
+
+    # formatters/linters
+    black
   ];
 
   fonts.fontconfig.enable = true;

@@ -9,6 +9,7 @@ return {
     'hrsh7th/cmp-nvim-lua', -- Optional
     'hrsh7th/cmp-nvim-lsp-signature-help',
     'petertriho/cmp-git',
+    'rcarriga/cmp-dap',
     -- Snippets
     'L3MON4D3/LuaSnip',             -- Required
     'saadparwaiz1/cmp_luasnip',     -- Optional
@@ -27,6 +28,11 @@ return {
     local luasnip = require('luasnip')
 
     cmp.setup({
+      -- For cmp-dap
+      enabled = function()
+        return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt"
+            or require("cmp_dap").is_dap_buffer()
+      end,
       snippet = {
         -- REQUIRED - you must specify a snippet engine
         expand = function(args)
@@ -37,8 +43,9 @@ return {
         end,
       },
       window = {
-        -- completion = cmp.config.window.bordered(),
-        -- documentation = cmp.config.window.bordered(),
+        -- TODO: do we like borders?
+        completion = cmp.config.window.bordered(),
+        documentation = cmp.config.window.bordered(),
       },
       mapping = {
         -- "Up"
@@ -85,8 +92,8 @@ return {
           end
         end),
 
-        -- "aborT"
-        ['<C-t>'] = cmp.mapping.abort(),
+        -- "Exit"
+        ['<C-e>'] = cmp.mapping.abort(),
         -- cmp.mapping.close() also exists, which will exit and leave any text that cmp
         -- generated up to that point
 
@@ -95,22 +102,19 @@ return {
 
         -- Accept currently selected item or the first in the list.
         -- Set `select` to `false` to only confirm explicitly selected items.
-        -- "Yes"
-        ['<C-y>'] = cmp.mapping.confirm({
+        -- "Insert"
+        ['<C-i>'] = cmp.mapping.confirm({
           select = true,
           behavior = cmp.ConfirmBehavior.Replace
         }),
 
-        -- Leaving this out for now and making the default replace...
-        -- "Erase and insert" (replace)
-        -- ['<C-e>'] = cmp.mapping.confirm({
-        --   select = true,
-        --   behavior = cmp.ConfirmBehavior.Replace
-        -- }),
+        ['<C-M-i>'] = cmp.mapping.confirm({
+          select = true,
+          behavior = cmp.ConfirmBehavior.Insert
+        }),
 
-        -- TODO: see if we like tab or want CTRL keys
-        --['<C-f>'] = cmp.mapping(function(fallback)
-        ['<Tab>'] = cmp.mapping(function(fallback)
+        -- "Snippet"
+        ['<C-S>'] = cmp.mapping(function(fallback)
           if luasnip.jumpable(1) then
             luasnip.jump(1)
           else
@@ -118,8 +122,7 @@ return {
           end
         end, {'i', 's'}),
 
-        --['<C-b>'] = cmp.mapping(function()
-        ['<S-Tab>'] = cmp.mapping(function(fallback)
+        ['<C-S-S>'] = cmp.mapping(function(fallback)
           if luasnip.jumpable(-1) then
             luasnip.jump(-1)
           else
@@ -127,7 +130,7 @@ return {
           end
         end, {'i', 's'}),
 
-        ['<C-s>'] = cmp.mapping(function()
+        ['<C-M-S>'] = cmp.mapping(function()
           if luasnip.choice_active() then
             luasnip.change_choice(1)
           end
@@ -164,6 +167,12 @@ return {
       }, {
         { name = 'buffer' },
       })
+    })
+
+    cmp.setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
+      sources = {
+        { name = "dap" },
+      },
     })
 
     -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).

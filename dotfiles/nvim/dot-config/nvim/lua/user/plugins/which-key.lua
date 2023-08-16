@@ -9,14 +9,6 @@ return {
   config = function(_, opts)
     local wk = require('which-key')
     -- register groups inside their plugin's config alongside keymaps 
-    wk.register(
-      {
-        s = {
-          'source file',
-        },
-      },
-      { prefix = '<Leader>' }
-    )
 
     wk.setup(opts)
   end,

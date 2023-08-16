@@ -1,9 +1,13 @@
+vim.g.mapleader = ';'
+
 -- Classic vim options
 require('user/options')
--- Classic vim keymaps (plugin keymaps are in the module for that plugin)
-require('user/keymaps')
+
 -- Start Lazy and load plugins
 require('user/launch_lazy')
+
+-- Non-plugin keymaps
+require('user/keymaps')
 
 -- Note: the leader key must be mapped before Lazy is launched, so user/keymaps
 -- needs to be loaded before user/launch_lazy (or the leader could be set in its

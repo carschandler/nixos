@@ -12,55 +12,75 @@
 -- t[nore]map     |  -   |  -  |  -  |  -  |  -  |  -  | yes  |  -   |
 -- l[nore]map     |  -   | yes | yes |  -  |  -  |  -  |  -   | yes  |
 
-vim.g.mapleader = ';'
-
 local km = vim.keymap.set
+
+local wk = require('which-key')
+
+wk.register(
+  {
+    s = {
+      'source file',
+    },
+    q = {
+      name = 'QuickFix',
+    },
+  },
+  { prefix = '<Leader>' }
+)
 
 km({ 'n', 'v' }, '<Space>', ':')
 
 km({ 'n', 'v' }, ';;', ';')
 
 -- System Clipboard Copy/Paste
-km({ 'n', 'v' }, '<leader>y', '"+y', {desc = "Copy to sys clipboard"})
-km({ 'n', 'v' }, '<leader>p', '"+p', {desc = "Paste from sys clipboard"})
+km({ 'n', 'v' }, '<leader>y', '"+y', { desc = "Copy to sys clipboard" })
+km({ 'n', 'v' }, '<leader>p', '"+p', { desc = "Paste from sys clipboard" })
 
 -- Don't copy x deletions to register
-km({ 'n', 'v' }, 'x', '"_x', {desc = "Delete char to void"})
-km({ 'n', 'v' }, 'X', '"_X', {desc = "Del char backward to void"})
+km({ 'n', 'v' }, 'x', '"_x', { desc = "Delete char to void" })
+km({ 'n', 'v' }, 'X', '"_X', { desc = "Del char backward to void" })
 
 -- Deletions that don't copy
-km({ 'n', 'v' }, '<leader>d', '"_d', {desc = "Delete without copying"})
-km({ 'n', 'v' }, '<leader>D', '"_D', {desc = "Delete without copying"})
+km({ 'n', 'v' }, '<leader>d', '"_d', { desc = "Delete without copying" })
+km({ 'n', 'v' }, '<leader>D', '"_D', { desc = "Delete without copying" })
 
 -- QuickFix List
-km('n', '<Leader>qn', function() vim.cmd('cn') end, {desc = "Next item in qfl"})
-km('n', '<Leader>qp', function() vim.cmd('cn') end, {desc = "Prev item in qfl"})
+km('n', '<Leader>qn', function() vim.cmd('cn') end, { desc = "Next item in qfl" })
+km('n', '<Leader>qp', function() vim.cmd('cn') end, { desc = "Prev item in qfl" })
 -- km('n', '<Leader>qt', function()
 --   vim.cmd('cn')
 -- end)
 
 -- Source current file
-km('n', '<leader>so', ':so %<CR>', {desc = "Source current file"})
+km('n', '<leader>so', ':so %<CR>', { desc = "Source current file" })
 
 -- Maximize current window
-km('n', '<leader>z', '<C-w>_<C-w>|', {desc = "Maximize window"})
+km('n', '<leader>z', '<C-w>_<C-w>|', { desc = "Maximize window" })
 
 -- Close current window
-km('n', '<leader>c', '<C-w>c', {desc = "Close window"})
+km('n', '<leader>c', '<C-w>c', { desc = "Close window" })
 
 -- Show full path of current buffer
-km('n', '<leader>fp', '1<C-g>', {desc = "Print buffer filepath"})
+km('n', '<leader>fp', '1<C-g>', { desc = "Print buffer filepath" })
 km('n', 'q:', '<NOP>')
 
 -- Set text wrapping
-km({ 'n', 'i' }, '<C-p>', function() vim.opt.formatoptions:append('t') end, {desc = "Wrap text"})
-km({ 'n', 'i' }, '<C-M-p>', function() vim.opt.formatoptions:remove('t') end, {desc = "Don't wrap"})
+km({ 'n', 'i' }, '<C-p>', function() vim.opt.formatoptions:append('t') end, { desc = "Wrap text" })
+km({ 'n', 'i' }, '<C-M-p>', function() vim.opt.formatoptions:remove('t') end, { desc = "Don't wrap" })
 
 -- Window Navigation on Corne Keyboard
-km({ 'n', 't', '!' }, '<S-Left>', '<C-w>h')
-km({ 'n', 't', '!' }, '<S-Down>', '<C-w>j')
-km({ 'n', 't', '!' }, '<S-Up>', '<C-w>k')
-km({ 'n', 't', '!' }, '<S-Right>', '<C-w>l')
+km({ 'n', 't', '!' }, '<S-Left>', function()
+  vim.cmd(vim.v.count .. "wincmd h")
+end, {desc = "Go to left window"})
+km({ 'n', 't', '!' }, '<S-Down>', function()
+  vim.cmd(vim.v.count .. "wincmd j")
+end, {desc = "Go to below window"})
+km({ 'n', 't', '!' }, '<S-Up>', function()
+  vim.cmd(vim.v.count .. "wincmd k")
+end, {desc = "Go to above window"})
+km({ 'n', 't', '!' }, '<S-Right>', function()
+  vim.cmd(vim.v.count .. "wincmd l")
+end, {desc = "Go to right window"})
 
 -- Netrw automatically remaps Shift-Up/Down: change that
 vim.api.nvim_create_autocmd('FileType', {
@@ -73,30 +93,73 @@ vim.api.nvim_create_autocmd('FileType', {
 })
 
 -- Window Navigation on QWERTY Keyboard
-km({ 'n', 't', '!' }, '<M-H>', '<C-w>h')
-km({ 'n', 't', '!' }, '<M-J>', '<C-w>j')
-km({ 'n', 't', '!' }, '<M-K>', '<C-w>k')
-km({ 'n', 't', '!' }, '<M-L>', '<C-w>l')
+km({ 'n', 't', '!' }, '<M-H>', function()
+  vim.cmd(vim.v.count .. "wincmd h")
+end, {desc = "Go to left window"})
+km({ 'n', 't', '!' }, '<M-J>', function()
+  vim.cmd(vim.v.count .. "wincmd j")
+end, {desc = "Go to below window"})
+km({ 'n', 't', '!' }, '<M-K>', function()
+  vim.cmd(vim.v.count .. "wincmd k")
+end, {desc = "Go to above window"})
+km({ 'n', 't', '!' }, '<M-L>', function()
+  vim.cmd(vim.v.count .. "wincmd l")
+end, {desc = "Go to right window"})
+
 -- Window Resizing on Corne Keyboard
-km({ 'n', 't', '!' }, '<C-Left>', '<C-w><')
-km({ 'n', 't', '!' }, '<C-Down>', '<C-w>+')
-km({ 'n', 't', '!' }, '<C-Up>', '<C-w>-')
-km({ 'n', 't', '!' }, '<C-Right>', '<C-w>>')
+km({ 'n', 't', '!' }, '<C-Left>', function()
+  vim.cmd(vim.v.count .. "wincmd <")
+end, {desc = "Resize window left"})
+km({ 'n', 't', '!' }, '<C-Down>', function()
+  vim.cmd(vim.v.count .. "wincmd +")
+end, {desc = "Resize window down"})
+km({ 'n', 't', '!' }, '<C-Up>', function()
+  vim.cmd(vim.v.count .. "wincmd -")
+end, {desc = "Resize window up"})
+km({ 'n', 't', '!' }, '<C-Right>', function()
+  vim.cmd(vim.v.count .. "wincmd >")
+end, {desc = "Resize window right"})
+
 -- Window Resizing on QWERTY Keyboard
-km({ 'n', 't', '!' }, '<C-h>', '<C-w><')
-km({ 'n', 't', '!' }, '<C-j>', '<C-w>+')
-km({ 'n', 't', '!' }, '<C-k>', '<C-w>-')
-km({ 'n', 't', '!' }, '<C-l>', '<C-w>>')
+km({ 'n', 't', '!' }, '<C-h>', function()
+  vim.cmd(vim.v.count .. "wincmd <")
+end, {desc = "Resize window left"})
+km({ 'n', 't', '!' }, '<C-j>', function()
+  vim.cmd(vim.v.count .. "wincmd +")
+end, {desc = "Resize window down"})
+km({ 'n', 't', '!' }, '<C-k>', function()
+  vim.cmd(vim.v.count .. "wincmd -")
+end, {desc = "Resize window up"})
+km({ 'n', 't', '!' }, '<C-l>', function()
+  vim.cmd(vim.v.count .. "wincmd >")
+end, {desc = "Resize window right"})
+
 -- Moving Windows on Corne Keyboard
-km({ 'n', 't', '!' }, '<M-Left>', '<C-w>H')
-km({ 'n', 't', '!' }, '<M-Down>', '<C-w>J')
-km({ 'n', 't', '!' }, '<M-Up>', '<C-w>K')
-km({ 'n', 't', '!' }, '<M-Right>', '<C-w>L')
+km({ 'n', 't', '!' }, '<M-Left>', function()
+  vim.cmd(vim.v.count .. "wincmd H")
+end, {desc = "Move window left"})
+km({ 'n', 't', '!' }, '<M-Down>', function()
+  vim.cmd(vim.v.count .. "wincmd J")
+end, {desc = "Move window down"})
+km({ 'n', 't', '!' }, '<M-Up>', function()
+  vim.cmd(vim.v.count .. "wincmd K")
+end, {desc = "Move window up"})
+km({ 'n', 't', '!' }, '<M-Right>', function()
+  vim.cmd(vim.v.count .. "wincmd L")
+end, {desc = "Move window right"})
 -- Moving Windows on QWERTY Keyboard
-km({ 'n', 't', '!' }, '<M-C-h>', '<C-w>H')
-km({ 'n', 't', '!' }, '<M-C-j>', '<C-w>J')
-km({ 'n', 't', '!' }, '<M-C-k>', '<C-w>K')
-km({ 'n', 't', '!' }, '<M-C-l>', '<C-w>L')
+km({ 'n', 't', '!' }, '<M-C-h>', function()
+  vim.cmd(vim.v.count .. "wincmd H")
+end, {desc = "Move window left"})
+km({ 'n', 't', '!' }, '<M-C-j>', function()
+  vim.cmd(vim.v.count .. "wincmd J")
+end, {desc = "Move window down"})
+km({ 'n', 't', '!' }, '<M-C-k>', function()
+  vim.cmd(vim.v.count .. "wincmd K")
+end, {desc = "Move window up"})
+km({ 'n', 't', '!' }, '<M-C-l>', function()
+  vim.cmd(vim.v.count .. "wincmd L")
+end, {desc = "Move window right"})
 
 
 -- Messed with this a bit... was trying to get t to behave like / on a single
