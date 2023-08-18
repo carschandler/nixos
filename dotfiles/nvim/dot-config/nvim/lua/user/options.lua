@@ -1,13 +1,13 @@
 vim.cmd([[
-filetype plugin on
+filetype plugin indent on
 let g:netrw_banner='i'
 let g:netrw_preview = 1
 let g:netrw_winsize = 30
 set tabstop=2
 set shiftwidth=2
+set expandtab
 set autoindent
 set smarttab
-set expandtab
 set incsearch
 set inccommand=split
 set nohlsearch

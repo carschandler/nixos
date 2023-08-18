@@ -34,10 +34,11 @@ return {
         Cursor = {
           reverse = true,
         },
-        -- Transparent Mode makes floating windows hard to view
-        NormalFloat = {
-          bg = "#3c3836"
-        },
+        -- Transparent Mode makes borderless floating windows hard to view
+        -- Enable this when using borderless, otherwise leave it out
+        -- NormalFloat = {
+        --   bg = "#3c3836"
+        -- },
       },
       dim_inactive = false,
       transparent_mode = true,

@@ -25,6 +25,13 @@ return {
         { prefix = '<Leader>' }
       )
 
+      vim.keymap.set('n', '<Leader>lt', function()
+        if vim.diagnostic.is_disabled() then
+          vim.diagnostic.enable(0)
+        else
+          vim.diagnostic.disable(0)
+        end
+      end, { desc = "Toggle buffer diagnostics" })
       vim.keymap.set('n', '<Leader>le', vim.diagnostic.open_float, { desc = "Show diagnostics" })
       vim.keymap.set('n', '[e', vim.diagnostic.goto_prev, { desc = "Previous diagnostic" })
       vim.keymap.set('n', ']e', vim.diagnostic.goto_next, { desc = "Next diagnostic" })

@@ -10,7 +10,7 @@ return {
         show_hidden = true,
       },
       float = {
-        border = "solid",
+        border = "rounded",
         padding = 5,
         win_options = {
           winblend = 0,

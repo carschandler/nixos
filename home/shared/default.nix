@@ -163,8 +163,13 @@ in
         hms = "home-manager switch --flake $HOME/nixos";
         nrs = "sudo nixos-rebuild switch --flake $HOME/nixos";
         #FIXME: override lesspipe somehow?
-        ls = "exa --icons --color=always";
-        ll = "exa --icons --color=always --git -lg";
+        ls = "lsd --group-dirs=first";
+        ll = "lsd --group-dirs=first --color=always --icon=always -l | less -rF";
+        lr = "lsd --group-dirs=first --color=always --icon=always -l --date=relative | less -rF";
+        la = "lsd --group-dirs=first --color=always --icon=always -A | less -rF";
+        lt = "lsd --group-dirs=first --tree --color=always --icon=always | less -rF";
+        lla = "lsd --group-dirs=first --color=always --icon=always -lA | less -rF";
+        llt = "lsd --group-dirs=first --color=always --icon=always -l --tree | less -rF";
         battery = "cat /sys/class/power_supply/BAT0/capacity";
       };
       bashrcExtra = ''

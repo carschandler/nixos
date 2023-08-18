@@ -10,7 +10,10 @@ return {
     configs.setup({
       ensure_installed = "all",
       highlight = { enable = true },
-      indent = { enable = true },
+      indent = {
+        enable = true,
+        disable = {"python"},
+      },
       incremental_selection = {
         enable = true,
         keymaps = {
@@ -108,8 +111,8 @@ return {
       modules = {},
     })
 
-    vim.go.foldlevelstart = 99
     vim.wo.foldmethod = "expr"
     vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
+    vim.go.foldlevelstart = 99
   end
 }
