@@ -80,6 +80,9 @@ in
     zoxide
     zsh
 
+    # system utilities
+    glxinfo
+
     # language tools/compilers
     
     # gui apps
