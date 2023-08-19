@@ -17,8 +17,10 @@ in
   wayland.windowManager.hyprland = {
     enable = true;
     package = inputs.hyprland.packages.x86_64-linux.hyprland;
-    extraConfig = "source=./hyprland-source.conf";
     systemdIntegration = true;
+    enableNvidiaPatches = true;
+    xwayland.enable = true;
+    extraConfig = "source=./hyprland-source.conf";
   };
   
   home.packages = [
