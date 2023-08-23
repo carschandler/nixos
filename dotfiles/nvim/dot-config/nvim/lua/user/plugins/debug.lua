@@ -16,31 +16,37 @@ return {
       if dap.session() == nil then
         local filesep = package.config:sub(1,1)
 
-        for _, v in pairs(vim.lsp.buf.list_workspace_folders()) do
-          local lua_launch_file = vim.fs.normalize(v) .. filesep
-            .. 'dapconfig.lua'
-          local json_launch_file = vim.fs.normalize(v) .. filesep
-            .. '.vscode' .. filesep .. 'launch.json'
-          local config_table
+        local ws_dirs = vim.lsp.buf.list_workspace_folders()
 
-          if vim.fn.filereadable(lua_launch_file) == 1 then
-            config_table = dofile(lua_launch_file)
-            if type(config_table) == 'table' then
-              ui.pick_if_many(
-                config_table,
-                'dapconfig.lua configurations:',
-                function(i) return i.name end,
-                function(c) dap.run(c) end
-              )
+        if next(ws_dirs) == nil then
+          dap.continue()
+        else
+          for _, v in pairs(ws_dirs) do
+            local lua_launch_file = vim.fs.normalize(v) .. filesep
+              .. 'dapconfig.lua'
+            local json_launch_file = vim.fs.normalize(v) .. filesep
+              .. '.vscode' .. filesep .. 'launch.json'
+            local config_table
+
+            if vim.fn.filereadable(lua_launch_file) == 1 then
+              config_table = dofile(lua_launch_file)
+              if type(config_table) == 'table' then
+                ui.pick_if_many(
+                  config_table,
+                  'dapconfig.lua configurations:',
+                  function(i) return i.name end,
+                  function(c) dap.run(c) end
+                )
+              else
+                print('Error: expected ' .. lua_launch_file ..
+                  ' to return a table; returned ' .. type(config_table))
+              end
+            elseif vim.fn.filereadable(json_launch_file) == 1 then
+              dap_vs.load_launchjs()
+              dap.continue()
             else
-              print('Error: expected ' .. lua_launch_file ..
-                ' to return a table; returned ' .. type(config_table))
+              dap.continue()
             end
-          elseif vim.fn.filereadable(json_launch_file) == 1 then
-            dap_vs.load_launchjs()
-            dap.continue()
-          else
-            dap.continue()
           end
         end
       else

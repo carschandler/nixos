@@ -159,10 +159,28 @@ in
       vimdiffAlias = true;
     };
 
+    nnn = {
+      enable = true;
+    };
+
     readline = {
       enable = true;
       extraConfig = ''
+        # Makes Tab cycle through completion options and show a single menu
+        # instead of repeating available options over and over
+        TAB: menu-complete
+        set show-all-if-ambiguous on
+
+        # Ignore case in completion
         set completion-ignore-case on
+        # Treat - and _ equally in completion
+        set completion-map-case
+
+        # Show LS_COLORS in completion options
+        set colored-stats
+
+        # Flash the cursor over the matching paren
+        set blink-matching-paren on
       '';
     };
 
@@ -184,12 +202,8 @@ in
       bashrcExtra = ''
         eval "$(zoxide init bash)"
         PATH="$PATH:${homedir}/.local/bin"
-        function nf() {
-          result="$(fzf -m $@)"
-          if [[ $? == 0 ]]; then
-            nvim $result
-          fi
-        }
+        shopt -s direxpand
+        shopt -s cdable_vars
       '';
     };
   };
