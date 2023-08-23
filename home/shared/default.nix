@@ -113,6 +113,12 @@ in
 
     firefox = {
       enable = true;
+      package = pkgs.firefox.override {
+        cfg = {
+          speechSynthesisSupport = true;
+          enableTridactylNative = true;
+        };
+      };
     };
 
     fzf = {
