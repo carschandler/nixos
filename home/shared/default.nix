@@ -84,6 +84,9 @@ in
     glxinfo
 
     # language tools/compilers
+
+    # For qt themes to work
+    libsForQt5.qtstyleplugins
     
     # gui apps
     feh
@@ -161,6 +164,7 @@ in
 
     nnn = {
       enable = true;
+      package = pkgs.nnn.override {withNerdIcons = true;};
     };
 
     readline = {
@@ -170,6 +174,9 @@ in
         # instead of repeating available options over and over
         TAB: menu-complete
         set show-all-if-ambiguous on
+        
+        # Completes the common prefix first before cycling through options
+        set menu-complete-display-prefix on
 
         # Ignore case in completion
         set completion-ignore-case on
@@ -215,6 +222,7 @@ in
     DOTFILES = "${homedir}/nixos/dotfiles";
     NVIMCFG = "${dotfiles}/nvim/dot-config/nvim";
     PLUGDIR = "${dotfiles}/nvim/dot-config/nvim/lua/user/plugins";
+    NNN_FCOLORS = "020b0c0a00060e0701d60d09";
   };
 
   xdg = {
@@ -281,6 +289,8 @@ in
   qt = {
     enable = true;
     platformTheme = "gtk";
+    style.name = "adwaita-dark";
+    style.package = pkgs.adwaita-qt;
   };
 
   # Nicely reload system units when changing configs

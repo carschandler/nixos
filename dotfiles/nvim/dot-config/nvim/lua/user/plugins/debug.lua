@@ -54,7 +54,7 @@ return {
       end
     end, { desc = "Debug/Continue" })
     vim.keymap.set('n', '<F6>', function() dap.run_last() end, { desc = "Run previous configuration" })
-    vim.keymap.set('n', '<F7>', function() dap.goto_() end, { desc = "Run to cursor" })
+    vim.keymap.set('n', '<F7>', function() dap.goto_() end, { desc = "Go to cursor" })
     vim.keymap.set('n', '<F9>', function() dap.run_to_cursor() end, { desc = "Run to cursor" })
     vim.keymap.set('n', '<F10>', function() dap.step_over() end, { desc = "Step over" })
     vim.keymap.set('n', '<F11>', function() dap.step_into() end, { desc = "Step into" })

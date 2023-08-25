@@ -32,6 +32,18 @@ km({ 'n', 'v' }, '<Space>', ':')
 
 km({ 'n', 'v' }, ';;', ';')
 
+-- Make Escape close floating windows
+-- This may conflict with plugins though...
+-- TODO: May need to check for filetype or something more specific to certain
+-- windows OR exclude windows that need to ignore it...
+km('n', '<Esc>', function()
+  if vim.api.nvim_win_get_config(0).relative ~= "" then
+    vim.cmd.wincmd('c')
+  else
+    vim.cmd.normal("\\<Esc>")
+  end
+end)
+
 -- System Clipboard Copy/Paste
 km({ 'n', 'v' }, '<leader>y', '"+y', { desc = "Copy to sys clipboard" })
 km({ 'n', 'v' }, '<leader>p', '"+p', { desc = "Paste from sys clipboard" })

@@ -9,7 +9,13 @@ return {
 
     configs.setup({
       ensure_installed = "all",
-      highlight = { enable = true },
+      -- This parser was causing weird problems in python files, even when it
+      -- was added to the disable list under highlight below
+      ignore_install = { "regex" },
+      highlight = {
+        enable = true,
+        disable = {"markdown", "markdown_inline"},
+      },
       indent = {
         enable = true,
         disable = {"python"},
@@ -106,7 +112,6 @@ return {
       },
 
       sync_install = false,
-      ignore_install = {},
       auto_install = false,
       modules = {},
     })
