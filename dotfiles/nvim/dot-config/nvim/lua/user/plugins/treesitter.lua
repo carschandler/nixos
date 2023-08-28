@@ -11,7 +11,10 @@ return {
       ensure_installed = "all",
       -- This parser was causing weird problems in python files, even when it
       -- was added to the disable list under highlight below
-      ignore_install = { "regex" },
+      ignore_install = {
+        -- "regex",
+        "csv",
+      },
       highlight = {
         enable = true,
         disable = {"markdown", "markdown_inline"},

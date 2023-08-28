@@ -77,6 +77,7 @@ in
     unzip
     wget
     xplr
+    zellij
     zoxide
     zsh
 
@@ -232,6 +233,9 @@ in
     
       "nvim".source = config.lib.file.mkOutOfStoreSymlink
         "${dotfiles}/nvim/dot-config/nvim";
+
+      "tmux".source = config.lib.file.mkOutOfStoreSymlink
+        "${dotfiles}/tmux/dot-config/tmux";
     };
 
     userDirs = {
