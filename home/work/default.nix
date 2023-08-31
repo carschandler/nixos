@@ -15,6 +15,7 @@
   
   home.file.".local/bin/clip.exe".source = config.lib.file.mkOutOfStoreSymlink "/mnt/c/Windows/System32/clip.exe";
   home.file.".local/bin/powershell.exe".source = config.lib.file.mkOutOfStoreSymlink "/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe";
+  home.file.".local/bin/excel.exe".source = config.lib.file.mkOutOfStoreSymlink "/mnt/c/Program Files/Microsoft Office/root/Office16/EXCEL.EXE";
 
   home.sessionVariables = {
     BROWSER = "/mnt/c/Users/rchandler/AppData/Local/BraveSoftware/Brave-Browser/Application/brave.exe";

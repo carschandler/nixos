@@ -43,9 +43,19 @@ return {
         end,
       },
       window = {
-        -- TODO: do we like borders?
-        completion = cmp.config.window.bordered(),
-        documentation = cmp.config.window.bordered(),
+        -- TODO: borders or no borders?
+        -- completion = cmp.config.window.bordered(),
+        -- documentation = cmp.config.window.bordered(),
+
+        -- Ensure that cmp border is same color as default floating border
+        completion = {
+          border = {'╭', '─', '╮', '│', '╯', '─', '╰', '│'},
+          winhighlight = 'FloatBorder:FloatBorder',
+        },
+        documentation = {
+          border = {'╭', '─', '╮', '│', '╯', '─', '╰', '│'},
+          winhighlight = 'FloatBorder:FloatBorder',
+        },
       },
       mapping = {
         -- "Up"

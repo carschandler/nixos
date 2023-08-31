@@ -19,38 +19,50 @@ return {
         local ws_dirs = vim.lsp.buf.list_workspace_folders()
 
         if next(ws_dirs) == nil then
+          -- print('dapbug: No workspace')
           dap.continue()
         else
           for _, v in pairs(ws_dirs) do
             local lua_launch_file = vim.fs.normalize(v) .. filesep
               .. 'dapconfig.lua'
-            local json_launch_file = vim.fs.normalize(v) .. filesep
-              .. '.vscode' .. filesep .. 'launch.json'
             local config_table
 
+            local json_launch_file = vim.fs.normalize(v) .. filesep
+              .. '.vscode' .. filesep .. 'launch.json'
+
+            -- dapconfig.lua takes priority
             if vim.fn.filereadable(lua_launch_file) == 1 then
+              -- print('dapbug: found lualaunch')
               config_table = dofile(lua_launch_file)
               if type(config_table) == 'table' then
+                -- print('dapbug: lualaunch table read successfully')
                 ui.pick_if_many(
                   config_table,
                   'dapconfig.lua configurations:',
                   function(i) return i.name end,
                   function(c) dap.run(c) end
                 )
+                return
               else
-                print('Error: expected ' .. lua_launch_file ..
+                error('Error: expected ' .. lua_launch_file ..
                   ' to return a table; returned ' .. type(config_table))
               end
             elseif vim.fn.filereadable(json_launch_file) == 1 then
+              -- print('dapbug: found launch.json')
               dap_vs.load_launchjs()
               dap.continue()
+              return
             else
+              -- print('dapbug: no launch file found')
               dap.continue()
+              return
             end
           end
         end
       else
+        -- print('dapbug: session was not nil')
         dap.continue()
+        return
       end
     end, { desc = "Debug/Continue" })
     vim.keymap.set('n', '<F6>', function() dap.run_last() end, { desc = "Run previous configuration" })

@@ -97,6 +97,7 @@ in
     nodePackages.pyright
     lua-language-server
     nixd
+    efm-langserver
 
     # formatters/linters
     black
@@ -221,8 +222,10 @@ in
     HMDIR = "${homedir}/nixos/home";
     HMFILE = "${homedir}/nixos/home/shared/default.nix";
     DOTFILES = "${homedir}/nixos/dotfiles";
+    DEVSHELLS = "${homedir}/nixos/devshells";
     NVIMCFG = "${dotfiles}/nvim/dot-config/nvim";
     PLUGDIR = "${dotfiles}/nvim/dot-config/nvim/lua/user/plugins";
+    # Gruvbox color palette
     NNN_FCOLORS = "020b0c0a00060e0701d60d09";
   };
 

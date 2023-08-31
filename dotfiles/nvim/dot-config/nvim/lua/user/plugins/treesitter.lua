@@ -119,8 +119,8 @@ return {
       modules = {},
     })
 
-    vim.wo.foldmethod = "expr"
-    vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
-    vim.go.foldlevelstart = 99
+    vim.o.foldmethod = "expr"
+    vim.o.foldexpr = "v:lua.nvimnvim_treesitter#foldexpr()"
+    vim.o.foldlevelstart = 99
   end
 }
