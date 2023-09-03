@@ -60,18 +60,5 @@ return {
         }
       }
     })
-
-    vim.keymap.set({ 'n', 't', '!' }, '<S-Left>', function()
-      tmux.move_left()
-    end, { desc = "Go to left window" })
-    vim.keymap.set({ 'n', 't', '!' }, '<S-Down>', function()
-      tmux.move_bottom()
-    end, { desc = "Go to below window" })
-    vim.keymap.set({ 'n', 't', '!' }, '<S-Up>', function()
-      tmux.move_top()
-    end, { desc = "Go to above window" })
-    vim.keymap.set({ 'n', 't', '!' }, '<S-Right>', function()
-      tmux.move_right()
-    end, { desc = "Go to right window" })
   end
 }

@@ -80,7 +80,23 @@ km('n', 'q:', '<NOP>')
 km({ 'n', 'i' }, '<C-p>', function() vim.opt.formatoptions:append('t') end, { desc = "Wrap text" })
 km({ 'n', 'i' }, '<C-M-p>', function() vim.opt.formatoptions:remove('t') end, { desc = "Don't wrap" })
 
--- -- Window Navigation on Corne Keyboard
+-- Window Navigation on Corne Keyboard (with tmux.nvim plugin)
+local tmux = require("tmux")
+
+km({ 'n', 't', '!' }, '<S-Left>', function()
+  tmux.move_left()
+end, { desc = "Go to left window" })
+km({ 'n', 't', '!' }, '<S-Down>', function()
+  tmux.move_bottom()
+end, { desc = "Go to below window" })
+km({ 'n', 't', '!' }, '<S-Up>', function()
+  tmux.move_top()
+end, { desc = "Go to above window" })
+km({ 'n', 't', '!' }, '<S-Right>', function()
+  tmux.move_right()
+end, { desc = "Go to right window" })
+
+-- Standard window Navigation on Corne Keyboard 
 -- km({ 'n', 't', '!' }, '<S-Left>', function()
 --   vim.cmd(vim.v.count .. "wincmd h")
 -- end, {desc = "Go to left window"})
@@ -104,19 +120,33 @@ vim.api.nvim_create_autocmd('FileType', {
   desc = 'Unmap Shift-Up/Down netrw mappings'
 })
 
--- Window Navigation on QWERTY Keyboard
+-- Window Navigation on QWERTY Keyboard (with tmux.nvim)
 km({ 'n', 't', '!' }, '<M-H>', function()
-  vim.cmd(vim.v.count .. "wincmd h")
+  tmux.move_left()
 end, {desc = "Go to left window"})
 km({ 'n', 't', '!' }, '<M-J>', function()
-  vim.cmd(vim.v.count .. "wincmd j")
+  tmux.move_bottom()
 end, {desc = "Go to below window"})
 km({ 'n', 't', '!' }, '<M-K>', function()
-  vim.cmd(vim.v.count .. "wincmd k")
+  tmux.move_top()
 end, {desc = "Go to above window"})
 km({ 'n', 't', '!' }, '<M-L>', function()
-  vim.cmd(vim.v.count .. "wincmd l")
+  tmux.move_right()
 end, {desc = "Go to right window"})
+
+-- Standard window navigation on QWERTY Keyboard
+-- vim.keymap.set({ 'n', 't', '!' }, '<S-Left>', function()
+--   tmux.move_left()
+-- end, { desc = "Go to left window" })
+-- vim.keymap.set({ 'n', 't', '!' }, '<S-Down>', function()
+--   tmux.move_bottom()
+-- end, { desc = "Go to below window" })
+-- vim.keymap.set({ 'n', 't', '!' }, '<S-Up>', function()
+--   tmux.move_top()
+-- end, { desc = "Go to above window" })
+-- vim.keymap.set({ 'n', 't', '!' }, '<S-Right>', function()
+--   tmux.move_right()
+-- end, { desc = "Go to right window" })
 
 -- Window Resizing on Corne Keyboard
 km({ 'n', 't', '!' }, '<C-Left>', function()
