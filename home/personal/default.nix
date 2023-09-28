@@ -14,7 +14,17 @@
 
     # gui apps
     libreoffice-fresh
+    obsidian
     spotify
+    vscode-fhs
   ];
+
+  xdg.desktopEntries = {
+    obsidian = {
+      name = "Obsidian";
+      exec = "obsidian";
+      terminal = false;
+    };
+  };
 }
 

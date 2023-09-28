@@ -69,6 +69,7 @@ in
     htop
     lsd
     neofetch
+    pandoc
     ripgrep
     skim
     starship
@@ -92,6 +93,7 @@ in
     # gui apps
     feh
     meld
+    emacs29-gtk3
 
     # language servers
     nodePackages.pyright
@@ -135,6 +137,10 @@ in
       ];
     };
 
+    gh = {
+      enable = true;
+    };
+  
     git = {
       enable = true;
       userName = "Cars Chandler";
