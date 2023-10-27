@@ -16,6 +16,8 @@ require('user/keymaps')
 -- the config function of the module for that plugin
 
 -- On WSL, we need to set up the system clipboard copy/paste functions
-if os.getenv('WSL_DISTRO_NAME') ~= nil then
-  require('user/wsl_clipboard')
+if not vim.g.vscode then
+  if os.getenv('WSL_DISTRO_NAME') ~= nil then
+    require('user/wsl')
+  end
 end

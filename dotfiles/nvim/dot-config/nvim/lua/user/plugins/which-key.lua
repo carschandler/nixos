@@ -1,5 +1,6 @@
 return {
   "folke/which-key.nvim",
+  cond = not vim.g.vscode,
   event = "VeryLazy",
   init = function()
     vim.o.timeout = true
@@ -94,7 +95,7 @@ return {
       "g'",
       -- registers
       '"',
-      "<c-r>",
+      -- "<c-r>", -- on WSL, this makes i_CTRL-R slow
       -- spelling
       "z=",
     },

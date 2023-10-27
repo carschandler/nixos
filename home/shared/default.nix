@@ -64,11 +64,12 @@ in
 
     # cli programs
     bat
+    # inputs.emanote.packages.x86_64-linux.emanote
+    # emanote
     fd
     htop
     lsd
     neofetch
-    pandoc
     ripgrep
     skim
     starship
@@ -78,6 +79,7 @@ in
     wget
     xplr
     zellij
+    zk
     zoxide
     zsh
 
@@ -92,7 +94,7 @@ in
     # gui apps
     feh
     meld
-    emacs29-gtk3
+    emacs29-pgtk
 
     # language servers
     nodePackages.pyright
@@ -195,7 +197,15 @@ in
 
         # Flash the cursor over the matching paren
         set blink-matching-paren on
+
+        # Discard changes to history after hitting return
+        set revert-all-at-newline on
       '';
+    };
+
+    starship = {
+      enable = true;
+      enableBashIntegration = true;
     };
 
     bash = {
@@ -204,13 +214,6 @@ in
         hms = "home-manager switch --flake $HOME/nixos";
         nrs = "sudo nixos-rebuild switch --flake $HOME/nixos";
         #FIXME: override lesspipe somehow?
-        ls = "lsd --group-dirs=first";
-        ll = "lsd --group-dirs=first --color=always --icon=always -l | less -rF";
-        lr = "lsd --group-dirs=first --color=always --icon=always -l --date=relative | less -rF";
-        la = "lsd --group-dirs=first --color=always --icon=always -A | less -rF";
-        lt = "lsd --group-dirs=first --tree --color=always --icon=always | less -rF";
-        lla = "lsd --group-dirs=first --color=always --icon=always -lA | less -rF";
-        llt = "lsd --group-dirs=first --color=always --icon=always -l --tree | less -rF";
         battery = "cat /sys/class/power_supply/BAT0/capacity";
       };
       bashrcExtra = ''
@@ -218,6 +221,32 @@ in
         PATH="$PATH:${homedir}/.local/bin"
         shopt -s direxpand
         shopt -s cdable_vars
+
+        alias ls="lsd --group-dirs=first"
+
+        function ll() {
+          lsd --group-dirs=first --color=always --icon=always -l "$@" | less -rF
+        }
+
+        function lr() {
+           lsd --group-dirs=first --color=always --icon=always -l --date=relative "$@" | less -rF
+        }
+
+        function la() {
+          lsd --group-dirs=first --color=always --icon=always -A "$@" | less -rF
+        }
+
+        function lt() {
+          lsd --group-dirs=first --tree --color=always --icon=always "$@" | less -rF
+        }
+
+        function lla() {
+          lsd --group-dirs=first --color=always --icon=always -lA "$@" | less -rF
+        }
+
+        function llt() {
+          lsd --group-dirs=first --color=always --icon=always -l --tree "$@" | less -rF;
+        }
       '';
     };
   };

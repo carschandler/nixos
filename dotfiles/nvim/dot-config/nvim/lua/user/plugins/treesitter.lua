@@ -1,5 +1,6 @@
 return {
   "nvim-treesitter/nvim-treesitter",
+  cond = not vim.g.vscode,
   dependencies = {
     "nvim-treesitter/nvim-treesitter-textobjects",
   },
@@ -21,16 +22,15 @@ return {
       },
       indent = {
         enable = true,
-        disable = {"python"},
+        -- disable = {"python"},
       },
       incremental_selection = {
         enable = true,
         keymaps = {
           -- set to `false` to disable one of the mappings
-          init_selection = "<BS>",
-          node_incremental = "<BS>",
-          scope_incremental = "<C-H>", -- <C-BS> reads as <C-H>
-          node_decremental = "<M-BS>",
+          node_incremental = "v",
+          node_decremental = "<M-v>",
+          scope_incremental = "<C-M-v>", -- <C-BS> reads as <C-H>
         },
       },
       textobjects = {
@@ -42,14 +42,21 @@ return {
 
           keymaps = {
             -- You can use the capture groups defined in textobjects.scm
-            ["af"] = "@function.outer",
-            ["if"] = "@function.inner",
-            ["ac"] = "@class.outer",
-            -- You can optionally set descriptions to the mappings (used in the desc parameter of
-            -- nvim_buf_set_keymap) which plugins like which-key display
-            ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
+            ["af"] = { query = "@function.outer", desc = "outer function" },
+            ["if"] = { query = "@function.inner", desc = "inner function" },
+            ["aC"] = { query = "@class.outer", desc = "outer class" },
+            ["iC"] = { query = "@class.inner", desc = "inner class" },
+            ["ac"] = { query = "@comment.outer", desc = "outer comment" },
+            ["ic"] = { query = "@comment.inner", desc = "inner comment" },
+            ["aa"] = { query = "@parameter.outer", desc = "outer argument/parameter" },
+            ["ia"] = { query = "@parameter.inner", desc = "inner argument/parameter" },
+            ["ab"] = { query = "@block.outer", desc = "outer block" },
+            ["ib"] = { query = "@block.inner", desc = "inner block" },
+            ["aS"] = { query = "@statement.outer", desc = "outer statement" },
+            ["in"] = { query = "@scopename.inner", desc = "inner scopename" },
+
             -- You can also use captures from other query groups like `locals.scm`
-            ["as"] = { query = "@scope", query_group = "locals", desc = "Select language scope" },
+            -- ["as"] = { query = "@scope", query_group = "locals", desc = "Select language scope" },
           },
           -- You can choose the select mode (default is charwise 'v')
           --

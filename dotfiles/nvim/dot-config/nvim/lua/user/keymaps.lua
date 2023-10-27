@@ -14,19 +14,21 @@
 
 local km = vim.keymap.set
 
-local wk = require('which-key')
+if not vim.g.vscode then
+  local wk = require('which-key')
 
-wk.register(
-  {
-    s = {
-      'source file',
+  wk.register(
+    {
+      s = {
+        'source file',
+      },
+      q = {
+        name = 'QuickFix',
+      },
     },
-    q = {
-      name = 'QuickFix',
-    },
-  },
-  { prefix = '<Leader>' }
-)
+    { prefix = '<Leader>' }
+  )
+end
 
 km({ 'n', 'v' }, '<Space>', ':')
 
@@ -58,7 +60,23 @@ km({ 'n', 'v' }, '<leader>D', '"_D', { desc = "Delete without copying" })
 
 -- QuickFix List
 km('n', '<Leader>qn', function() vim.cmd('cn') end, { desc = "Next item in qfl" })
-km('n', '<Leader>qp', function() vim.cmd('cn') end, { desc = "Prev item in qfl" })
+km('n', '<Leader>qp', function() vim.cmd('cp') end, { desc = "Prev item in qfl" })
+
+local function toggle_quickfix()
+  local windows = vim.fn.getwininfo()
+  for _, win in pairs(windows) do
+    if win["quickfix"] == 1 then
+      vim.cmd.cclose()
+      return
+    end
+  end
+  vim.cmd.copen()
+end
+
+km('n', '<Leader>qt', toggle_quickfix, { desc = "Toggle Quickfix Window" })
+-- km('n', '<M-q>', toggle_quickfix, { desc = "Toggle Quickfix Window" })
+
+
 -- km('n', '<Leader>qt', function()
 --   vim.cmd('cn')
 -- end)
@@ -80,23 +98,7 @@ km('n', 'q:', '<NOP>')
 km({ 'n', 'i' }, '<C-p>', function() vim.opt.formatoptions:append('t') end, { desc = "Wrap text" })
 km({ 'n', 'i' }, '<C-M-p>', function() vim.opt.formatoptions:remove('t') end, { desc = "Don't wrap" })
 
--- Window Navigation on Corne Keyboard (with tmux.nvim plugin)
-local tmux = require("tmux")
-
-km({ 'n', 't', '!' }, '<S-Left>', function()
-  tmux.move_left()
-end, { desc = "Go to left window" })
-km({ 'n', 't', '!' }, '<S-Down>', function()
-  tmux.move_bottom()
-end, { desc = "Go to below window" })
-km({ 'n', 't', '!' }, '<S-Up>', function()
-  tmux.move_top()
-end, { desc = "Go to above window" })
-km({ 'n', 't', '!' }, '<S-Right>', function()
-  tmux.move_right()
-end, { desc = "Go to right window" })
-
--- Standard window Navigation on Corne Keyboard 
+-- -- Window Navigation on Corne Keyboard
 -- km({ 'n', 't', '!' }, '<S-Left>', function()
 --   vim.cmd(vim.v.count .. "wincmd h")
 -- end, {desc = "Go to left window"})
@@ -109,6 +111,20 @@ end, { desc = "Go to right window" })
 -- km({ 'n', 't', '!' }, '<S-Right>', function()
 --   vim.cmd(vim.v.count .. "wincmd l")
 -- end, {desc = "Go to right window"})
+local tmux = require('tmux')
+
+vim.keymap.set({ 'n', 't', '!' }, '<S-Left>', function()
+  tmux.move_left()
+end, { desc = "Go to left window" })
+vim.keymap.set({ 'n', 't', '!' }, '<S-Down>', function()
+  tmux.move_bottom()
+end, { desc = "Go to below window" })
+vim.keymap.set({ 'n', 't', '!' }, '<S-Up>', function()
+  tmux.move_top()
+end, { desc = "Go to above window" })
+vim.keymap.set({ 'n', 't', '!' }, '<S-Right>', function()
+  tmux.move_right()
+end, { desc = "Go to right window" })
 
 -- Netrw automatically remaps Shift-Up/Down: change that
 vim.api.nvim_create_autocmd('FileType', {
@@ -120,33 +136,32 @@ vim.api.nvim_create_autocmd('FileType', {
   desc = 'Unmap Shift-Up/Down netrw mappings'
 })
 
--- Window Navigation on QWERTY Keyboard (with tmux.nvim)
-km({ 'n', 't', '!' }, '<M-H>', function()
-  tmux.move_left()
-end, {desc = "Go to left window"})
-km({ 'n', 't', '!' }, '<M-J>', function()
-  tmux.move_bottom()
-end, {desc = "Go to below window"})
-km({ 'n', 't', '!' }, '<M-K>', function()
-  tmux.move_top()
-end, {desc = "Go to above window"})
-km({ 'n', 't', '!' }, '<M-L>', function()
-  tmux.move_right()
-end, {desc = "Go to right window"})
+-- Window Navigation on QWERTY Keyboard
+-- km({ 'n', 't', '!' }, '<M-H>', function()
+--   vim.cmd(vim.v.count .. "wincmd h")
+-- end, {desc = "Go to left window"})
+-- km({ 'n', 't', '!' }, '<M-J>', function()
+--   vim.cmd(vim.v.count .. "wincmd j")
+-- end, {desc = "Go to below window"})
+-- km({ 'n', 't', '!' }, '<M-K>', function()
+--   vim.cmd(vim.v.count .. "wincmd k")
+-- end, {desc = "Go to above window"})
+-- km({ 'n', 't', '!' }, '<M-L>', function()
+--   vim.cmd(vim.v.count .. "wincmd l")
+-- end, {desc = "Go to right window"})
 
--- Standard window navigation on QWERTY Keyboard
--- vim.keymap.set({ 'n', 't', '!' }, '<S-Left>', function()
---   tmux.move_left()
--- end, { desc = "Go to left window" })
--- vim.keymap.set({ 'n', 't', '!' }, '<S-Down>', function()
---   tmux.move_bottom()
--- end, { desc = "Go to below window" })
--- vim.keymap.set({ 'n', 't', '!' }, '<S-Up>', function()
---   tmux.move_top()
--- end, { desc = "Go to above window" })
--- vim.keymap.set({ 'n', 't', '!' }, '<S-Right>', function()
---   tmux.move_right()
--- end, { desc = "Go to right window" })
+vim.keymap.set({ 'n', 't', '!' }, '<M-H>', function()
+  tmux.move_left()
+end, { desc = "Go to left window" })
+vim.keymap.set({ 'n', 't', '!' }, '<M-J>', function()
+  tmux.move_bottom()
+end, { desc = "Go to below window" })
+vim.keymap.set({ 'n', 't', '!' }, '<M-K>', function()
+  tmux.move_top()
+end, { desc = "Go to above window" })
+vim.keymap.set({ 'n', 't', '!' }, '<M-L>', function()
+  tmux.move_right()
+end, { desc = "Go to right window" })
 
 -- Window Resizing on Corne Keyboard
 km({ 'n', 't', '!' }, '<C-Left>', function()
@@ -202,30 +217,3 @@ end, {desc = "Move window up"})
 km({ 'n', 't', '!' }, '<M-C-l>', function()
   vim.cmd(vim.v.count .. "wincmd L")
 end, {desc = "Move window right"})
-
-
--- Messed with this a bit... was trying to get t to behave like / on a single
--- character... worked decently well but then worrying about disabling
--- highlighting meant we needed to remap / as well and then that broke
--- everything... just going to stick with normal t
-
--- local search_char = function()
---   local keycode = vim.fn.getchar()
---   if keycode == 27 then
---     return
---   end
---   local key = vim.fn.nr2char(keycode)
---   local count = vim.v.count
---   if count == 0 then
---     count = 1
---   end
---   vim.cmd('exe "normal ' .. count .. '/' .. key .. [[\<CR>"]])
---   vim.cmd('noh')
--- end
---
--- vim.keymap.set('n', 't', search_char)
---
--- vim.keymap.set('n', '/', function ()
---   vim.opt.hlsearch = true
---   vim.api.nvim_feedkeys('/', 'n', true)
--- end)

@@ -1,9 +1,10 @@
 return {
   'stevearc/oil.nvim',
+  cond = not vim.g.vscode,
   opts = {},
   -- Optional dependencies
   dependencies = { "nvim-tree/nvim-web-devicons" },
-  config = function ()
+  config = function()
     local oil = require("oil")
     oil.setup({
       view_options = {
@@ -16,6 +17,12 @@ return {
           winblend = 0,
         },
       },
+      keymaps = {
+        ["gp"] = {
+          callback = function() vim.cmd.edit("$PLUGDIR") end,
+          desc = "Open plugin directory",
+        }
+      }
     })
     vim.keymap.set('n', '<Leader>e', function()
       if vim.bo.filetype ~= 'oil' then
@@ -23,7 +30,7 @@ return {
       else
         oil.close()
       end
-    end, {desc = 'Toggle file explorer'})
-    vim.keymap.set('n', '<Leader>E', oil.open_float, {desc = 'Explore in floating window'})
+    end, { desc = 'Toggle file explorer' })
+    vim.keymap.set('n', '<Leader>E', oil.open_float, { desc = 'Explore in floating window' })
   end
 }

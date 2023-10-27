@@ -12,3 +12,8 @@ vim.cmd([[
   \   'cache_enabled': 0,
   \ }
 ]])
+
+vim.api.nvim_create_user_command(
+  "Excel", "!excel.exe $(wslpath -w %) &",
+  { desc = "Open the current file in Excel", force = true }
+)

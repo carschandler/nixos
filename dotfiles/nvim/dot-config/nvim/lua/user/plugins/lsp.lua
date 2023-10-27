@@ -1,9 +1,10 @@
 return {
   {
-    'folke/neodev.nvim'
+    'folke/neodev.nvim',
   },
   {
     'neovim/nvim-lspconfig',
+    cond = not vim.g.vscode,
 
     config = function()
       -- Must set up neodev before LSP.
@@ -159,6 +160,7 @@ return {
   {
     'mfussenegger/nvim-jdtls',
 
+    cond = not vim.g.vscode,
     ft = 'java',
 
     config = function()

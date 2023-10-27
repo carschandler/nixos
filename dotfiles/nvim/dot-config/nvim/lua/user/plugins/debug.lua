@@ -1,4 +1,5 @@
 return {
+  cond = not vim.g.vscode,
   'mfussenegger/nvim-dap',
 
   config = function()

@@ -18,6 +18,8 @@ set history=1000
 set relativenumber
 set ttimeoutlen=5
 set textwidth=80
-set formatoptions=cqjn
+set formatoptions=cqjnr
 set number
+set spell
+set spellcapcheck^=[^.]
 ]])

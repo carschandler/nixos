@@ -1,5 +1,7 @@
+---@diagnostic disable: missing-fields
 return {
   'hrsh7th/nvim-cmp',
+  cond = not vim.g.vscode,
   dependencies = {
     -- cmp sources
     'hrsh7th/cmp-nvim-lsp', -- Required
@@ -14,18 +16,37 @@ return {
     'L3MON4D3/LuaSnip',             -- Required
     'saadparwaiz1/cmp_luasnip',     -- Optional
     'rafamadriz/friendly-snippets', -- Optional
-
-    -- {                                      -- Optional
-    --    'williamboman/mason.nvim',
-    --    build = function()
-    --       pcall(vim.cmd, 'MasonUpdate')
-    --    end,
-    -- },
-    -- {'williamboman/mason-lspconfig.nvim'}, -- Optional
   },
   config = function()
     local cmp = require('cmp')
     local luasnip = require('luasnip')
+    local cmp_kinds = {
+      Text = '  ',
+      Method = '  ',
+      Function = '󰊕  ',
+      Constructor = '  ',
+      Field = '  ',
+      Variable = '  ',
+      Class = '  ',
+      Interface = '  ',
+      Module = '  ',
+      Property = '  ',
+      Unit = '  ',
+      Value = '  ',
+      Enum = '  ',
+      Keyword = '  ',
+      Snippet = '  ',
+      Color = '  ',
+      File = '  ',
+      Reference = '  ',
+      Folder = '  ',
+      EnumMember = '  ',
+      Constant = '  ',
+      Struct = '  ',
+      Event = '  ',
+      Operator = '  ',
+      TypeParameter = '  ',
+    }
 
     cmp.setup({
       -- For cmp-dap
@@ -41,21 +62,6 @@ return {
           -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
           -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
         end,
-      },
-      window = {
-        -- TODO: borders or no borders?
-        -- completion = cmp.config.window.bordered(),
-        -- documentation = cmp.config.window.bordered(),
-
-        -- Ensure that cmp border is same color as default floating border
-        completion = {
-          border = {'╭', '─', '╮', '│', '╯', '─', '╰', '│'},
-          winhighlight = 'FloatBorder:FloatBorder',
-        },
-        documentation = {
-          border = {'╭', '─', '╮', '│', '╯', '─', '╰', '│'},
-          winhighlight = 'FloatBorder:FloatBorder',
-        },
       },
       mapping = {
         -- "Up"
@@ -154,6 +160,21 @@ return {
         --  end
         --end),
       },
+      window = {
+        -- TODO: borders or no borders?
+        -- completion = cmp.config.window.bordered(),
+        -- documentation = cmp.config.window.bordered(),
+
+        -- Ensure that cmp border is same color as default floating border
+        completion = {
+          border = {'╭', '─', '╮', '│', '╯', '─', '╰', '│'},
+          winhighlight = 'FloatBorder:FloatBorder',
+        },
+        documentation = {
+          border = {'╭', '─', '╮', '│', '╯', '─', '╰', '│'},
+          winhighlight = 'FloatBorder:FloatBorder',
+        },
+      },
       sources = cmp.config.sources({
         { name = 'nvim_lsp_signature_help' },
         { name = 'nvim_lsp' },
@@ -163,11 +184,26 @@ return {
           name = 'buffer',
           keyword_length = 4
         },
-        { name = 'path' },
+        {
+          name = 'path',
+          option = {
+            -- Default is to use the dirname() of the current buffer; we want
+            -- the value returned by pwd
+            get_cwd = function (_)
+              return vim.fn.getcwd()
+            end
+          },
+        },
       }),
       experimental = {
         ghost_text = true
-      }
+      },
+      formatting = {
+        format = function(_, vim_item)
+          vim_item.kind = (cmp_kinds[vim_item.kind] or '') .. vim_item.kind
+          return vim_item
+        end,
+      },
     })
 
     -- Set configuration for specific filetype.
