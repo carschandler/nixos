@@ -60,6 +60,8 @@
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
+  programs.light.enable = true;
+
   # TODO figure out how to handle this with networking.networkmanager
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -142,7 +144,7 @@
   users.users.chan = {
     isNormalUser = true;
     description = "Cars Chandler";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "video"];
     packages = with pkgs; [
     ];
   };

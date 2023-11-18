@@ -23,4 +23,8 @@ config = {
   window_background_opacity = 0.90,
 }
 
+if wezterm.hostname() == "desktop" then
+  config.enable_wayland = false
+end
+
 return config

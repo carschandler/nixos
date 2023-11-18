@@ -64,7 +64,6 @@ in
 
     # cli programs
     bat
-    exa
     fd
     htop
     lsd

@@ -1,5 +1,5 @@
 # Stuff we need on personal computers, but not at work
-{ pkgs, ... }: {
+{ pkgs, config, ... }: {
   imports = [
     ../fonts
     ../hyprland
@@ -13,18 +13,17 @@
     wezterm
 
     # gui apps
+    gimp
     libreoffice-fresh
     obsidian
     spotify
     vscode-fhs
   ];
 
-  xdg.desktopEntries = {
-    obsidian = {
-      name = "Obsidian";
-      exec = "obsidian";
-      terminal = false;
-    };
+
+  xdg.configFile = {
+    "foot".source = config.lib.file.mkOutOfStoreSymlink
+      "${config.home.homeDirectory}/nixos/dotfiles/foot/dot-config/foot";
   };
 }
 

@@ -1,5 +1,5 @@
 {
-  description = "Python Shell";
+  description = "Python Data Science Shell";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -11,19 +11,13 @@
       python_package = "python3";
       pypkgs = ps: with ps; [
         ipython
-        numpy
-        scipy
-        pandas
-        seaborn
         jupyter
+        numpy
+        pandas
+        scipy
+        seaborn
         plotly
-        vtk
-        matplotlib.override { enableQt = true; }
-        opencv4
-        # feeble attempts at other backends
-        # tkinter
-        # pygobject3
-
+        matplotlib.override { enableGtk3 = true; }
       ];
     in
     flake-utils.lib.eachDefaultSystem (system:
@@ -39,14 +33,15 @@
           ];
 
           buildInputs = [
-            pkgs.qt5.qtwayland
+            # pkgs.qt5.qtwayland
           ];
 
           shellHook = ''
-            alias jnb='jupyter notebook --no-browser'
+            alias jnb='jupyter notebook'
+            alias jnbnb='jupyter notebook --no-browser'
           '';
 
-          QT_PLUGIN_PATH = with pkgs.qt5; "${qtbase}/${qtbase.qtPluginPrefix}";
+          # QT_PLUGIN_PATH = with pkgs.qt5; "${qtbase}/${qtbase.qtPluginPrefix}";
         };
       }
     );

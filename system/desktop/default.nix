@@ -19,6 +19,24 @@
   boot.loader.grub.gfxmodeEfi = "1280x1024";
   boot.loader.grub.font = "${pkgs.source-code-pro}/share/fonts/opentype/SourceCodePro-Medium.otf";
 
+  hardware.nvidia = {
+    # This fixed hyprland crashing after waking from suspend!
+    powerManagement.enable = true;
+  };
+
+  # Attempt to fix electron apps... didn't work, but may be good to keep?
+  hardware.opengl.extraPackages = [ pkgs.libvdpau-va-gl ];
+
+  # FIXME
+  services.dbus.enable = true;
+
+  environment.variables.VDPAU_DRIVER = "va_gl";
+  environment.variables.LIBVA_DRIVER_NAME = "nvidia";
+
+  # TODO: Trying to get desktop monitor brightness control...
+  # programs.light.enable = true;
+  # users.users.chan.extraGroups = [ "wheel" ];
+
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
