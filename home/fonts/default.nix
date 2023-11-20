@@ -13,7 +13,7 @@
     
     source-code-pro
     cantarell-fonts
-    #input-fonts
+    input-fonts
   ];
 
   fonts.fontconfig.enable = true;

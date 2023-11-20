@@ -12,3 +12,6 @@ xarray
 params
 CFD
 numpy
+plotly
+py
+submodule

@@ -48,6 +48,11 @@ return {
       TypeParameter = '  ',
     }
 
+    -- For limiting the width of the results menu (see "formatting" below)
+    local ELLIPSIS_CHAR = '…'
+    local MAX_LABEL_WIDTH = 30
+    local MIN_LABEL_WIDTH = 20
+
     cmp.setup({
       -- For cmp-dap
       enabled = function()
@@ -200,7 +205,19 @@ return {
       },
       formatting = {
         format = function(_, vim_item)
+          -- Truncate the details section of the entries if too large
+          local details_window_fraction = 0.4
+          local max_width = math.floor(
+            vim.api.nvim_win_get_width(0) * details_window_fraction
+          )
+          if vim_item.menu ~= nil and string.len(vim_item.menu) >= max_width then
+            vim_item.menu = vim.fn.strcharpart(
+              vim_item.menu, 0, max_width
+            ) .. ELLIPSIS_CHAR
+          end
+
           vim_item.kind = (cmp_kinds[vim_item.kind] or '') .. vim_item.kind
+
           return vim_item
         end,
       },

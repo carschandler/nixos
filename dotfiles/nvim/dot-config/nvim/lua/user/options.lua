@@ -20,6 +20,11 @@ set ttimeoutlen=5
 set textwidth=80
 set formatoptions=cqjnr
 set number
-set spell
-set spellcapcheck^=[^.]
 ]])
+
+if not vim.g.vscode then
+  vim.cmd([[
+    set spell
+    set spellcapcheck^=[^.]
+  ]])
+end
