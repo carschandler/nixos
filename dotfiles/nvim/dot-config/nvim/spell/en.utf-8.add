@@ -15,3 +15,9 @@ numpy
 plotly
 py
 submodule
+NDArray
+stl
+#irs
+dirs/!
+dirs
+iterable

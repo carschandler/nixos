@@ -9,6 +9,7 @@ return {
     vim.cmd("colorscheme gruvbox")
     vim.api.nvim_set_hl(0, 'CmpItemKindText', { link = 'String' })
     vim.api.nvim_set_hl(0, 'CmpItemKindConstant', { link = 'Constant' })
+    vim.api.nvim_set_hl(0, 'debugPC', { link = 'CursorLine' })
   end,
   opts = {
     undercurl = true,

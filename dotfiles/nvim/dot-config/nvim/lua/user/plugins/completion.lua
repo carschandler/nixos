@@ -129,6 +129,8 @@ return {
           behavior = cmp.ConfirmBehavior.Replace
         }),
 
+        -- Ctrl+Shift+I doesn't work because standard terminals can't detect
+        -- this sequence
         ['<C-M-i>'] = cmp.mapping.confirm({
           select = true,
           behavior = cmp.ConfirmBehavior.Insert

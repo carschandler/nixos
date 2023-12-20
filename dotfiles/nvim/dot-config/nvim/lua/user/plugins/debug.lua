@@ -66,14 +66,16 @@ return {
         return
       end
     end, { desc = "Debug/Continue" })
+
     vim.keymap.set('n', '<F6>', function() dap.run_last() end, { desc = "Run previous configuration" })
     vim.keymap.set('n', '<F7>', function() dap.goto_() end, { desc = "Go to cursor" })
     vim.keymap.set('n', '<F9>', function() dap.run_to_cursor() end, { desc = "Run to cursor" })
     vim.keymap.set('n', '<F10>', function() dap.step_over() end, { desc = "Step over" })
     vim.keymap.set('n', '<F11>', function() dap.step_into() end, { desc = "Step into" })
     vim.keymap.set('n', '<F12>', function() dap.step_out() end, { desc = "Step out" })
-vim.keymap.set('n', '<Leader>rb', function() dap.toggle_breakpoint() end, { desc = "Toggle breakpoint" })
+    vim.keymap.set('n', '<Leader>rb', function() dap.toggle_breakpoint() end, { desc = "Toggle breakpoint" })
     vim.keymap.set('n', '<Leader>rB', function() dap.set_breakpoint() end, { desc = "Set breakpoint" })
+
     vim.keymap.set('n', '<Leader>rc', function()
       local condition = vim.fn.input('Condition expression: ')
       local hit = vim.fn.input('Hit condition: ')
@@ -85,27 +87,35 @@ vim.keymap.set('n', '<Leader>rb', function() dap.toggle_breakpoint() end, { desc
         dap.set_breakpoint(nil, hit, nil)
       end
     end, { desc = "Set conditional breakpoint" })
+
     vim.keymap.set('n', '<Leader>rp', function()
       dap.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))
     end, { desc = "Set log point" })
+
     vim.keymap.set('n', '<Leader>rx', function() dap.clear_breakpoints() end, { desc = "Clear breakpoints" })
     vim.keymap.set('n', '<Leader>rr', function() dap.repl.toggle() end, { desc = "Open REPL" })
     vim.keymap.set('n', '<Leader>rl', function() dap.list_breakpoints(true) end, { desc = "List breakpoints" })
+
     vim.keymap.set({ 'n', 'v' }, '<Leader>rh', function()
       widgets.hover()
     end, { desc = "Hover" })
+
     vim.keymap.set({ 'n', 'v' }, '<M-k>', function()
       widgets.hover()
     end, { desc = "Hover" })
+
     vim.keymap.set({ 'n', 'v' }, '<Leader>rp', function()
       widgets.preview()
     end, { desc = "Hover in preview window" })
+
     vim.keymap.set('n', '<Leader>rf', function()
       widgets.centered_float(widgets.frames)
     end, { desc = "Frames (floating)" })
+
     vim.keymap.set('n', '<Leader>rv', function()
       widgets.centered_float(widgets.scopes)
     end, { desc = "Variables (floating)" })
+
     vim.keymap.set('n', '<Leader>rF', function()
       if DAP_FRAMES_BAR == nil then
         DAP_FRAMES_BAR = widgets.sidebar(widgets.frames)
@@ -123,7 +133,7 @@ vim.keymap.set('n', '<Leader>rb', function() dap.toggle_breakpoint() end, { desc
     vim.fn.sign_define('DapBreakpointCondition', { text='', numhl='DiagnosticWarn' })
     vim.fn.sign_define('DapLogPoint', { text='', numhl='DiagnosticInfo' })
     vim.fn.sign_define('DapStopped', { text='', texthl='DiagnosticSignOk' })
-    vim.fn.sign_define('DapBreakpointRejected', { text='', texthl='DiagnosticError' })
+    vim.fn.sign_define('DapBreakpointRejected', { text='', texthl='DiagnosticWarn' })
     -- vim.fn.sign_define('DapBreakpoint', { text='󰧟', texthl='DiagnosticError' })
 
     repl.commands = vim.tbl_extend('force', repl.commands, {
@@ -152,10 +162,31 @@ vim.keymap.set('n', '<Leader>rb', function() dap.toggle_breakpoint() end, { desc
 
     dap.configurations.python = {
       {
+        name = 'Launch file',
         type = 'python',
         request = 'launch',
-        name = 'Launch file',
         program = '${file}',
+        pythonPath = 'python',
+      },
+      {
+        name = 'Custom',
+        type = 'python',
+        request = 'launch',
+        program = function()
+          local file = vim.fn.input("filename: ", "", "file")
+          if file == "" then
+            file = "${file}"
+          end
+          return file
+        end,
+        args = function()
+          local args = {}
+          local argstr = vim.fn.input("args: ", "", "file")
+          for v in string.gmatch(argstr, "%S+") do
+            table.insert(args, v)
+          end
+          return args
+        end,
         pythonPath = 'python',
       },
     }
