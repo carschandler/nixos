@@ -34,6 +34,12 @@ km({ 'n', 'v' }, '<Space>', ':')
 
 km({ 'n', 'v' }, ';;', ';')
 
+if vim.g.vscode then
+  km('n', '<Leader><Space>', function()
+    require("vscode-neovim").call("workbench.action.quickOpen")
+  end)
+end
+
 -- Make Escape close floating windows
 -- This may conflict with plugins though...
 -- TODO: May need to check for filetype or something more specific to certain
@@ -225,5 +231,4 @@ if not vim.g.vscode then
   km({ 'n', 't', '!' }, '<M-C-l>', function()
     vim.cmd(vim.v.count .. "wincmd L")
   end, {desc = "Move window right"})
-
 end

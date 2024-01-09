@@ -122,9 +122,11 @@ in
     firefox = {
       enable = true;
       package = pkgs.firefox.override {
+        nativeMessagingHosts = [
+          pkgs.tridactyl-native
+        ];
         cfg = {
           speechSynthesisSupport = true;
-          enableTridactylNative = true;
         };
       };
     };
