@@ -50,7 +50,7 @@ return {
               end
             elseif vim.fn.filereadable(json_launch_file) == 1 then
               -- print('dapbug: found launch.json')
-              dap_vs.load_launchjs()
+              dap_vs.load_launchjs(json_launch_file, { debugpy = { "python" } })
               dap.continue()
               return
             else
@@ -136,16 +136,16 @@ return {
     vim.fn.sign_define('DapBreakpointRejected', { text='', texthl='DiagnosticWarn' })
     -- vim.fn.sign_define('DapBreakpoint', { text='󰧟', texthl='DiagnosticError' })
 
-    repl.commands = vim.tbl_extend('force', repl.commands, {
-      custom_commands = {
-        ['.restart'] = function()
-          dap.restart()
-          repl.open()
-          vim.cmd.wincmd('j')
-        end,
-        ['.clear'] = repl.clear()
-      },
-    })
+    -- repl.commands = vim.tbl_extend('force', repl.commands, {
+    --   custom_commands = {
+    --     ['.restart'] = function()
+    --       dap.restart()
+    --       repl.open()
+    --       vim.cmd.wincmd('j')
+    --     end,
+    --     ['.clear'] = repl.clear()
+    --   },
+    -- })
 
     vim.api.nvim_create_autocmd('FileType', {
       pattern = 'dap-repl',

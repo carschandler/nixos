@@ -9,6 +9,9 @@ require('user/launch_lazy')
 -- Non-plugin keymaps
 require('user/keymaps')
 
+-- Autocommands
+require('user/autocmds')
+
 -- Note: the leader key must be mapped before Lazy is launched, so user/keymaps
 -- needs to be loaded before user/launch_lazy (or the leader could be set in its
 -- own module or right here in the init.lua... because of this, we cannot set

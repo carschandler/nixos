@@ -12,6 +12,7 @@ return {
     vim.api.nvim_set_hl(0, 'debugPC', { link = 'CursorLine' })
   end,
   opts = {
+    terminal_colors=false,
     undercurl = true,
     underline = true,
     bold = true,

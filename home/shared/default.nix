@@ -5,6 +5,11 @@ let
   xdgUserDir = "${homedir}/xdg";
 in
 {
+  # Pin the nixpkgs version that this flake uses to the registry so that
+  # `nix` commands use the same nixpkgs as our system does... do this
+  # for each configuration in here
+  nix.registry.nixpkgs.flake = inputs.nixpkgs;
+
   # You can import other home-manager modules here
   imports = [
     # If you want to use modules your own flake exports (from modules/home-manager):
@@ -75,6 +80,7 @@ in
     starship
     tmux
     toipe
+    typos
     unzip
     wget
     xplr
