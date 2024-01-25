@@ -1,53 +1,42 @@
-{ lib, pkgs, config, modulesPath, ... }:
+{ lib, pkgs, config, inputs, ... }:
 
-with lib;
-let
-  nixos-wsl = import ./nixos-wsl;
-in
 {
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   imports = [
-    "${modulesPath}/profiles/minimal.nix"
-    nixos-wsl.nixosModules.wsl
   ];
 
+  # Check https://github.com/nix-community/NixOS-WSL/tree/main/modules for options
   wsl = {
     enable = true;
-    automountPath = "/mnt";
-    defaultUser = "nixos";
+    defaultUser = "chan";
     startMenuLaunchers = true;
-
-    # Enable native Docker support
-    # docker-native.enable = true;
-
-    # Enable integration with Docker Desktop (needs to be installed)
-    # docker-desktop.enable = true;
+    usbip = {
+      enable = true;
+      # Determine which Bus ID to enable using usbipd.exe in PowerShell (may
+      # need to launch in admin mode)
+      # autoAttach = [ "4-1" ];
+    };
+    wslConf = {
+      interop.appendWindowsPath = false;
+      network = {
+        hostname = "work";
+      };
+    };
   };
 
-  networking.hostName = "work";
-
-  # Enable nix flakes (did this above)
-  # nix.package = pkgs.nixFlakes;
-  # nix.extraOptions = ''
-  #   experimental-features = nix-command flakes
-  # '';
+  # networking.hostName = "work";
 
   users.users.chan = {
     isNormalUser = true;
     home = "/home/chan";
     description = "Cars Chandler (Work)";
-    extraGroups = [ "wheel" "networkmanager" ];
+    extraGroups = [ "wheel" "networkmanager" "video"];
   };
 
   nixpkgs.config.allowUnfree = true;
 
   time.timeZone = "America/Chicago";
 
-  time.hardwareClockInLocalTime = true;
-
-  i18n.defaultLocale = "en_US.UTF-8";
-
-  system.stateVersion = "22.05";
-
+  system.stateVersion = "23.11";
 }

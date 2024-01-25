@@ -4,15 +4,12 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    emanote = {
-      url = "github:srid/emanote";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nixos-wsl.url = "github:nix-community/NixOS-WSL";
 
     hyprland = {
       url = "github:/hyprwm/hyprland";
@@ -21,11 +18,14 @@
 
     hyprland-contrib = {
       url = "github:hyprwm/contrib";
-      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    emanote = {
+      url = "github:srid/emanote";
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, nixos-wsl, ... }@inputs: {
     nixosConfigurations = {
       desktop = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -48,6 +48,7 @@
         specialArgs = { inherit inputs; };
         modules = [
           ./system/work
+          nixos-wsl.nixosModules.wsl
         ];
       };
     };

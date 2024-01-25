@@ -25,5 +25,7 @@
     "foot".source = config.lib.file.mkOutOfStoreSymlink
       "${config.home.homeDirectory}/nixos/dotfiles/foot/dot-config/foot";
   };
+
+  home.stateVersion = "22.11";
 }
 

@@ -1,11 +1,23 @@
-To start up a new system:
-- Make new entries in `flake.nix` for `nixosConfigurations` and
-  `homeConfigurations`
-- Add configuration to `system` directory as appropriate
-  - Don't forget `networking.hostName`
-- `nix-shell -p git home-manager`
-  - Ensure that files have been added to git
+# NixOS/Home Manager Configuration
+
+## To start up a new system:
+### Initialize user space for configuration
+- `ssh-keygen` and add key to GitHub profile
+- `nix-shell -p git home-manager neovim`
+- `git clone git@github.com:carschandler/nixos.git`
+### *Creating a user*
+*This step shouldn't be necessary on a NixOS system, but can be done if desired. It will
+probably be required on other distributions*
+- Create a new user and add to the appropriate groups using whatever process the
+  distribution recommends
+### Update nix configuration
+- Make new entries in `flake.nix` for `nixosConfigurations` and `homeConfigurations`
+- Add configuration to `system` directory as appropriate (`named_subdirectory/default.nix`)
+  - Don't forget `networking.hostName` so that the system will be renamed properly
+  - If using WSL, use [NixOS-WSL](https://github.com/nix-community/NixOS-WSL) and its options
+  - Ensure that new files have been added in git or the flake will not pick them up
   - `sudo nixos-rebuild switch --flake .#<hostname>`
   - May need to restart at this point?
   - `home-manager switch --flake .#<username>@<hostname>`
-
+## Troubleshooting
+- If no configurations are loaded (i.e. neovim), `~/.config` may need to be created manually

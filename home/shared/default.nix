@@ -285,6 +285,7 @@ in
 
     userDirs = {
       enable = true;
+      createDirectories = true;
       desktop = "${xdgUserDir}/Desktop";
       documents = "${xdgUserDir}/Documents";
       download = "${xdgUserDir}/Downloads";
@@ -344,6 +345,4 @@ in
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
-
-  home.stateVersion = "22.11";
 }
