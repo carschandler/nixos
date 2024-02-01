@@ -103,10 +103,10 @@ in
     emacs29-pgtk
 
     # language servers
-    nodePackages.pyright
-    lua-language-server
-    nixd
     efm-langserver
+    lua-language-server
+    nil
+    nodePackages.pyright
 
     # formatters/linters
     black

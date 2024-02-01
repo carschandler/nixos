@@ -127,9 +127,7 @@ return {
         }
       }
 
-      lspconfig.nixd.setup {
-        capabilities = capabilities
-      }
+      lspconfig.nil_ls.setup {}
 
       lspconfig.pyright.setup {
         capabilities = capabilities

@@ -190,5 +190,46 @@ return {
         pythonPath = 'python',
       },
     }
+
+    dap.adapters.codelldb = {
+      type = 'server',
+      port = "${port}",
+      executable = {
+        -- CHANGE THIS to your path!
+        command = '/nix/store/k7adbr5mzdci3iwlanr9vya72rmnm311-vscode-extension-vadimcn-vscode-lldb-1.10.0/share/vscode/extensions/vadimcn.vscode-lldb/adapter/codelldb',
+        args = {"--port", "${port}"},
+
+        -- On windows you may have to uncomment this:
+        -- detached = false,
+      }
+    }
+
+    -- dap.configurations.rust = {
+    --   { --
+    --     -- ... the previous config goes here ...,
+    --     initCommands = function()
+    --       -- Find out where to look for the pretty printer Python module
+    --       local rustc_sysroot = vim.fn.trim(vim.fn.system('rustc --print sysroot'))
+    --
+    --       local script_import = 'command script import "' .. rustc_sysroot .. '/lib/rustlib/etc/lldb_lookup.py"'
+    --       local commands_file = rustc_sysroot .. '/lib/rustlib/etc/lldb_commands'
+    --
+    --       local commands = {}
+    --       local file = io.open(commands_file, 'r')
+    --       if file then
+    --         for line in file:lines() do
+    --           table.insert(commands, line)
+    --         end
+    --         file:close()
+    --       end
+    --       table.insert(commands, 1, script_import)
+    --
+    --       return commands
+    --     end,
+    --     -- ...,
+    --   }
+    -- }
+
+
   end
 }
