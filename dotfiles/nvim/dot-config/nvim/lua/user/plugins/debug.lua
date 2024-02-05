@@ -100,10 +100,6 @@ return {
       widgets.hover()
     end, { desc = "Hover" })
 
-    vim.keymap.set({ 'n', 'v' }, '<M-k>', function()
-      widgets.hover()
-    end, { desc = "Hover" })
-
     vim.keymap.set({ 'n', 'v' }, '<Leader>rp', function()
       widgets.preview()
     end, { desc = "Hover in preview window" })
@@ -191,18 +187,18 @@ return {
       },
     }
 
-    dap.adapters.codelldb = {
-      type = 'server',
-      port = "${port}",
-      executable = {
-        -- CHANGE THIS to your path!
-        command = '/nix/store/k7adbr5mzdci3iwlanr9vya72rmnm311-vscode-extension-vadimcn-vscode-lldb-1.10.0/share/vscode/extensions/vadimcn.vscode-lldb/adapter/codelldb',
-        args = {"--port", "${port}"},
-
-        -- On windows you may have to uncomment this:
-        -- detached = false,
-      }
-    }
+    -- dap.adapters.codelldb = {
+    --   type = 'server',
+    --   port = "${port}",
+    --   executable = {
+    --     -- CHANGE THIS to your path!
+    --     command = '/nix/store/k7adbr5mzdci3iwlanr9vya72rmnm311-vscode-extension-vadimcn-vscode-lldb-1.10.0/share/vscode/extensions/vadimcn.vscode-lldb/adapter/codelldb',
+    --     args = {"--port", "${port}"},
+    --
+    --     -- On windows you may have to uncomment this:
+    --     -- detached = false,
+    --   }
+    -- }
 
     -- dap.configurations.rust = {
     --   { --

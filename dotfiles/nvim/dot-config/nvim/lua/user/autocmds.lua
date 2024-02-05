@@ -1,4 +1,6 @@
-vim.api.nvim_create_autocmd('TermOpen', {
+local autocmd = vim.api.nvim_create_autocmd
+
+autocmd('TermOpen', {
   callback = function()
     vim.opt.spell = false
     vim.opt.number = false
@@ -8,7 +10,7 @@ vim.api.nvim_create_autocmd('TermOpen', {
   desc = 'Turn off line numbers, spellcheck for terminal mode'
 })
 
-vim.api.nvim_create_autocmd('WinEnter', {
+autocmd('WinEnter', {
   pattern = {"term://*"},
   callback = function()
     vim.cmd.startinsert()
@@ -17,7 +19,7 @@ vim.api.nvim_create_autocmd('WinEnter', {
 })
 
 
-vim.api.nvim_create_autocmd('WinEnter', {
+autocmd('WinEnter', {
   pattern = {"\\[dap-repl\\]"},
   callback = function()
     vim.cmd.startinsert()

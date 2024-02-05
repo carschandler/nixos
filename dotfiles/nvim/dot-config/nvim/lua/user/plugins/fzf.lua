@@ -27,7 +27,7 @@ return {
 
     vim.keymap.set('n', '<Leader>f;', fzf.builtin, { desc = "Menu" })
     vim.keymap.set('n', '<Leader>ff', fzf.files, { desc = "Files" })
-    vim.keymap.set('n', '<Leader><Space>', fzf.files, { desc = "Files" })
+    vim.keymap.set('n', '<Leader><Space>', fzf.files, { desc = "Fuzzy find files" })
     vim.keymap.set('n', '<Leader>fh', fzf.help_tags, { desc = "Help tags" })
     vim.keymap.set('n', '<Leader>fb', fzf.buffers, { desc = "Current buffers" })
     vim.keymap.set('n', '<Leader>fL', fzf.lines, { desc = "Open buf lines" })

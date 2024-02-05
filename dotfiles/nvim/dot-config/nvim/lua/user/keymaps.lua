@@ -15,19 +15,19 @@
 local km = vim.keymap.set
 
 if not vim.g.vscode then
-  local wk = require('which-key')
-
-  wk.register(
-    {
-      s = {
-        'source file',
+  if pcall(require, 'which-key') then
+    require('which-key').register(
+      {
+        s = {
+          'source file',
+        },
+        q = {
+          name = 'QuickFix',
+        },
       },
-      q = {
-        name = 'QuickFix',
-      },
-    },
-    { prefix = '<Leader>' }
-  )
+      { prefix = '<Leader>' }
+    )
+  end
 end
 
 km({ 'n', 'v' }, '<Space>', ':')

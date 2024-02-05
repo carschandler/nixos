@@ -27,7 +27,7 @@ return {
       )
 
       -- Set keymaps
-      vim.keymap.set('n', '<Leader>lt', function()
+      vim.keymap.set('n', '<Leader>ld', function()
         if vim.diagnostic.is_disabled() then
           vim.diagnostic.enable(0)
         else
@@ -36,6 +36,7 @@ return {
       end, { desc = "Toggle buffer diagnostics" })
       vim.keymap.set('n', '<Leader>li', require('lspconfig.ui.lspinfo'), { desc = "LSP info" })
       vim.keymap.set('n', '<Leader>le', vim.diagnostic.open_float, { desc = "Show diagnostics" })
+      vim.keymap.set('n', '<M-k>', vim.diagnostic.open_float, { desc = "Show diagnostics" })
       vim.keymap.set('n', '[e', vim.diagnostic.goto_prev, { desc = "Previous diagnostic" })
       vim.keymap.set('n', ']e', vim.diagnostic.goto_next, { desc = "Next diagnostic" })
       vim.keymap.set('n', '<Leader>lE', vim.diagnostic.setloclist, { desc = "Send diagnostics to location list" })
@@ -93,6 +94,9 @@ return {
           vim.keymap.set('n', '<Leader>lf', function()
             vim.lsp.buf.format { async = true }
           end, opts_desc('Format buffer'))
+          vim.keymap.set('n', '<M-F>', function()
+            vim.lsp.buf.format { async = true }
+          end, opts_desc('LSP format'))
         end,
       })
 
@@ -133,6 +137,10 @@ return {
         capabilities = capabilities
       }
 
+      -- -- Set up format-on-save behavior via lsp-format.nvim
+      -- vim.g.rustaceanvim = { server = { on_attach = require('lsp-format').on_attach } }
+
+
       -- efm-langserver is a general purpose LSP that is useful for linters &
       -- formatters
       lspconfig.efm.setup {
@@ -148,9 +156,9 @@ return {
         }
       }
 
-      lspconfig.rust_analyzer.setup {
-        capabilities = capabilities
-      }
+      -- lspconfig.rust_analyzer.setup {
+      --   capabilities = capabilities
+      -- }
     end
   },
 
