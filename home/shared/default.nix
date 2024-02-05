@@ -93,6 +93,13 @@ in
     glxinfo
 
     # language tools/compilers
+    (python3.withPackages (pypkgs: [
+      pypkgs.ipython
+      pypkgs.numpy
+      pypkgs.pandas
+      pypkgs.scipy
+      pypkgs.plotly
+    ]))
 
     # For qt themes to work
     libsForQt5.qtstyleplugins
