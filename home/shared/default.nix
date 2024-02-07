@@ -302,6 +302,13 @@ in
       templates = "${xdgUserDir}/Templates";
       videos = "${xdgUserDir}/Videos";
     };
+
+    mimeApps = {
+      enable = true;
+      defaultApplications = {
+        "application/pdf" = [ "firefox.desktop" ];
+      };
+    };
   };
 
   gtk = {

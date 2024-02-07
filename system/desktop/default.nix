@@ -33,6 +33,10 @@
   environment.variables.VDPAU_DRIVER = "va_gl";
   environment.variables.LIBVA_DRIVER_NAME = "nvidia";
 
+  programs.bash.shellAliases = {
+    bosereset = "sudo usb-reset 05a7:1020";
+  };
+
   # TODO: Trying to get desktop monitor brightness control...
   # programs.light.enable = true;
   # users.users.chan.extraGroups = [ "wheel" ];

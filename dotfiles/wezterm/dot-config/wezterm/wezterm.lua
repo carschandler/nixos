@@ -24,6 +24,7 @@ config = {
 }
 
 if wezterm.hostname() == "desktop" then
+  config.front_end = "Software"
   config.enable_wayland = false
 end
 
