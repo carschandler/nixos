@@ -121,6 +121,7 @@
 
   # Enable bluetooth
   hardware.bluetooth.enable = true;
+
   # Enable blueman for managing connections
   services.blueman.enable = true;
 

@@ -27,5 +27,7 @@ if wezterm.hostname() == "desktop" then
   config.front_end = "Software"
   config.enable_wayland = false
 end
+-- Wayland not working on laptop either as of 2/7/24
+config.enable_wayland = false
 
 return config

@@ -105,9 +105,10 @@ in
     libsForQt5.qtstyleplugins
     
     # gui apps
+    emacs29-pgtk
     feh
     meld
-    emacs29-pgtk
+    gnome.nautilus
 
     # language servers
     efm-langserver
@@ -142,6 +143,22 @@ in
           speechSynthesisSupport = true;
         };
       };
+
+      # TODO
+      # profiles.default = {
+      #   userChrome = ''
+      #     @-moz-document url("chrome://browser/content/browser.xul") {
+      #       #TabsToolbar {
+      #         visibility: collapse !important;
+      #         margin-bottom: 21px !important;
+      #       }
+      #     
+      #       #sidebar-box[sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"] #sidebar-header {
+      #         visibility: collapse !important;
+      #       }
+      #     }
+      #   '';
+      # };
     };
 
     fzf = {
@@ -349,6 +366,8 @@ in
       gtk-application-prefer-dark-theme = 1;
     };
   };
+
+  # home.sessionVariables.GTK_THEME = "adw-gtk3-dark";
 
   qt = {
     enable = true;

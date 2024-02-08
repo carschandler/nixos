@@ -231,4 +231,5 @@ if not vim.g.vscode then
   km({ 'n', 't', '!' }, '<M-C-l>', function()
     vim.cmd(vim.v.count .. "wincmd L")
   end, {desc = "Move window right"})
+
 end
