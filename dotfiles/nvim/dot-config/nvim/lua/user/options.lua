@@ -21,10 +21,3 @@ set textwidth=80
 set formatoptions=cqjnr
 set number
 ]])
-
-if not vim.g.vscode then
-  vim.cmd([[
-    set spell
-    set spellcapcheck^=[^.]
-  ]])
-end
