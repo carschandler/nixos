@@ -137,6 +137,8 @@ return {
         capabilities = capabilities
       }
 
+      lspconfig.tsserver.setup {}
+
       -- -- Set up format-on-save behavior via lsp-format.nvim
       -- vim.g.rustaceanvim = { server = { on_attach = require('lsp-format').on_attach } }
 

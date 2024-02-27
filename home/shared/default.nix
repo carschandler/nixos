@@ -77,7 +77,6 @@ in
     neofetch
     ripgrep
     skim
-    starship
     tmux
     toipe
     typos
@@ -305,6 +304,9 @@ in
 
       "tmux".source = config.lib.file.mkOutOfStoreSymlink
         "${dotfiles}/tmux/dot-config/tmux";
+
+      "mako".source = config.lib.file.mkOutOfStoreSymlink
+        "${dotfiles}/mako/dot-config/mako";
     };
 
     userDirs = {
