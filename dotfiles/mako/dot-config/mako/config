@@ -1,1 +1,7 @@
+background-color=#282828E6
+# text-color=#ebdbb2ff # gruvbox
+border-color=#BBBBBBCC
+# border-color=#00000000
 border-radius=10
+font=Cantarell
+default-timeout=10000
