@@ -44,16 +44,24 @@ return {
             -- You can use the capture groups defined in textobjects.scm
             ["af"] = { query = "@function.outer", desc = "outer function" },
             ["if"] = { query = "@function.inner", desc = "inner function" },
+
             ["aC"] = { query = "@class.outer", desc = "outer class" },
             ["iC"] = { query = "@class.inner", desc = "inner class" },
-            ["ac"] = { query = "@comment.outer", desc = "outer comment" },
-            ["ic"] = { query = "@comment.inner", desc = "inner comment" },
+
+            -- Doesn't work well; grabs next line and doesn't get consecutive
+            -- comment lines
+            -- ["ac"] = { query = "@comment.outer", desc = "outer comment" },
+            -- ["ic"] = { query = "@comment.inner", desc = "inner comment" },
+
             ["aa"] = { query = "@parameter.outer", desc = "outer argument/parameter" },
             ["ia"] = { query = "@parameter.inner", desc = "inner argument/parameter" },
-            ["ab"] = { query = "@block.outer", desc = "outer block" },
-            ["ib"] = { query = "@block.inner", desc = "inner block" },
-            ["aS"] = { query = "@statement.outer", desc = "outer statement" },
-            ["in"] = { query = "@scopename.inner", desc = "inner scopename" },
+
+            -- ["ab"] = { query = "@block.outer", desc = "outer block" },
+            -- ["ib"] = { query = "@block.inner", desc = "inner block" },
+
+            -- ["aS"] = { query = "@statement.outer", desc = "outer statement" },
+
+            -- ["in"] = { query = "@scopename.inner", desc = "inner scopename" },
 
             -- You can also use captures from other query groups like `locals.scm`
             -- ["as"] = { query = "@scope", query_group = "locals", desc = "Select language scope" },

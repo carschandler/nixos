@@ -14,6 +14,7 @@
   ];
   
   home.file.".local/bin/clip.exe".source = config.lib.file.mkOutOfStoreSymlink "/mnt/c/Windows/System32/clip.exe";
+  home.file.".local/bin/explorer.exe".source = config.lib.file.mkOutOfStoreSymlink "/mnt/c/Windows/explorer.exe";
   home.file.".local/bin/powershell.exe".source = config.lib.file.mkOutOfStoreSymlink "/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe";
   home.file.".local/bin/excel.exe".source = config.lib.file.mkOutOfStoreSymlink "/mnt/c/Program Files/Microsoft Office/root/Office16/EXCEL.EXE";
   home.file.".local/bin/code".source = config.lib.file.mkOutOfStoreSymlink "/mnt/c/Users/rchandler/AppData/Local/Programs/Microsoft VS Code Insiders/bin/code-insiders";
@@ -35,6 +36,13 @@
       };
     };
   };
+
+
+  # programs.git.extraConfig = {
+  #   http = {
+  #     sslCAPath = "/home/chan/.certs";
+  #   };
+  # };
 
   home.stateVersion = "23.11";
 }

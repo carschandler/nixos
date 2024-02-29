@@ -126,14 +126,14 @@ return {
         -- "Insert"
         ['<C-i>'] = cmp.mapping.confirm({
           select = true,
-          behavior = cmp.ConfirmBehavior.Replace
+          behavior = cmp.ConfirmBehavior.Insert
         }),
 
         -- Ctrl+Shift+I doesn't work because standard terminals can't detect
         -- this sequence
         ['<C-M-i>'] = cmp.mapping.confirm({
           select = true,
-          behavior = cmp.ConfirmBehavior.Insert
+          behavior = cmp.ConfirmBehavior.Replace
         }),
 
         -- "Snippet"

@@ -26,7 +26,6 @@ autocmd('WinEnter', {
     vim.opt.spell = false
     -- vim.opt.number = false
     -- vim.opt.relativenumber = false
-    vim.cmd.startinsert()
   end,
   desc = 'Enter insert mode whenever entering a dap window'
 })

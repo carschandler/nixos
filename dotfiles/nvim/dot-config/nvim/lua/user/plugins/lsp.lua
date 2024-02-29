@@ -94,6 +94,9 @@ return {
           vim.keymap.set('n', '<Leader>lf', function()
             vim.lsp.buf.format { async = true }
           end, opts_desc('Format buffer'))
+          vim.keymap.set('n', '<M-f>', function()
+            vim.lsp.buf.format { async = true }
+          end, opts_desc('Format buffer'))
           vim.keymap.set('n', '<M-F>', function()
             vim.lsp.buf.format { async = true }
           end, opts_desc('LSP format'))
@@ -165,45 +168,4 @@ return {
   },
 
   -- jdtls is its own beast, so it requires separate setup from lspconfig
-  {
-    'mfussenegger/nvim-jdtls',
-
-    cond = not vim.g.vscode,
-    ft = 'java',
-
-    config = function()
-      local cfg = {
-        cmd = {
-          'jdt-language-server',
-          '-data',
-          os.getenv("HOME") .. '/.cache/jdtls/' .. os.getenv('PWD')
-        },
-
-        root_dir = vim.fs.dirname(
-          vim.fs.find(
-            { '.git', 'gradlew', 'mvnw', 'pom.xml' },
-            { upward = true }
-          )[1]
-        ),
-
-        -- Maven should handle the Java version, but here's an example of how to
-        -- set it manually:
-
-        -- settings = {
-        --   java = {
-        --     configuration = {
-        --       runtimes = {
-        --         {
-        --           name = "JavaSE-1.8",
-        --           path = os.getenv("JAVA_HOME")
-        --         }
-        --       }
-        --     }
-        --   }
-        -- }
-      }
-
-      require('jdtls').start_or_attach(cfg)
-    end
-  }
 }

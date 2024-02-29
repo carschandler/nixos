@@ -18,8 +18,8 @@ if not vim.g.vscode then
   if pcall(require, 'which-key') then
     require('which-key').register(
       {
-        s = {
-          'source file',
+        ss = {
+          'set invspell',
         },
         q = {
           name = 'QuickFix',
@@ -69,8 +69,8 @@ km({ 'n', 'v' }, '<leader>d', '"_d', { desc = "Delete without copying" })
 km({ 'n', 'v' }, '<leader>D', '"_D', { desc = "Delete without copying" })
 
 -- QuickFix List
-km('n', '<Leader>qn', function() vim.cmd('cn') end, { desc = "Next item in qfl" })
-km('n', '<Leader>qp', function() vim.cmd('cp') end, { desc = "Prev item in qfl" })
+km('n', '<Leader>qn', function() pcall(vim.cmd('cn')) end, { desc = "Next item in qfl" })
+km('n', '<Leader>qp', function() pcall(vim.cmd('cp')) end, { desc = "Prev item in qfl" })
 
 local function toggle_quickfix()
   local windows = vim.fn.getwininfo()
@@ -95,6 +95,9 @@ km({'n', 'v'}, "zn", "1z=", {desc = "Quick spelling fix"})
 
 -- Source current file
 km('n', '<leader>so', ':so %<CR>', { desc = "Source current file" })
+
+-- Toggle spellcheck
+km('n', '<leader>ss', ':set invspell', { desc = "Toggle spellcheck" })
 
 -- Maximize current window
 km('n', '<leader>z', '<C-w>_<C-w>|', { desc = "Maximize window" })
