@@ -12,35 +12,39 @@
     xwayland.enable = true;
   };
 
-  xdg.portal.wlr.enable = lib.mkForce false;
-
   environment.systemPackages = with pkgs; [
     ## Required by hyprland
     # Notification Daemon
     mako
+
+    # pipewire should be taken care of in ./configuration.nix
     # pipewire
-    pipewire
-    wireplumber
+    # wireplumber
+
     # qt stuff / authentication agent
+    qt6.qtwayland
     libsForQt5.qt5.qtwayland
     libsForQt5.polkit-kde-agent
-    qt6.qtwayland
-    # XDPH is handled by the module (?)
 
     ## Optional
     # Status bar
-    waybar
+
     # App Launcher
     tofi
+
     # Wallpaper
     hyprpaper
+
     # Clipboard
     wl-clipboard
     cliphist
+
     # Audio control GUI
     pavucontrol
+
     # Brightness control
     brightnessctl
+
     # Media control
     playerctl
   ];
