@@ -10,6 +10,7 @@
   wsl = {
     enable = true;
     defaultUser = "chan";
+    useWindowsDriver = true;
     startMenuLaunchers = true;
     usbip = {
       enable = true;
@@ -32,6 +33,10 @@
     home = "/home/chan";
     description = "Cars Chandler (Work)";
     extraGroups = [ "wheel" "networkmanager" "video"];
+    openssh.authorizedKeys.keyFiles = [
+      ./work_arch_rsa.pub
+      ./work_windows_rsa.pub
+    ];
   };
 
   nixpkgs.config.allowUnfree = true;
@@ -39,4 +44,7 @@
   time.timeZone = "America/Chicago";
 
   system.stateVersion = "23.11";
+
+  services.openssh.enable = true;
+  services.sshd.enable = true;
 }
