@@ -1,17 +1,9 @@
 # Stuff we need on personal computers, but not at work
-{ pkgs, config, lib, ... }: {
+{ pkgs, config, ... }: {
   imports = [
     ../fonts
     ../hyprland
   ];
-
-  # FIXME: remove this after obsidian updates
-  nixpkgs.config.permittedInsecurePackages =
-    lib.optional (pkgs.obsidian.version == "1.5.3") "electron-25.9.0";
-
-  warnings = (
-    lib.optionals (pkgs.obsidian.version != "1.5.3") "Check to see if Obsidian updated Electron"
-  );
 
   home.packages = with pkgs; [
     # terminal emulators

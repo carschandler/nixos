@@ -20,9 +20,9 @@
       url = "github:hyprwm/contrib";
     };
 
-    emanote = {
-      url = "github:srid/emanote";
-    };
+    # emanote = {
+    #   url = "github:srid/emanote";
+    # };
   };
 
   outputs = { self, nixpkgs, home-manager, nixos-wsl, ... }@inputs: {
@@ -62,6 +62,7 @@
         modules = [
           ./home/shared
           ./home/personal
+          ./home/desktop
         ];
       };
       "chan@laptop" = home-manager.lib.homeManagerConfiguration {
