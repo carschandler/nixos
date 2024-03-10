@@ -26,8 +26,9 @@ config = {
 if wezterm.hostname() == "desktop" then
   config.front_end = "Software"
   config.enable_wayland = false
+elseif wezterm.hostname() == "laptop" then
+  config.enable_wayland = true
+  config.front_end = "OpenGL"
 end
--- Wayland not working on laptop either as of 2/7/24
-config.enable_wayland = false
 
 return config
