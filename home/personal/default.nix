@@ -26,10 +26,10 @@ in
     spotify
     vscode-fhs
 
-
     # hardware utils
     usbutils
     usb-reset
+    glxinfo
   ];
 
   programs.kitty = {

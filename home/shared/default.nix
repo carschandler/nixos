@@ -5,10 +5,15 @@ let
   xdgUserDir = "${homedir}/xdg";
 in
 {
-  # Pin the nixpkgs version that this flake uses to the registry so that
-  # `nix` commands use the same nixpkgs as our system does... do this
-  # for each configuration in here
-  nix.registry.nixpkgs.flake = inputs.nixpkgs;
+  nix = {
+    enable = true;
+    package = pkgs.nixVersions.nix_2_18;
+    settings.experimental-features = [ "nix-command" "flakes" ];
+    # Pin the nixpkgs version that this flake uses to the registry so that
+    # `nix` commands use the same nixpkgs as our system does... do this
+    # for each configuration in here
+    registry.nixpkgs.flake = inputs.nixpkgs;
+  };
 
   # You can import other home-manager modules here
   imports = [
@@ -87,9 +92,6 @@ in
     zk
     zoxide
     zsh
-
-    # system utilities
-    glxinfo
 
     # language tools/compilers
     (python3.withPackages (pypkgs: [

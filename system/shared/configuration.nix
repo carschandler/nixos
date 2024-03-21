@@ -5,9 +5,6 @@
 { config, pkgs, lib, ... }:
 
 {
-  # Enable nix flakes and nix cli
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
   imports = [
   ];
 
