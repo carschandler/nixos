@@ -1,4 +1,9 @@
-{ inputs, outputs, lib, config, pkgs, nixgl, ... }: {
+{ inputs, outputs, lib, config, pkgs, nixgl, ... }:
+let
+  symlink = config.lib.file.mkOutOfStoreSymlink;
+  homedir = "${config.home.homeDirectory}";
+in
+{
   # You can import other home-manager modules here
   imports = [
     ../fonts
@@ -13,11 +18,12 @@
     # pkgs.nixgl.auto.nixGLNvidia
   ];
   
-  home.file.".local/bin/clip.exe".source = config.lib.file.mkOutOfStoreSymlink "/mnt/c/Windows/System32/clip.exe";
-  home.file.".local/bin/explorer.exe".source = config.lib.file.mkOutOfStoreSymlink "/mnt/c/Windows/explorer.exe";
-  home.file.".local/bin/powershell.exe".source = config.lib.file.mkOutOfStoreSymlink "/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe";
-  home.file.".local/bin/excel.exe".source = config.lib.file.mkOutOfStoreSymlink "/mnt/c/Program Files/Microsoft Office/root/Office16/EXCEL.EXE";
-  home.file.".local/bin/code".source = config.lib.file.mkOutOfStoreSymlink "/mnt/c/Users/rchandler/AppData/Local/Programs/Microsoft VS Code Insiders/bin/code-insiders";
+  home.file.".local/bin/clip.exe".source = symlink "/mnt/c/Windows/System32/clip.exe";
+  home.file.".local/bin/explorer.exe".source = symlink "/mnt/c/Windows/explorer.exe";
+  home.file.".local/bin/powershell.exe".source = symlink "/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe";
+  home.file.".local/bin/excel.exe".source = symlink "/mnt/c/Program Files/Microsoft Office/root/Office16/EXCEL.EXE";
+  home.file.".local/bin/code".source = symlink "/mnt/c/Users/rchandler/AppData/Local/Programs/Microsoft VS Code Insiders/bin/code-insiders";
+  home.file.".certs".source = symlink ./certs;
 
   home.sessionVariables = {
     BROWSER = "/mnt/c/Users/rchandler/AppData/Local/BraveSoftware/Brave-Browser/Application/brave.exe";
