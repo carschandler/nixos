@@ -1,5 +1,9 @@
 # Stuff we need on personal computers, but not at work
-{ pkgs, config, ... }: {
+{ pkgs, config, ... }:
+let
+  dotfiles = "${config.home.homeDirectory}/nixos/dotfiles";
+in
+{
   imports = [
     ../fonts
     ../hyprland
@@ -43,8 +47,12 @@
 
   xdg.configFile = {
     "foot".source = config.lib.file.mkOutOfStoreSymlink
-      "${config.home.homeDirectory}/nixos/dotfiles/foot/dot-config/foot";
+      "${dotfiles}/foot/dot-config/foot";
+
+    "mako".source = config.lib.file.mkOutOfStoreSymlink
+      "${dotfiles}/mako/dot-config/mako";
   };
+
 
   home.stateVersion = "22.11";
 }
