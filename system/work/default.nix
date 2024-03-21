@@ -19,12 +19,10 @@
     wslConf = {
       interop.appendWindowsPath = false;
       network = {
-        hostname = "work";
+        hostname = "TORCH-LT-7472";
       };
     };
   };
-
-  # networking.hostName = "work";
 
   users.users.chan = {
     isNormalUser = true;

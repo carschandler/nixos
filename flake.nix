@@ -43,7 +43,7 @@
         ];
       };
 
-      work = nixpkgs.lib.nixosSystem {
+      TORCH-LT-7472 = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = { inherit inputs; };
         modules = [
@@ -75,7 +75,7 @@
           ./home/personal
         ];
       };
-      "chan@work" = home-manager.lib.homeManagerConfiguration {
+      "chan@TORCH-LT-7472" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
         extraSpecialArgs = {
           inherit inputs;
