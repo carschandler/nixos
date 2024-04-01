@@ -4,13 +4,14 @@ return {
 	lazy = false,
 	opts = {
     useDefaultKeymaps = true,
-    disabledKeymaps = {"aC", "iC", "gw", "gc"},
+    disabledKeymaps = {"aC", "iC", "ic", "gw", "gc"},
   },
-  config = {
+  config = function()
     vim.keymap.set(
       { "o", "x" },
-      "mc",
-      '<Cmd>lua require("various-textobjs").multiCommentedLines()<CR>'
+      "ic",
+      '<Cmd>lua require("various-textobjs").multiCommentedLines()<CR>',
+      { desc = "commented lines" }
     )
-  }
+  end
 }

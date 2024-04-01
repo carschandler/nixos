@@ -8,7 +8,10 @@ return {
   },
   config = function()
     vim.keymap.set('n', '<Leader>lt', function()
+      require('trouble').toggle("workspace_diagnostics")
+    end, { desc = "Trouble (workspace)" })
+    vim.keymap.set('n', '<Leader>lT', function()
       require('trouble').toggle()
-    end)
+    end, { desc = "Trouble (buffer)" })
   end,
 }

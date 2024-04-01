@@ -155,7 +155,7 @@ return {
           rootMarkers = { ".git/" },
           languages = {
             python = {
-              { formatCommand = "black -q --preview -", formatStdin = true }
+              { formatCommand = "black -q --preview --enable-unstable-feature=string_processing -", formatStdin = true }
             }
           }
         }

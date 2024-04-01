@@ -23,32 +23,43 @@ in
   home.file.".local/bin/powershell.exe".source = symlink "/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe";
   home.file.".local/bin/excel.exe".source = symlink "/mnt/c/Program Files/Microsoft Office/root/Office16/EXCEL.EXE";
   home.file.".local/bin/code".source = symlink "/mnt/c/Users/rchandler/AppData/Local/Programs/Microsoft VS Code Insiders/bin/code-insiders";
-  home.file.".certs".source = symlink ./certs;
 
   home.sessionVariables = {
     BROWSER = "/mnt/c/Users/rchandler/AppData/Local/BraveSoftware/Brave-Browser/Application/brave.exe";
+    MESA_D3D12_DEFAULT_ADAPTER_NAME="NVIDIA";
   };
 
-  programs.ssh = {
-    enable = true;
-    matchBlocks = {
-      "canasta" = {
-        hostname = "canasta.torch2003.com";
-        user = "rchandler";
+  programs = {
+    ssh = {
+      enable = true;
+      matchBlocks = {
+        "canasta" = {
+          hostname = "canasta.torch2003.com";
+          user = "rchandler";
+        };
+        "fs2" = {
+          hostname = "fs2.torch2003.com";
+          user = "rchandler";
+        };
       };
-      "fs2" = {
-        hostname = "fs2.torch2003.com";
-        user = "rchandler";
+    };
+
+
+    bash = {
+      bashrcExtra = ''
+        MICROMAMBA_INIT="/home/chan/.activate_micromamba.sh"
+        if [[ -e $MICROMAMBA_INIT ]]; then
+          source $MICROMAMBA_INIT
+        fi
+      '';
+    };
+
+    git.extraConfig = {
+      http = {
+        sslCAInfo = "/home/chan/nixos/home/work/certs/DigiCertGlobalG2TLSRSASHA2562020CA1-1.pem";
       };
     };
   };
-
-
-  # programs.git.extraConfig = {
-  #   http = {
-  #     sslCAPath = "/home/chan/.certs";
-  #   };
-  # };
 
   home.stateVersion = "23.11";
 }

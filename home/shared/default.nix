@@ -251,7 +251,11 @@ in
       };
       bashrcExtra = ''
         eval "$(zoxide init bash)"
-        PATH="$PATH:${homedir}/.local/bin"
+
+        if ! [[ $PATH =~ ${homedir}/.local/bin ]]; then
+          PATH="$PATH:${homedir}/.local/bin"
+        fi
+
         shopt -s direxpand
         shopt -s cdable_vars
 
@@ -280,6 +284,13 @@ in
         function llt() {
           lsd --group-dirs=first --color=always --icon=always -l --tree "$@" | less -rF;
         }
+
+        NIX_PATHS="$HOME/.nix-profile/bin:/nix/var/nix/profiles/default/bin:"
+        NEWPATH=''${PATH/$NIX_PATHS}
+        while [[ $NEWPATH =~ $NIX_PATHS ]]; do
+          PATH=$NEWPATH
+          NEWPATH=''${NEWPATH/$NIX_PATHS}
+        done
       '';
     };
   };
@@ -306,6 +317,9 @@ in
 
       "tmux".source = config.lib.file.mkOutOfStoreSymlink
         "${dotfiles}/tmux/dot-config/tmux";
+
+      "starship.toml".source = config.lib.file.mkOutOfStoreSymlink
+        "${dotfiles}/starship/dot-config/starship.toml";
     };
 
     userDirs = {
