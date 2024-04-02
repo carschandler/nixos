@@ -97,7 +97,7 @@ km({'n', 'v'}, "zn", "1z=", {desc = "Quick spelling fix"})
 km('n', '<leader>so', ':so %<CR>', { desc = "Source current file" })
 
 -- Toggle spellcheck
-km('n', '<leader>ss', ':set invspell', { desc = "Toggle spellcheck" })
+km('n', '<leader>ss', ':set invspell<CR>', { desc = "Toggle spellcheck" })
 
 -- Maximize current window
 km('n', '<leader>z', '<C-w>_<C-w>|', { desc = "Maximize window" })
