@@ -93,7 +93,14 @@ return {
     end, { desc = "Set log point" })
 
     vim.keymap.set('n', '<Leader>rx', function() dap.clear_breakpoints() end, { desc = "Clear breakpoints" })
-    vim.keymap.set('n', '<Leader>rr', function() dap.repl.toggle() end, { desc = "Open REPL" })
+
+    vim.keymap.set('n', '<Leader>rr', function()
+      if not dap.repl.close({ mode = 'toggle' }) then
+        local _, win = dap.repl.open()
+        vim.api.nvim_set_current_win(win)
+      end
+    end, { desc = "Open REPL" })
+
     vim.keymap.set('n', '<Leader>rl', function() dap.list_breakpoints(true) end, { desc = "List breakpoints" })
 
     vim.keymap.set({ 'n', 'v' }, '<Leader>rh', function()
