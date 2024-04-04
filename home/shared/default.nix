@@ -93,15 +93,6 @@ in
     zoxide
     zsh
 
-    # language tools/compilers
-    (python3.withPackages (pypkgs: [
-      pypkgs.ipython
-      pypkgs.numpy
-      pypkgs.pandas
-      pypkgs.scipy
-      pypkgs.plotly
-    ]))
-
     # For qt themes to work
     libsForQt5.qtstyleplugins
     
@@ -248,6 +239,7 @@ in
         nrs = "sudo nixos-rebuild switch --flake $HOME/nixos";
         #FIXME: override lesspipe somehow?
         battery = "cat /sys/class/power_supply/BAT0/capacity";
+        py = "nix develop ~/nixos/devshells/python/";
       };
       bashrcExtra = ''
         eval "$(zoxide init bash)"

@@ -55,7 +55,7 @@ in
     };
 
     git.extraConfig = {
-      http = {
+      "http \"https://repo.torchtechnologies.com\"" = {
         sslCAInfo = "/home/chan/nixos/home/work/certs/DigiCertGlobalG2TLSRSASHA2562020CA1-1.pem";
       };
     };
