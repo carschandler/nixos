@@ -6,9 +6,9 @@
     flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs, flake-utils, ... }:
+  outputs = { nixpkgs, flake-utils, ... }:
     let
-      python_package = "python3";
+      python_package = "python312";
       pypkgs = ps: with ps; [
         ipython
         jupyter
@@ -17,6 +17,7 @@
         scipy
         seaborn
         plotly
+        xarray
         matplotlib.override { enableGtk3 = true; }
       ];
     in
@@ -35,11 +36,6 @@
           buildInputs = [
             # pkgs.qt5.qtwayland
           ];
-
-          shellHook = ''
-            alias jnb='jupyter notebook'
-            alias jnbnb='jupyter notebook --no-browser'
-          '';
 
           # QT_PLUGIN_PATH = with pkgs.qt5; "${qtbase}/${qtbase.qtPluginPrefix}";
         };
