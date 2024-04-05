@@ -1,8 +1,25 @@
-format = "$os $all"
+# format = """
+# $all\
+# $os\
+# $line_break\
+# $jobs\
+# $battery\
+# $time\
+# $status\
+# $container\
+# $shell\
+# $character"""
+
+format = "$all$os "#$character"
 
 [os]
 disabled = false
 # format = "[$name](bold blue)"
+
+[character]
+disabled = true
+success_symbol = "[>](bold green)"
+error_symbol = "[>](bold red)"
 
 ## Should just be icon definitions from here on
 [aws]
