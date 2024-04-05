@@ -1,3 +1,10 @@
+format = "$os $all"
+
+[os]
+disabled = false
+# format = "[$name](bold blue)"
+
+## Should just be icon definitions from here on
 [aws]
 symbol = "  "
 
@@ -111,7 +118,7 @@ Mariner = " "
 MidnightBSD = " "
 Mint = " "
 NetBSD = " "
-NixOS = " "
+NixOS = "[ ](#83b3dc)"
 OpenBSD = "󰈺 "
 openSUSE = " "
 OracleLinux = "󰌷 "
@@ -122,7 +129,7 @@ RedHatEnterprise = " "
 Redox = "󰀘 "
 Solus = "󰠳 "
 SUSE = " "
-Ubuntu = " "
+Ubuntu = "[ ](#e95420)"
 Unknown = " "
 Windows = "󰍲 "
 
