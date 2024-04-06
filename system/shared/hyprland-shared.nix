@@ -35,6 +35,9 @@
     # Wallpaper
     hyprpaper
 
+    # Cursor
+    hyprcursor
+
     # Clipboard
     wl-clipboard
     cliphist

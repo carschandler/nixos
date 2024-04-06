@@ -18,11 +18,12 @@ in
 
     # gui apps
     discord
+    evince
     gimp
     gnome.nautilus
     libreoffice-fresh
-    obsidian
     libsForQt5.dolphin
+    obsidian
     spotify
     vscode-fhs
 
@@ -43,6 +44,11 @@ in
       font_size = 12;
       background_opacity = "0.9";
     };
+  };
+
+  services.swayosd = {
+    enable = true;
+    topMargin = 0.95;
   };
 
   xdg.configFile = {
