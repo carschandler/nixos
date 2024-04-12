@@ -8,7 +8,7 @@
 
   outputs = { nixpkgs, flake-utils, ... }:
     let
-      python_package = "python312";
+      python_package = "python3";
       pypkgs = ps: with ps; [
         ipython
         jupyter

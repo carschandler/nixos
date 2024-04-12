@@ -69,8 +69,8 @@ km({ 'n', 'v' }, '<leader>d', '"_d', { desc = "Delete without copying" })
 km({ 'n', 'v' }, '<leader>D', '"_D', { desc = "Delete without copying" })
 
 -- QuickFix List
-km('n', '<Leader>qn', function() pcall(vim.cmd('cn')) end, { desc = "Next item in qfl" })
-km('n', '<Leader>qp', function() pcall(vim.cmd('cp')) end, { desc = "Prev item in qfl" })
+km('n', '<Leader>qn', function() pcall(vim.cmd, 'cn') end, { desc = "Next item in qfl" })
+km('n', '<Leader>qp', function() pcall(vim.cmd, 'cp') end, { desc = "Prev item in qfl" })
 
 local function toggle_quickfix()
   local windows = vim.fn.getwininfo()
