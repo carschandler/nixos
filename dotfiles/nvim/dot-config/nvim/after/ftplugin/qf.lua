@@ -1,0 +1,8 @@
+vim.keymap.set("n", "<C-N>", function()
+  pcall(vim.cmd.cnext)
+  vim.cmd.copen()
+end, {desc="Preview next qfl result", buffer=0})
+vim.keymap.set("n", "<C-P>", function()
+  pcall(vim.cmd.cprevious)
+  vim.cmd.copen()
+end, {desc="Preview previous qfl result", buffer=0})
