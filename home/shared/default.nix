@@ -94,7 +94,7 @@ in
     zsh
 
     # For qt themes to work
-    libsForQt5.qtstyleplugins
+    # libsForQt5.qtstyleplugins
     
     # gui apps
     emacs29-pgtk
@@ -182,17 +182,17 @@ in
       # gcc is. This is so treesitter doesn't freak out. Thanks to
       # https://www.reddit.com/r/neovim/comments/15lvm44/comment/jvflvyq
       # for the help!
-      # package = pkgs.neovim-unwrapped.overrideAttrs (attrs: {
-      #   disallowedReferences = [];
-      #   nativeBuildInputs = attrs.nativeBuildInputs ++ [pkgs.makeWrapper];
-      #   postFixup = ''
-      #     wrapProgram $out/bin/nvim --prefix PATH : ${lib.makeBinPath [pkgs.gcc]}
-      #   '';
-      # });
+      package = pkgs.neovim-unwrapped.overrideAttrs (attrs: {
+        disallowedReferences = [];
+        nativeBuildInputs = attrs.nativeBuildInputs ++ [pkgs.makeWrapper];
+        postFixup = ''
+          wrapProgram $out/bin/nvim --prefix PATH : ${lib.makeBinPath [pkgs.gcc]}
+        '';
+      });
 
-      # Trying out this version now that we don't have gcc installed by default
-      # so that we don't have to rebuild neovim every time
-      extraPackages = [ pkgs.gcc ];
+      # This doesn't work since extraPackages gets appended to PATH for the
+      # neovim hm module...
+      # extraPackages = [ pkgs.gcc ];
       defaultEditor = true;
       viAlias = true;
       vimAlias = true;
@@ -301,6 +301,7 @@ in
     PLUGDIR = "${dotfiles}/nvim/dot-config/nvim/lua/user/plugins";
     # Gruvbox color palette
     NNN_FCOLORS = "020b0c0a00060e0701d60d09";
+    NIXOS_OZONE_WL=1;
   };
 
   xdg = {
@@ -380,12 +381,12 @@ in
 
   # home.sessionVariables.GTK_THEME = "adw-gtk3-dark";
 
-  qt = {
-    enable = true;
-    platformTheme = "gtk";
-    style.name = "adwaita-dark";
-    style.package = pkgs.adwaita-qt;
-  };
+  # qt = {
+  #   enable = true;
+  #   platformTheme = "gtk";
+  #   style.name = "adwaita-dark";
+  #   style.package = pkgs.adwaita-qt;
+  # };
 
   # Nicely reload system units when changing configs
   systemd.user.startServices = "sd-switch";
