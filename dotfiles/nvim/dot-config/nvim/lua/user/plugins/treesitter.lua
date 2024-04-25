@@ -22,7 +22,7 @@ return {
       },
       indent = {
         enable = true,
-        -- disable = {"python"},
+        disable = {"yaml"},
       },
       incremental_selection = {
         enable = true,

@@ -33,6 +33,13 @@ in
     glxinfo
   ];
 
+  programs.thunderbird = {
+    enable = true;
+    profiles.chan = {
+      isDefault = true;
+    };
+  };
+
   programs.kitty = {
     enable = true;
     theme = "Gruvbox Dark";

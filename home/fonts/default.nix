@@ -6,14 +6,12 @@
     # Fonts
     (nerdfonts.override { fonts = [
      "SourceCodePro"
-     "Hack"
-     "Iosevka"
-     "Hasklig"
     ]; })
     
     source-code-pro
     cantarell-fonts
-    input-fonts
+    public-sans
+    # input-fonts
   ];
 
   fonts.fontconfig.enable = true;

@@ -21,3 +21,9 @@ set textwidth=80
 set formatoptions=cqjnr
 set number
 ]])
+
+vim.filetype.add({
+  extension = {
+    typ = "typst",
+  }
+})
