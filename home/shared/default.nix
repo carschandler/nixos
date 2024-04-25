@@ -112,8 +112,6 @@ in
     black
   ];
 
-  fonts.fontconfig.enable = true;
-
   programs = {
     home-manager = {
       enable = true;
@@ -344,7 +342,7 @@ in
     enable = true;
     font = {
       package = pkgs.cantarell-fonts;
-      name = "Cantarell";
+      name = "Public Sans";
       size = 12;
     };
     # theme = {
