@@ -37,6 +37,10 @@
     bosereset = "sudo usb-reset 05a7:1020";
   };
 
+  services.xserver.displayManager.gdm.enable = true;
+  security.pam.services.swaylock = {};
+  users.users.chan.packages = [pkgs.swaylock];
+
   # TODO: Trying to get desktop monitor brightness control...
   # programs.light.enable = true;
   # users.users.chan.extraGroups = [ "wheel" ];
