@@ -142,6 +142,15 @@
   environment.systemPackages = with pkgs; [
   ];
 
+  # Fonts
+  fonts.fontconfig = {
+    enable = true;
+    defaultFonts = {
+      sansSerif = [ "Public Sans" ];
+      monospace = [ "SauceCodePro Nerd Font" ];
+    };
+  };
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
