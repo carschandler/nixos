@@ -38,6 +38,9 @@
     # Cursor
     hyprcursor
 
+    # Screen locker
+    hyprlock
+
     # Clipboard
     wl-clipboard
     cliphist
