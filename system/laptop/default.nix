@@ -7,8 +7,8 @@
 {
   imports = [
     # Shared configuration between all systems
-    ../shared/configuration.nix
-    ../shared/hyprland-shared.nix
+    ../personal/configuration.nix
+    ../personal/hyprland-shared.nix
 
     # System-specific hardware configuration
     ./hardware-configuration.nix

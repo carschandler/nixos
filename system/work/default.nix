@@ -35,6 +35,21 @@
     ];
   };
 
+  hardware.opengl = {
+    enable = true;
+    driSupport = true;
+    setLdLibraryPath = true;
+
+    extraPackages = with pkgs; [
+      mesa.drivers
+      libvdpau-va-gl
+    ];
+  };
+
+  environment.systemPackages = [
+    pkgs.glxinfo
+  ];
+
   nixpkgs.config.allowUnfree = true;
 
   time.timeZone = "America/Chicago";

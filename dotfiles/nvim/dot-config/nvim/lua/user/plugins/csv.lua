@@ -32,6 +32,6 @@ return {
     -- Using the nvim python would probably require that the plugin's module be
     -- added explicitly to the nix python... on my Arch system at work, using
     -- system python works fine
-    vim.g.rbql_use_system_python = 1
+    -- vim.g.rbql_use_system_python = 1
   end,
 }
