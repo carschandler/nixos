@@ -174,6 +174,9 @@ in
         lg = "log --all --oneline --graph --color=always --decorate";
         lgg = "log --oneline --graph --color=always --decorate";
       };
+      extraConfig = {
+        pull.rebase = true;
+      };
     };
 
     neovim = {

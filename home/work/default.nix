@@ -16,6 +16,7 @@ in
   home.packages = with pkgs; [
     # TODO: find out if there is a way to make nixGL work with nvidia on WSL
     # pkgs.nixgl.auto.nixGLNvidia
+    pixi
   ];
   
   home.file.".local/bin/clip.exe".source = symlink "/mnt/c/Windows/System32/clip.exe";
@@ -58,6 +59,7 @@ in
       "http \"https://repo.torchtechnologies.com\"" = {
         sslCAInfo = "/home/chan/nixos/home/work/certs/DigiCertGlobalG2TLSRSASHA2562020CA1-1.pem";
       };
+      credential.helper = "/mnt/c/Users/rchandler/programs/git/mingw64/bin/git-credential-manager.exe";
     };
   };
 

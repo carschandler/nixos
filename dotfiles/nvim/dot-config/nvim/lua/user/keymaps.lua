@@ -110,8 +110,8 @@ km('n', '<leader>fp', '1<C-g>', { desc = "Print buffer filepath" })
 km('n', 'q:', '<NOP>')
 
 -- Set text wrapping
-km({ 'n', 'i' }, '<C-p>', function() vim.opt.formatoptions:append('t') end, { desc = "Wrap text" })
-km({ 'n', 'i' }, '<C-M-p>', function() vim.opt.formatoptions:remove('t') end, { desc = "Don't wrap" })
+km({ 'n', 'i' }, '<M-p>', function() vim.opt.formatoptions:append('t') end, { desc = "Autowrap text" })
+km({ 'n', 'i' }, '<C-M-p>', function() vim.opt.formatoptions:remove('t') end, { desc = "Don't autowrap" })
 
 if not vim.g.vscode then
   local tmux = require('tmux')
