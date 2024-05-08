@@ -13,6 +13,11 @@ in
     # `nix` commands use the same nixpkgs as our system does... do this
     # for each configuration in here
     registry.nixpkgs.flake = inputs.nixpkgs;
+    gc = {
+      automatic = true;
+      frequency = "weekly";
+      options = "--delete-older-than 30d";
+    };
   };
 
   # You can import other home-manager modules here
