@@ -1,4 +1,4 @@
-{ inputs, outputs, lib, config, pkgs, ... }: 
+{ inputs, config, pkgs, systemFont, ... }: 
 let
   homedir = "${config.home.homeDirectory}";
   dotfiles = "${homedir}/nixos/dotfiles";
@@ -83,6 +83,7 @@ in
     # emanote
     fd
     htop
+    libnotify
     lsd
     neofetch
     ripgrep
@@ -117,8 +118,6 @@ in
     black
   ];
 
-  fonts.fontconfig.enable = true;
-
   programs = {
     home-manager = {
       enable = true;
@@ -141,8 +140,8 @@ in
         };
       };
 
-      # TODO
-      # profiles.default = {
+      # profiles.chan = {
+      #   isDefault = true;
       #   userChrome = ''
       #     @-moz-document url("chrome://browser/content/browser.xul") {
       #       #TabsToolbar {
@@ -350,8 +349,7 @@ in
   gtk = {
     enable = true;
     font = {
-      package = pkgs.cantarell-fonts;
-      name = "Cantarell";
+      name = systemFont;
       size = 12;
     };
     # theme = {

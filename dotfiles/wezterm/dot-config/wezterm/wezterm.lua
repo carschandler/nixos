@@ -6,7 +6,9 @@ end
 
 config = {
   font = wezterm.font{
-    family = 'SauceCodePro Nerd Font',
+    -- TODO font
+    family = 'SauceCodePro NF',
+    -- family = 'CommitMono Nerd Font',
     -- family = 'Input Mono',
     -- family = 'HackNerdFont',
     -- family = 'HasklugNerdFont',

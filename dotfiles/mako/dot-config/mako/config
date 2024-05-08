@@ -3,5 +3,6 @@ background-color=#282828E6
 border-color=#BBBBBBCC
 # border-color=#00000000
 border-radius=10
-font=Cantarell
+# font=FreeSans
+font=Noto Sans # TODO font
 default-timeout=10000

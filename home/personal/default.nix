@@ -1,5 +1,5 @@
 # Stuff we need on personal computers, but not at work
-{ pkgs, config, ... }:
+{ pkgs, config, inputs, systemFont, codeFont, ... }:
 let
   dotfiles = "${config.home.homeDirectory}/nixos/dotfiles";
 in
@@ -44,10 +44,10 @@ in
     enable = true;
     theme = "Gruvbox Dark";
     settings = {
-      font_family = "SauceCodePro NF Medium";
-      bold_font = "SauceCodePro NF Bold";
-      italic_font = "SauceCodePro NF Medium Italic";
-      bold_italic_font = "SauceCodePro NF Bold Italic";
+      font_family = "${codeFont}";
+      bold_font = "${codeFont} Bold";
+      italic_font = "${codeFont} Italic";
+      bold_italic_font = "${codeFont} Bold Italic";
       font_size = 12;
       background_opacity = "0.9";
     };
@@ -59,11 +59,21 @@ in
   };
 
   xdg.configFile = {
-    "foot".source = config.lib.file.mkOutOfStoreSymlink
+    foot.source = config.lib.file.mkOutOfStoreSymlink
       "${dotfiles}/foot/dot-config/foot";
 
-    "mako".source = config.lib.file.mkOutOfStoreSymlink
-      "${dotfiles}/mako/dot-config/mako";
+    # "mako".source = config.lib.file.mkOutOfStoreSymlink
+    #   "${dotfiles}/mako/dot-config/mako";
+    "mako/config" = {
+      text = ''
+        background-color=#282828E6
+        border-color=#BBBBBBCC
+        border-radius=10
+        default-timeout=10000
+        font=${systemFont}
+      '';
+      onChange = "${pkgs.mako}/bin/makoctl reload";
+    };
   };
 
 

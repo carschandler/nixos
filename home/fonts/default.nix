@@ -6,11 +6,17 @@
     # Fonts
     (nerdfonts.override { fonts = [
      "SourceCodePro"
+     "CommitMono"
     ]; })
     
     source-code-pro
     cantarell-fonts
     public-sans
+    ibm-plex
+    inter
+    lato
+    roboto
+    noto-fonts-lgc-plus
     # input-fonts
   ];
 

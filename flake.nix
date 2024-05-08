@@ -25,11 +25,15 @@
     # };
   };
 
-  outputs = { self, nixpkgs, home-manager, nixos-wsl, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, nixos-wsl, ... }@inputs:
+  let
+    systemFont = "Noto Sans";
+    codeFont = "CommitMono";
+  in {
     nixosConfigurations = {
       desktop = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = { inherit inputs; };
+        specialArgs = { inherit inputs systemFont codeFont; };
         modules = [
           ./system/desktop
         ];
@@ -37,7 +41,7 @@
 
       laptop = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = { inherit inputs; };
+        specialArgs = { inherit inputs systemFont codeFont; };
         modules = [
           ./system/laptop
         ];
@@ -45,7 +49,7 @@
 
       TORCH-LT-7472 = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = { inherit inputs; };
+        specialArgs = { inherit inputs systemFont codeFont; };
         modules = [
           ./system/work
           nixos-wsl.nixosModules.wsl
@@ -57,7 +61,7 @@
       "chan@desktop" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
         extraSpecialArgs = {
-          inherit inputs;
+          inherit inputs systemFont codeFont;
         };
         modules = [
           ./home/shared
@@ -68,7 +72,7 @@
       "chan@laptop" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
         extraSpecialArgs = {
-          inherit inputs;
+          inherit inputs systemFont codeFont;
         };
         modules = [
           ./home/shared
@@ -78,7 +82,7 @@
       "chan@TORCH-LT-7472" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
         extraSpecialArgs = {
-          inherit inputs;
+          inherit inputs systemFont codeFont;
         };
         modules = [
           ./home/shared
