@@ -103,10 +103,11 @@ in
     libsForQt5.qtstyleplugins
     
     # gui apps
+    _1password-gui
     emacs29-pgtk
     feh
-    meld
     gnome.nautilus
+    meld
 
     # language servers
     efm-langserver

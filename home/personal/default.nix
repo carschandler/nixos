@@ -25,6 +25,7 @@ in
     libsForQt5.dolphin
     obsidian
     spotify
+    thunderbird
     vscode-fhs
 
     # hardware utils
@@ -33,12 +34,12 @@ in
     glxinfo
   ];
 
-  programs.thunderbird = {
-    enable = true;
-    profiles.chan = {
-      isDefault = true;
-    };
-  };
+  # programs.thunderbird = {
+  #   enable = true;
+  #   profiles.chan = {
+  #     isDefault = true;
+  #   };
+  # };
 
   programs.kitty = {
     enable = true;
