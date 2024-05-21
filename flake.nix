@@ -27,7 +27,7 @@
 
   outputs = { self, nixpkgs, home-manager, nixos-wsl, ... }@inputs:
   let
-    systemFont = "Noto Sans";
+    systemFont = "FreeSans";
     codeFont = "CommitMono";
   in {
     nixosConfigurations = {

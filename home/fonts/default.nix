@@ -16,7 +16,6 @@
     inter
     lato
     roboto
-    noto-fonts-lgc-plus
     # input-fonts
   ];
 

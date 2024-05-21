@@ -7,9 +7,6 @@ in
     "hypr/hyprland-source.conf".source = 
       config.lib.file.mkOutOfStoreSymlink
       "${dotfiles}/hyprland/dot-config/hypr/hyprland-source.conf";
-
-    "tofi".source = config.lib.file.mkOutOfStoreSymlink
-      "${dotfiles}/tofi/dot-config/tofi";
   };
 
   home.file.".local/bin/h".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos/home/hyprland/hyprland_wrapped.sh";
