@@ -190,17 +190,18 @@ in
       # gcc is. This is so treesitter doesn't freak out. Thanks to
       # https://www.reddit.com/r/neovim/comments/15lvm44/comment/jvflvyq
       # for the help!
-      # package = pkgs.neovim-unwrapped.overrideAttrs (attrs: {
-      #   disallowedReferences = [];
-      #   nativeBuildInputs = attrs.nativeBuildInputs ++ [pkgs.makeWrapper];
-      #   postFixup = ''
-      #     wrapProgram $out/bin/nvim --prefix PATH : ${lib.makeBinPath [pkgs.gcc]}
-      #   '';
-      # });
+
+      package = pkgs.neovim-unwrapped.overrideAttrs (attrs: {
+        disallowedReferences = [];
+        nativeBuildInputs = attrs.nativeBuildInputs ++ [pkgs.makeWrapper];
+        postFixup = ''
+          wrapProgram $out/bin/nvim --prefix PATH : ${lib.makeBinPath [pkgs.gcc]}
+        '';
+      });
 
       # Trying out this version now that we don't have gcc installed by default
       # so that we don't have to rebuild neovim every time
-      extraPackages = [ pkgs.gcc ];
+      # extraPackages = [ pkgs.gcc ];
       defaultEditor = true;
       viAlias = true;
       vimAlias = true;

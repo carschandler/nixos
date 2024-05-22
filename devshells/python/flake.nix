@@ -6,7 +6,7 @@
     flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { nixpkgs, flake-utils, ... }:
+  outputs = { nixpkgs, ... }:
     let
       python_package = "python3";
       pypkgs = ps: with ps; [
@@ -20,25 +20,16 @@
         xarray
         matplotlib.override { enableGtk3 = true; }
       ];
-    in
-    flake-utils.lib.eachDefaultSystem (system:
-      let
-        pkgs = nixpkgs.legacyPackages.${system};
-        py = pkgs.${python_package}.withPackages pypkgs;
-      in {
-        devShells.default = pkgs.mkShell {
-
+      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      py = pkgs.${python_package}.withPackages pypkgs;
+    in {
+        devShells.x86_64-linux.default = pkgs.mkShell {
           packages = [ 
             py
             pkgs.black
           ];
-
-          buildInputs = [
-            # pkgs.qt5.qtwayland
-          ];
-
-          # QT_PLUGIN_PATH = with pkgs.qt5; "${qtbase}/${qtbase.qtPluginPrefix}";
         };
-      }
-    );
+
+        formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
+    };
 }
