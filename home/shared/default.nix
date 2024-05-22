@@ -248,7 +248,9 @@ in
       enable = true;
       shellAliases = {
         hms = "home-manager switch --flake $HOME/nixos";
+        hmn = "home-manager news --flake $HOME/nixos";
         nrs = "sudo nixos-rebuild switch --flake $HOME/nixos";
+        nfu = "nix flake update --commit-lock-file $HOME/nixos";
         #FIXME: override lesspipe somehow?
         battery = "cat /sys/class/power_supply/BAT0/capacity";
         py = "nix develop ~/nixos/devshells/python/";
