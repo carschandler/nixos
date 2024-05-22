@@ -35,6 +35,25 @@
     ];
   };
 
+    
+  # For mount.cifs, required unless domain name resolution is not needed.
+  fileSystems."/mnt/share" = {
+    device = "//10.200.11.72/OpticsLab";
+    fsType = "cifs";
+    options = [
+      "rw"
+      "noatime"
+      "uid=1000"
+      "gid=1000"
+      "dir_mode=0777"
+      "file_mode=0777"
+      "credentials=/mnt/c/Users/rchandler/.smbcredentials"
+    ];
+  };
+
+
+
+
   hardware.opengl = {
     enable = true;
     driSupport = true;
@@ -48,6 +67,7 @@
 
   environment.systemPackages = [
     pkgs.glxinfo
+    pkgs.cifs-utils
   ];
 
   nixpkgs.config.allowUnfree = true;

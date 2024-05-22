@@ -9,7 +9,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixos-wsl.url = "github:nix-community/NixOS-WSL";
+    nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
 
     hyprland = {
       url = "github:/hyprwm/hyprland";
@@ -52,7 +52,7 @@
         specialArgs = { inherit inputs systemFont codeFont; };
         modules = [
           ./system/work
-          nixos-wsl.nixosModules.wsl
+          nixos-wsl.nixosModules.default
         ];
       };
     };

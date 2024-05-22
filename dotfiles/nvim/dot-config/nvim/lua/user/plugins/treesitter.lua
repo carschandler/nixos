@@ -121,10 +121,10 @@ return {
           -- Use if you want more granular movements
           -- Make it even more gradual by adding multiple queries and regex.
           goto_next = {
-            ["]d"] = "@conditional.outer",
+            ["]c"] = "@conditional.outer",
           },
           goto_previous = {
-            ["[d"] = "@conditional.outer",
+            ["[c"] = "@conditional.outer",
           }
         },
       },
@@ -133,9 +133,5 @@ return {
       auto_install = false,
       modules = {},
     })
-
-    vim.o.foldmethod = "expr"
-    vim.o.foldexpr = "v:lua.nvimnvim_treesitter#foldexpr()"
-    vim.o.foldlevelstart = 99
   end
 }

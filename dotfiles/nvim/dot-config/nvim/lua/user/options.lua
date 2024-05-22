@@ -27,3 +27,7 @@ vim.filetype.add({
     typ = "typst",
   }
 })
+
+vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+vim.o.foldmethod = "expr"
+vim.o.foldlevelstart = 99

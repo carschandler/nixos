@@ -88,7 +88,7 @@ return {
       end
     end, { desc = "Set conditional breakpoint" })
 
-    vim.keymap.set('n', '<Leader>rp', function()
+    vim.keymap.set('n', '<Leader>rm', function()
       dap.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))
     end, { desc = "Set log point" })
 
@@ -107,7 +107,17 @@ return {
       widgets.hover()
     end, { desc = "Hover" })
 
+    vim.keymap.set({ 'n', 'v' }, '<Leader>rh', function()
+      widgets.hover()
+    end, { desc = "Hover" })
+    vim.keymap.set({ 'n', 'v' }, '<Leader>k', function()
+      widgets.hover()
+    end, { desc = "Hover" })
+
     vim.keymap.set({ 'n', 'v' }, '<Leader>rp', function()
+      widgets.preview()
+    end, { desc = "Hover in preview window" })
+    vim.keymap.set({ 'n', 'v' }, '<Leader>K', function()
       widgets.preview()
     end, { desc = "Hover in preview window" })
 
