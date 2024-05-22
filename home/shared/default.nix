@@ -1,4 +1,4 @@
-{ inputs, config, pkgs, systemFont, codeFont, ... }: 
+{ inputs, config, pkgs, lib, systemFont, codeFont, ... }: 
 let
   homedir = "${config.home.homeDirectory}";
   dotfiles = "${homedir}/nixos/dotfiles";
