@@ -7,8 +7,7 @@
 {
   imports = [
     # Shared configuration between all systems
-    ../personal/configuration.nix
-    ../personal/hyprland-shared.nix
+    ../personal
 
     # System-specific hardware configuration
     ./hardware-configuration.nix
@@ -34,7 +33,7 @@
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Enable touchpad support (enabled default in most desktopManager).
-  services.xserver.libinput.enable = true;
+  services.libinput.enable = true;
 
   environment.systemPackages = with pkgs; [
   ];

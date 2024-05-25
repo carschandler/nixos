@@ -23,4 +23,8 @@ in
     inputs.hyprland-contrib.packages.${pkgs.system}.grimblast
     pkgs.hyprpicker
   ];
+
+  programs.hyprlock = {
+    enable = true;
+  };
 }

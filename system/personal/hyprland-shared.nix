@@ -12,6 +12,8 @@
     xwayland.enable = true;
   };
 
+  security.pam.services.hyprlock = {};
+
   environment.systemPackages = with pkgs; [
     ## Required by hyprland
     # Notification Daemon
