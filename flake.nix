@@ -12,7 +12,7 @@
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
 
     hyprland = {
-      url = "github:/hyprwm/hyprland";
+      url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
       # Don't override hyprland's nixpkgs or the Cachix won't work
     };
 
