@@ -59,7 +59,7 @@ in
       "http \"https://repo.torchtechnologies.com\"" = {
         sslCAInfo = "/home/chan/nixos/home/work/certs/DigiCertGlobalG2TLSRSASHA2562020CA1-1.pem";
       };
-      credential.helper = "/mnt/c/Users/rchandler/programs/git/mingw64/bin/git-credential-manager.exe";
+      credential.helper = "/mnt/c/Users/rchandler/AppData/Local/Programs/Git/mingw64/bin/git-credential-manager.exe";
     };
   };
 
