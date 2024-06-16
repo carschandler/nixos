@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, systemFont, codeFont, ... }:
+{ config, pkgs, ... }:
 
 {
   imports = [
@@ -58,6 +58,10 @@
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
+
+  # Auto-mount USB (hopefully?)
+  services.devmon.enable = true;
+  services.udisks2.enable = true;
 
   programs.light.enable = true;
 
@@ -150,15 +154,6 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
   ];
-
-  fonts.fontconfig = {
-    enable = true;
-    defaultFonts = {
-      serif = ["Liberation Serif"];
-      sansSerif = [systemFont];
-      monospace = [codeFont];
-    };
-  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

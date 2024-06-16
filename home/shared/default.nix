@@ -1,4 +1,4 @@
-{ inputs, config, pkgs, lib, systemFont, codeFont, ... }: 
+{ inputs, config, pkgs, lib, ... }: 
 let
   homedir = "${config.home.homeDirectory}";
   dotfiles = "${homedir}/nixos/dotfiles";
@@ -353,7 +353,7 @@ in
   gtk = {
     enable = true;
     font = {
-      name = systemFont;
+      name = (import ../fonts/systemFonts).sans.name;
       size = 12;
     };
     # theme = {

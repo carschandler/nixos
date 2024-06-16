@@ -19,6 +19,8 @@ set relativenumber
 set ttimeoutlen=5
 set textwidth=80
 set formatoptions=cqjnr
+" Add bulleted lists
+set formatlistpat=^\\s*[\\d-]\\+[\\]:.)}\\t\ ]\\s*
 set number
 ]])
 

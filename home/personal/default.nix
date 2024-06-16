@@ -1,5 +1,5 @@
 # Stuff we need on personal computers, but not at work
-{ pkgs, config, inputs, systemFont, codeFont, ... }:
+{ pkgs, config, inputs, ... }:
 let
   dotfiles = "${config.home.homeDirectory}/nixos/dotfiles";
 in
@@ -42,23 +42,27 @@ in
   # };
 
   programs = {
-    kitty = {
+    kitty = let
+      monospaceFont = (import ../fonts/systemFonts).monospace.name;
+    in {
       enable = true;
       theme = "Gruvbox Dark";
       settings = {
-        font_family = "${codeFont}";
-        bold_font = "${codeFont} Bold";
-        italic_font = "${codeFont} Italic";
-        bold_italic_font = "${codeFont} Bold Italic";
+        font_family = "${monospaceFont}";
+        bold_font = "${monospaceFont} Bold";
+        italic_font = "${monospaceFont} Italic";
+        bold_italic_font = "${monospaceFont} Bold Italic";
         font_size = 12;
         background_opacity = "0.9";
       };
     };
 
-    tofi = {
+    tofi = let
+      fontFile = (import ../fonts/systemFonts).sans.getFile pkgs;
+    in {
       enable = true;
       settings = {
-        font = "${pkgs.freefont_ttf}/share/fonts/truetype/FreeSansBold.ttf";
+        font = fontFile;
         width = "100%";
         height = "100%";
         border-width = 0;
@@ -87,7 +91,7 @@ in
       borderColor="#BBBBBBCC";
       borderRadius=10;
       defaultTimeout=10000;
-      font=systemFont;
+      font=(import ../fonts/systemFonts).sans.name;
     };
   };
 
