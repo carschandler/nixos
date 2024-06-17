@@ -114,6 +114,8 @@ in
     lua-language-server
     nil
     nodePackages.pyright
+    bash-language-server
+    yaml-language-server
 
     # formatters/linters
     black

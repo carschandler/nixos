@@ -180,6 +180,7 @@ return {
         request = 'launch',
         program = '${file}',
         pythonPath = 'python',
+        console = 'integratedTerminal',
       },
       {
         name = 'Custom',

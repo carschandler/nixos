@@ -163,6 +163,9 @@ return {
 
       lspconfig.yamlls.setup {}
 
+      lspconfig.bashls.setup {}
+
+
       -- lspconfig.rust_analyzer.setup {
       --   capabilities = capabilities
       -- }
