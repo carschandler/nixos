@@ -14,6 +14,7 @@ in
 rec {
   sans = FreeSans;
   monospace = CommitMono;
+  serif = FreeSerif;
 
   FreeSans = mkSystemFont rec {
     name = "FreeSans";

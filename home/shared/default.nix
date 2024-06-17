@@ -113,7 +113,7 @@ in
     efm-langserver
     lua-language-server
     nil
-    nodePackages.pyright
+    pyright
     bash-language-server
     yaml-language-server
 
