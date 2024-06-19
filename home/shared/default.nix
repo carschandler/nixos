@@ -347,7 +347,7 @@ in
     mimeApps = {
       enable = true;
       defaultApplications = {
-        "application/pdf" = [ "firefox.desktop" ];
+        "application/pdf" = [ "org.gnome.Evince.desktop" ];
       };
     };
   };

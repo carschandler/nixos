@@ -4,9 +4,12 @@ let
 in
 {
   xdg.configFile = {
-    "hypr/hyprland-source.conf".source = 
+    "hypr/source.conf".source = 
       config.lib.file.mkOutOfStoreSymlink
       "${dotfiles}/hyprland/dot-config/hypr/hyprland-source.conf";
+    "hypr/noanims.sh".source =
+      config.lib.file.mkOutOfStoreSymlink
+      "${dotfiles}/hyprland/dot-config/hypr/noanims.sh";
   };
 
   home.file.".local/bin/h".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos/home/hyprland/hyprland_wrapped.sh";
@@ -16,7 +19,7 @@ in
     package = inputs.hyprland.packages.x86_64-linux.hyprland;
     systemd.enable = true;
     xwayland.enable = true;
-    extraConfig = "source=./hyprland-source.conf";
+    extraConfig = "source=./source.conf";
   };
   
   home.packages = [
