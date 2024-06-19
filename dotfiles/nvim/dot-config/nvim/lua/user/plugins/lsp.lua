@@ -165,6 +165,7 @@ return {
 
       lspconfig.bashls.setup {}
 
+      lspconfig.r_language_server.setup {}
 
       -- lspconfig.rust_analyzer.setup {
       --   capabilities = capabilities
