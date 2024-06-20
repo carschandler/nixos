@@ -12,8 +12,6 @@ in
       "${dotfiles}/hyprland/dot-config/hypr/noanims.sh";
   };
 
-  home.file.".local/bin/h".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos/home/hyprland/hyprland_wrapped.sh";
-
   wayland.windowManager.hyprland = {
     enable = true;
     package = inputs.hyprland.packages.x86_64-linux.hyprland;

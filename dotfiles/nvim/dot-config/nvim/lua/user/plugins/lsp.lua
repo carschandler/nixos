@@ -86,7 +86,7 @@ return {
           vim.keymap.set('n', '<Leader>lwl', function()
             print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
           end, opts_desc('List workspace dirs'))
-          vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, opts_desc('Go to definiton of this type'))
+          vim.keymap.set('n', '<Leader>gt', vim.lsp.buf.type_definition, opts_desc('Go to definiton of this type'))
           vim.keymap.set('n', '<Leader>lr', vim.lsp.buf.rename, opts_desc('Rename symbol'))
           vim.keymap.set('n', '<F2>', vim.lsp.buf.rename, opts_desc('Rename symbol'))
           vim.keymap.set({ 'n', 'v' }, '<Leader>la', vim.lsp.buf.code_action, opts_desc('Code actions'))
