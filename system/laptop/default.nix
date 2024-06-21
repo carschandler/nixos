@@ -15,36 +15,16 @@
 
   networking.hostName = "laptop"; # Define your hostname.
 
-  environment.systemPackages = [
-    pkgs.powertop
-  ];
-
+  # TODO
   # Fingerprint reader
-  services.fprintd = {
-    enable = true;
-    package = pkgs.fprintd-tod;
-    tod = {
-      enable = true;
-      driver = pkgs.libfprint-2-tod1-goodix;
-    };
-  };
-
-  services.xserver = {
-    enable = true;
-    displayManager.gdm.enable = true;
-    windowManager.i3 = {
-      enable = true;
-      extraPackages = [
-        pkgs.dmenu #application launcher most people use
-        pkgs.i3status # gives you the default i3 status bar
-        pkgs.i3lock #default i3 screen locker
-        pkgs.i3blocks #if you are planning on using i3blocks over i3status
-     ];
-    };
-    windowManager.awesome = {
-      enable = true;
-    };
-  };
+  # services.fprintd = {
+  #   enable = true;
+  #   package = pkgs.fprintd-tod;
+  #   tod = {
+  #     enable = true;
+  #     driver = pkgs.libfprint-2-tod1-goodix;
+  #   };
+  # };
 
   hardware.nvidia = {
     prime = {

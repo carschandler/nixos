@@ -22,19 +22,22 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
-  # services.xserver.enable = true;
-  # services.xserver.displayManager = {
-  #   sddm = {
-  #     enable = true;
-  #     # theme = "${(pkgs.fetchFromGitHub {
-  #     #   owner = "mathieujobin";
-  #     #   repo = "sddm-breeze-theme";
-  #     #   rev = "a771815d41fdcd275a2538dd24a1c1bc3881594d";
-  #     #   sha256 = "sha256-ym3M/CItchs4g79ntvc7+keeBGZTStbx0giEPCXPZ90=";
-  #     # })}";
-  #     theme = "breath";
-  #   };
-  # };
+  services.xserver = {
+    enable = true;
+    displayManager.gdm.enable = true;
+    windowManager.i3 = {
+      enable = true;
+      extraPackages = [
+        pkgs.dmenu #application launcher most people use
+        pkgs.i3status # gives you the default i3 status bar
+        pkgs.i3lock #default i3 screen locker
+        pkgs.i3blocks #if you are planning on using i3blocks over i3status
+     ];
+    };
+    windowManager.awesome = {
+      enable = true;
+    };
+  };
 
   hardware.opengl = {
     enable = true;
@@ -153,8 +156,6 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
-  ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
