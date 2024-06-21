@@ -11,6 +11,8 @@ return {
       require('neodev').setup({})
 
       local lspconfig = require('lspconfig')
+      require("lspconfig.ui.windows").default_options.border = "rounded"
+
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
       local wk = require('which-key')
@@ -28,10 +30,10 @@ return {
 
       -- Set keymaps
       vim.keymap.set('n', '<Leader>ld', function()
-        if vim.diagnostic.is_disabled() then
-          vim.diagnostic.enable(0)
+        if not vim.diagnostic.is_enabled() then
+          vim.diagnostic.enable(true)
         else
-          vim.diagnostic.disable(0)
+          vim.diagnostic.enable(false)
         end
       end, { desc = "Toggle buffer diagnostics" })
       vim.keymap.set('n', '<Leader>li', require('lspconfig.ui.lspinfo'), { desc = "LSP info" })
@@ -91,15 +93,6 @@ return {
           vim.keymap.set('n', '<F2>', vim.lsp.buf.rename, opts_desc('Rename symbol'))
           vim.keymap.set({ 'n', 'v' }, '<Leader>la', vim.lsp.buf.code_action, opts_desc('Code actions'))
           vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts_desc('Go to references'))
-          vim.keymap.set('n', '<Leader>lf', function()
-            vim.lsp.buf.format { async = true }
-          end, opts_desc('Format buffer'))
-          vim.keymap.set('n', '<M-f>', function()
-            vim.lsp.buf.format { async = true }
-          end, opts_desc('Format buffer'))
-          vim.keymap.set('n', '<M-F>', function()
-            vim.lsp.buf.format { async = true }
-          end, opts_desc('LSP format'))
         end,
       })
 
@@ -144,22 +137,6 @@ return {
 
       -- -- Set up format-on-save behavior via lsp-format.nvim
       -- vim.g.rustaceanvim = { server = { on_attach = require('lsp-format').on_attach } }
-
-
-      -- efm-langserver is a general purpose LSP that is useful for linters &
-      -- formatters
-      lspconfig.efm.setup {
-        filetypes = { 'python' },
-        init_options = { documentFormatting = true },
-        settings = {
-          rootMarkers = { ".git/" },
-          languages = {
-            python = {
-              { formatCommand = "black -q --preview --enable-unstable-feature=string_processing -", formatStdin = true }
-            }
-          }
-        }
-      }
 
       lspconfig.yamlls.setup {}
 

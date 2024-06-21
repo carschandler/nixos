@@ -27,6 +27,7 @@ in
 
   home.sessionVariables = {
     BROWSER = "/mnt/c/Users/rchandler/AppData/Local/BraveSoftware/Brave-Browser/Application/brave.exe";
+    # BROWSER = "/mnt/c/Users/rchandler/AppData/Local/Microsoft/WindowsApps/Arc.exe";
     MESA_D3D12_DEFAULT_ADAPTER_NAME="NVIDIA";
   };
 

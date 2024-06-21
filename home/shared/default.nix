@@ -119,6 +119,7 @@ in
 
     # formatters/linters
     black
+    stylua
   ];
 
   programs = {
@@ -210,9 +211,9 @@ in
       vimdiffAlias = true;
     };
 
-    nnn = {
+    yazi = {
       enable = true;
-      package = pkgs.nnn.override {withNerdIcons = true;};
+      enableBashIntegration = true;
     };
 
     readline = {

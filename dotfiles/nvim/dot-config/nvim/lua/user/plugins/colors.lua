@@ -9,10 +9,11 @@ return {
     vim.cmd("colorscheme gruvbox")
     vim.api.nvim_set_hl(0, 'CmpItemKindText', { link = 'String' })
     vim.api.nvim_set_hl(0, 'CmpItemKindConstant', { link = 'Constant' })
+    vim.api.nvim_set_hl(0, 'LspInfoBorder', { link = 'FloatBorder' })
     vim.api.nvim_set_hl(0, 'debugPC', { link = 'CursorLine' })
   end,
   opts = {
-    terminal_colors=false,
+    terminal_colors = false,
     undercurl = true,
     underline = true,
     bold = true,
@@ -27,8 +28,8 @@ return {
     invert_signs = false,
     invert_tabline = false,
     invert_intend_guides = false,
-    inverse = true,   -- invert background for search, diffs, statuslines and errors
-    contrast = "",    -- can be "hard", "soft" or empty string
+    inverse = true, -- invert background for search, diffs, statuslines and errors
+    contrast = "",  -- can be "hard", "soft" or empty string
     palette_overrides = {
     },
     overrides = {
