@@ -15,6 +15,16 @@
 
   networking.hostName = "laptop"; # Define your hostname.
 
+  # TODO
+  # Fingerprint reader
+  # services.fprintd = {
+  #   enable = true;
+  #   package = pkgs.fprintd-tod;
+  #   tod = {
+  #     enable = true;
+  #     driver = pkgs.libfprint-2-tod1-goodix;
+  #   };
+  # };
 
   hardware.nvidia = {
     prime = {
@@ -34,9 +44,6 @@
 
   # Enable touchpad support (enabled default in most desktopManager).
   services.libinput.enable = true;
-
-  environment.systemPackages = with pkgs; [
-  ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
