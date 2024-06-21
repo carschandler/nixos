@@ -1,32 +1,21 @@
 return {
-  'stevearc/conform.nvim',
+  "stevearc/conform.nvim",
   config = function()
-    require("conform").setup({
+    local conform = require("conform")
+    conform.setup({
       formatters_by_ft = {
-        python = { "black" },
+        python = function()
+          if vim.api.nvim_get_commands({})["PyrightOrganizeImports"] ~= nil then
+            vim.cmd("PyrightOrganizeImports")
+          end
+          return { "black" }
+        end,
         rust = { "rustfmt" },
+        lua = { "stylua" },
       },
 
       formatters = {
-        black = {
-          meta = {
-            url = "https://github.com/psf/black",
-            description = "The uncompromising Python code formatter.",
-          },
-          command = "black",
-          args = {
-            "--stdin-filename",
-            "$FILENAME",
-            "--quiet",
-            "--preview",
-            "--enable-unstable-feature=string_processing",
-            "-",
-          },
-          cwd = require("conform.util").root_file({
-            -- https://black.readthedocs.io/en/stable/usage_and_configuration/the_basics.html#configuration-via-a-file
-            "pyproject.toml",
-          }),
-        }
+        pyright_organize_imports = {},
       },
 
       format_on_save = {
@@ -36,16 +25,23 @@ return {
       },
     })
 
-    vim.keymap.set('n', '<Leader>lf', function()
-      vim.lsp.buf.format { async = true }
+    conform.formatters.black = {
+      prepend_args = {
+        "--preview",
+        "--enable-unstable-feature=string_processing",
+      },
+    }
+
+    vim.keymap.set("n", "<Leader>lf", function()
+      conform.format()
       if vim.o.filetype == "python" then
         vim.cmd("PyrightOrganizeImports")
         print(" ")
       end
-    end, { desc = 'Format buffer' })
+    end, { desc = "Format buffer" })
 
-    vim.keymap.set('n', '<M-F>', function()
-      vim.lsp.buf.format { async = true }
-    end, { desc = 'Format buffer' })
-  end
+    vim.keymap.set("n", "<M-F>", function()
+      conform.format()
+    end, { desc = "Format buffer" })
+  end,
 }
