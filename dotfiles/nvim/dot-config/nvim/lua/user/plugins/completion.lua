@@ -1,21 +1,22 @@
 ---@diagnostic disable: missing-fields
 return {
-  'hrsh7th/nvim-cmp',
+  "hrsh7th/nvim-cmp",
   cond = not vim.g.vscode,
   dependencies = {
     -- cmp sources
-    'hrsh7th/cmp-nvim-lsp', -- Required
-    'hrsh7th/cmp-buffer',   -- Optional
-    'hrsh7th/cmp-path',     -- Optional
-    'hrsh7th/cmp-cmdline',  -- Added
-    'hrsh7th/cmp-nvim-lua', -- Optional
-    'hrsh7th/cmp-nvim-lsp-signature-help',
-    'petertriho/cmp-git',
-    'rcarriga/cmp-dap',
+    "hrsh7th/cmp-nvim-lsp", -- Required
+    "hrsh7th/cmp-buffer",   -- Optional
+    "hrsh7th/cmp-path",     -- Optional
+    "hrsh7th/cmp-cmdline",  -- Added
+    "hrsh7th/cmp-nvim-lua", -- Optional
+    "hrsh7th/cmp-nvim-lsp-signature-help",
+    "petertriho/cmp-git",
+    "rcarriga/cmp-dap",
+    "R-nvim/cmp-r",
     -- Snippets
-    'L3MON4D3/LuaSnip',             -- Required
-    'saadparwaiz1/cmp_luasnip',     -- Optional
-    'rafamadriz/friendly-snippets', -- Optional
+    "L3MON4D3/LuaSnip",             -- Required
+    "saadparwaiz1/cmp_luasnip",     -- Optional
+    "rafamadriz/friendly-snippets", -- Optional
   },
   config = function()
     local cmp = require('cmp')
@@ -143,7 +144,7 @@ return {
           else
             fallback()
           end
-        end, {'i', 's'}),
+        end, { 'i', 's' }),
 
         ['<C-S-S>'] = cmp.mapping(function(fallback)
           if luasnip.jumpable(-1) then
@@ -151,7 +152,7 @@ return {
           else
             fallback()
           end
-        end, {'i', 's'}),
+        end, { 'i', 's' }),
 
         ['<C-M-S>'] = cmp.mapping(function()
           if luasnip.choice_active() then
@@ -174,11 +175,11 @@ return {
 
         -- Ensure that cmp border is same color as default floating border
         completion = {
-          border = {'╭', '─', '╮', '│', '╯', '─', '╰', '│'},
+          border = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' },
           winhighlight = 'FloatBorder:FloatBorder',
         },
         documentation = {
-          border = {'╭', '─', '╮', '│', '╯', '─', '╰', '│'},
+          border = { '╭', '─', '╮', '│', '╯', '─', '╰', '│' },
           winhighlight = 'FloatBorder:FloatBorder',
         },
       },
@@ -186,6 +187,7 @@ return {
         { name = 'nvim_lsp_signature_help' },
         { name = 'nvim_lsp' },
         { name = 'luasnip' },
+        { name = 'cmp_r' },
       }, {
         {
           name = 'buffer',
@@ -196,7 +198,7 @@ return {
           option = {
             -- Default is to use the dirname() of the current buffer; we want
             -- the value returned by pwd
-            get_cwd = function (_)
+            get_cwd = function(_)
               return vim.fn.getcwd()
             end
           },
