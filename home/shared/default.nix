@@ -76,10 +76,8 @@ in
   };
 
   home.packages = with pkgs; [
-
     # cli programs
     bat
-    # inputs.emanote.packages.x86_64-linux.emanote
     # emanote
     fd
     htop
@@ -100,7 +98,7 @@ in
     zsh
 
     # For qt themes to work
-    libsForQt5.qtstyleplugins
+    libsForQt5.qtstyleplugins # TODO needed?
     
     # gui apps
     _1password-gui

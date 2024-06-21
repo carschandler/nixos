@@ -1,11 +1,11 @@
 local wezterm = require "wezterm"
 local config = {}
 if wezterm.config_builder then
-   config = wezterm.config_builder()
+  config = wezterm.config_builder()
 end
 
 config = {
-  font = wezterm.font{
+  font = wezterm.font {
     -- TODO font
     family = 'SauceCodePro NF',
     -- family = 'CommitMono Nerd Font',
@@ -19,8 +19,8 @@ config = {
   color_scheme = "GruvboxDark",
   enable_tab_bar = false,
   window_padding = {
-     top = 2,
-     bottom = 2,
+    top = 2,
+    bottom = 2,
   },
   window_background_opacity = 0.90,
 }
