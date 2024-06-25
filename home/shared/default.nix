@@ -106,6 +106,7 @@ in
     feh
     gnome.nautilus
     meld
+    zathura
 
     # language servers
     efm-langserver
