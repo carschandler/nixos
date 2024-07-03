@@ -22,14 +22,15 @@ set formatoptions=cqjnr
 " Add bulleted lists
 set formatlistpat=^\\s*[\\d-]\\+[\\]:.)}\\t\ ]\\s*
 set number
+set linebreak
 ]])
 
 vim.filetype.add({
   extension = {
     typ = "typst",
-  }
+  },
 })
 
-vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.o.foldmethod = "expr"
 vim.o.foldlevelstart = 99
