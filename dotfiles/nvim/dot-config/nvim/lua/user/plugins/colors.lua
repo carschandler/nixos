@@ -15,6 +15,7 @@ return {
     vim.api.nvim_set_hl(0, "CmpItemKindConstant", { link = "Constant" })
     vim.api.nvim_set_hl(0, "LspInfoBorder", { link = "FloatBorder" })
     vim.api.nvim_set_hl(0, "debugPC", { link = "CursorLine" })
+    vim.api.nvim_set_hl(0, "OilDir", { link = "GruvboxBlueBold" })
   end,
   opts = {
     terminal_colors = false,
