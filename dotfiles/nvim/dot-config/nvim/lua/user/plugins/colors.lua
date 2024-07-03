@@ -1,16 +1,20 @@
+-- As of 7/2024, treesitter is doing a better job than semantic highlights, so
+-- drop its priority down to 75 below treesitter's 100
+vim.highlight.priorities.semantic_tokens = 75
+
 return {
   "ellisonleao/gruvbox.nvim",
   cond = not vim.g.vscode,
   lazy = false,
   priority = 1000,
   config = function(_, opts)
-    require('gruvbox').setup(opts)
+    require("gruvbox").setup(opts)
     vim.o.background = "dark"
     vim.cmd("colorscheme gruvbox")
-    vim.api.nvim_set_hl(0, 'CmpItemKindText', { link = 'String' })
-    vim.api.nvim_set_hl(0, 'CmpItemKindConstant', { link = 'Constant' })
-    vim.api.nvim_set_hl(0, 'LspInfoBorder', { link = 'FloatBorder' })
-    vim.api.nvim_set_hl(0, 'debugPC', { link = 'CursorLine' })
+    vim.api.nvim_set_hl(0, "CmpItemKindText", { link = "String" })
+    vim.api.nvim_set_hl(0, "CmpItemKindConstant", { link = "Constant" })
+    vim.api.nvim_set_hl(0, "LspInfoBorder", { link = "FloatBorder" })
+    vim.api.nvim_set_hl(0, "debugPC", { link = "CursorLine" })
   end,
   opts = {
     terminal_colors = false,
@@ -29,9 +33,8 @@ return {
     invert_tabline = false,
     invert_intend_guides = false,
     inverse = true, -- invert background for search, diffs, statuslines and errors
-    contrast = "",  -- can be "hard", "soft" or empty string
-    palette_overrides = {
-    },
+    contrast = "", -- can be "hard", "soft" or empty string
+    palette_overrides = {},
     overrides = {
       -- String = {
       --   italic = false
