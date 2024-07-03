@@ -1,15 +1,9 @@
 return {
   {
-    "folke/neodev.nvim",
-  },
-  {
     "neovim/nvim-lspconfig",
     cond = not vim.g.vscode,
 
     config = function()
-      -- Must set up neodev before LSP.
-      require("neodev").setup({})
-
       local lspconfig = require("lspconfig")
       require("lspconfig.ui.windows").default_options.border = "rounded"
 
@@ -110,10 +104,6 @@ return {
             -- Do not send telemetry data containing a randomized but unique identifier
             telemetry = {
               enable = false,
-            },
-            -- Per neodev.nvim's instructions (?)
-            completion = {
-              callSnippet = "Replace",
             },
           },
         },

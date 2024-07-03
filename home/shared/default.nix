@@ -22,51 +22,13 @@ in
 
   # You can import other home-manager modules here
   imports = [
-    # If you want to use modules your own flake exports (from modules/home-manager):
-    # outputs.homeManagerModules.example
-
-    # Or modules exported from other flakes (such as nix-colors):
-    # inputs.nix-colors.homeManagerModules.default
-
-    # You can also split up your configuration and import pieces of it here:
-    # nvim.nix
   ];
 
   nixpkgs = {
-    # You can add overlays here
     overlays = [
-      # Add overlays your own flake exports (from overlays and pkgs dir):
-      # outputs.overlays.additions
-      # outputs.overlays.modifications
-      # outputs.overlays.unstable-packages
-
-      # You can also add overlays exported from other flakes:
-      # neovim-nightly-overlay.overlays.default
-
-      # Or define it inline, for example:
-      #   gruvbox-gtk-theme = prev.gruvbox-gtk-theme.overrideAttrs (oldAttrs: {
-      #     installPhase = ''
-      #       runHook preInstall
-      #       mkdir -p $out/share/themes
-      #       cp -a themes/* $out/share/themes
-      #       mkdir -p $out/share/icons
-      #       cp -a icons/* $out/share/icons
-      #       runHook postInstall
-      #     '';
-      #   });
-      #
-      # (final: prev: {
-      #   hi = final.hello.overrideAttrs (oldAttrs: {
-      #     patches = [ ./change-hello-to-hi.patch ];
-      #   });
-      # })
     ];
-    # Configure your nixpkgs instance
     config = {
-      # Disable if you don't want unfree packages
       allowUnfree = true;
-      # Workaround for https://github.com/nix-community/home-manager/issues/2942
-      allowUnfreePredicate = (_: true);
     };
   };
 
@@ -84,8 +46,10 @@ in
     libnotify
     lsd
     neofetch
+    pandoc
     ripgrep
     skim
+    texlive.combined.scheme-tetex
     tmux
     toipe
     typos
@@ -358,18 +322,6 @@ in
       name = (import ../fonts/systemFonts).sans.name;
       size = 12;
     };
-    # theme = {
-    #   name = "Gruvbox-Dark-BL";
-    #   package = pkgs.gruvbox-gtk-theme;
-    # };
-    # iconTheme = {
-    #   name = "Gruvbox-Dark";
-    #   package = pkgs.gruvbox-gtk-theme;
-    # };
-    # cursorTheme = {
-    #   name = "Gruvbox-Dark";
-    #   package = pkgs.gruvbox-gtk-theme;
-    # };
     theme = {
       name = "adw-gtk3-dark";
       package = pkgs.adw-gtk3;
