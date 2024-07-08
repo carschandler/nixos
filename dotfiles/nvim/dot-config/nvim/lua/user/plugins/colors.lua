@@ -1,6 +1,8 @@
 -- As of 7/2024, treesitter is doing a better job than semantic highlights, so
 -- drop its priority down to 75 below treesitter's 100
-vim.highlight.priorities.semantic_tokens = 75
+-- Just going to directly address the individual highlights that aren't working
+-- well...
+-- vim.highlight.priorities.semantic_tokens = 75
 
 return {
   "ellisonleao/gruvbox.nvim",
@@ -16,6 +18,10 @@ return {
     vim.api.nvim_set_hl(0, "LspInfoBorder", { link = "FloatBorder" })
     vim.api.nvim_set_hl(0, "debugPC", { link = "CursorLine" })
     vim.api.nvim_set_hl(0, "OilDir", { link = "GruvboxBlueBold" })
+
+    -- See my comment at
+    -- https://gist.github.com/swarn/fb37d9eefe1bc616c2a7e476c0bc0316?permalink_comment_id=5110169#gistcomment-5110169
+    vim.api.nvim_set_hl(0, "@lsp.type.variable.python", {})
   end,
   opts = {
     terminal_colors = false,
