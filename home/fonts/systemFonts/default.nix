@@ -12,7 +12,7 @@ let
   };
 in
 rec {
-  sans = FreeSans;
+  sans = Inter;
   monospace = CommitMono;
   serif = FreeSerif;
 
@@ -39,5 +39,13 @@ rec {
     fileName = "FreeSerif.ttf";
     boldName = "${name} Bold";
     boldFileName = "${name}Bold.ttf";
+  };
+  Inter = mkSystemFont rec {
+    name = "Inter";
+    getPackage = pkgs: pkgs.inter;
+    relFilesDir = "share/fonts/truetype";
+    fileName = "InterVariable.ttf";
+    boldName = "${name} Bold";
+    boldFileName = fileName;
   };
 }

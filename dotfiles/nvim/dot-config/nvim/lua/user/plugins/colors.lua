@@ -21,7 +21,14 @@ return {
 
     -- See my comment at
     -- https://gist.github.com/swarn/fb37d9eefe1bc616c2a7e476c0bc0316?permalink_comment_id=5110169#gistcomment-5110169
-    vim.api.nvim_set_hl(0, "@lsp.type.variable.python", {})
+    local hlgroups = {
+      "@lsp.type.variable.python",
+      "@lsp.type.variable.nix",
+      "@lsp.type.variable.lua",
+    }
+    for _, hlgroup in ipairs(hlgroups) do
+      vim.api.nvim_set_hl(0, hlgroup, {})
+    end
   end,
   opts = {
     terminal_colors = false,

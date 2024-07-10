@@ -49,7 +49,7 @@ in
     pandoc
     ripgrep
     skim
-    texlive.combined.scheme-tetex
+    # texlive.combined.scheme-tetex
     tmux
     toipe
     typos
