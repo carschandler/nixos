@@ -25,7 +25,7 @@ rec {
     boldFileName = "${name}Bold.ttf";
   };
   CommitMono = mkSystemFont rec {
-    name = "CommitMono";
+    name = "CommitMono Nerd Font";
     getPackage = pkgs: pkgs.commit-mono;
     relFilesDir = "share/fonts/opentype/NerdFonts";
     fileName = "CommitMonoNerdFont-Regular.otf";

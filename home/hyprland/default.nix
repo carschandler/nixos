@@ -20,12 +20,58 @@ in
     extraConfig = "source=./source.conf";
   };
   
-  home.packages = [
+  home.packages = with pkgs; [
+    # Notification Daemon
+    mako
+    swaynotificationcenter
+
+    # pipewire should is taken care of at system level
+    # pipewire
+    # wireplumber
+
+    # qt stuff / authentication agent
+    qt6.qtwayland
+    libsForQt5.qt5.qtwayland
+    libsForQt5.polkit-kde-agent
+
+    # Status bar
+    nwg-panel
+
+    # App Launcher
+    tofi
+    nwg-drawer
+
+    # Logout menu
+    nwg-bar
+
+    # Wallpaper
+    hyprpaper
+
+    # Cursor
+    hyprcursor
+
+    # Clipboard
+    wl-clipboard
+    cliphist
+
+    # Audio control GUI
+    pavucontrol
+
+    # Brightness control
+    brightnessctl
+
+    # Media control
+    playerctl
+
+    # Screenshots
     inputs.hyprland-contrib.packages.${pkgs.system}.grimblast
     pkgs.hyprpicker
-  ];
+ ];
 
   programs.hyprlock = {
     enable = true;
   };
+
+  environment.systemPackages = with pkgs; [
+  ];
 }

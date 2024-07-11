@@ -47,6 +47,7 @@ in
     lsd
     neofetch
     pandoc
+    pdfgrep
     ripgrep
     skim
     # texlive.combined.scheme-tetex

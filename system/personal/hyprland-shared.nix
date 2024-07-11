@@ -13,44 +13,4 @@
   };
 
   security.pam.services.hyprlock = {};
-
-  environment.systemPackages = with pkgs; [
-    ## Required by hyprland
-    # Notification Daemon
-    mako
-
-    # pipewire should be taken care of in ./configuration.nix
-    # pipewire
-    # wireplumber
-
-    # qt stuff / authentication agent
-    qt6.qtwayland
-    libsForQt5.qt5.qtwayland
-    libsForQt5.polkit-kde-agent
-
-    ## Optional
-    # Status bar
-
-    # App Launcher
-    tofi
-
-    # Wallpaper
-    hyprpaper
-
-    # Cursor
-    hyprcursor
-
-    # Clipboard
-    wl-clipboard
-    cliphist
-
-    # Audio control GUI
-    pavucontrol
-
-    # Brightness control
-    brightnessctl
-
-    # Media control
-    playerctl
-  ];
 }
