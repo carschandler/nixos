@@ -67,14 +67,15 @@
   services.devmon.enable = true;
   services.udisks2.enable = true;
 
-  programs.light.enable = true;
-
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-    vimAlias = true;
-    viAlias = true;
+  programs = {
+    neovim = {
+      enable = true;
+      defaultEditor = true;
+      vimAlias = true;
+      viAlias = true;
+    };
   };
+
 
   # TODO figure out how to handle this with networking.networkmanager
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.

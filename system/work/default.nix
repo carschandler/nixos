@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ../shared
   ];
 
   # Check https://github.com/nix-community/NixOS-WSL/tree/main/modules for options

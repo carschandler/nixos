@@ -8,6 +8,7 @@
   imports = [
     # Shared configuration between all systems
     ../personal
+    ../shared
 
     # System-specific hardware configuration
     ./hardware-configuration.nix
