@@ -21,12 +21,13 @@ in
     evince
     gimp
     gnome.nautilus
+    xfce.thunar
     libreoffice-fresh
-    libsForQt5.dolphin
     obsidian
     spotify
     thunderbird
     vscode-fhs
+    zed-editor
 
     # hardware utils
     usbutils
