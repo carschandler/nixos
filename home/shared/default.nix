@@ -56,6 +56,7 @@ in
     typos
     unzip
     wget
+    xdg-utils
     xplr
     zellij
     zk
