@@ -9,6 +9,7 @@
      "CommitMono"
     ]; })
     
+    freefont_ttf
     source-code-pro
     cantarell-fonts
     public-sans
