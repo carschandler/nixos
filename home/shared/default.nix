@@ -67,12 +67,9 @@ in
     libsForQt5.qtstyleplugins # TODO needed?
     
     # gui apps
-    _1password-gui
     emacs29-pgtk
     feh
-    gnome.nautilus
     meld
-    zathura
 
     # language servers
     efm-langserver
@@ -179,6 +176,7 @@ in
     yazi = {
       enable = true;
       enableBashIntegration = true;
+      shellWrapperName = "y";
     };
 
     readline = {
@@ -330,11 +328,11 @@ in
     };
     cursorTheme = {
       name = "Adwaita";
-      package = pkgs.gnome.gnome-themes-extra;
+      package = pkgs.gnome-themes-extra;
     };
     iconTheme = {
       name = "Adwaita";
-      package = pkgs.gnome.gnome-themes-extra;
+      package = pkgs.gnome-themes-extra;
     };
     gtk3.extraConfig = {
       gtk-application-prefer-dark-theme = 1;

@@ -17,16 +17,18 @@ in
     wezterm
 
     # gui apps
+    _1password-gui
     discord
     evince
     gimp
-    gnome.nautilus
-    xfce.thunar
     libreoffice-fresh
+    nautilus
     obsidian
     spotify
     thunderbird
     vscode-fhs
+    xfce.thunar
+    zathura
     zed-editor
 
     # hardware utils

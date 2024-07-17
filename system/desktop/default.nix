@@ -24,15 +24,6 @@
     powerManagement.enable = true;
   };
 
-  # Attempt to fix electron apps... didn't work, but may be good to keep?
-  hardware.opengl.extraPackages = [ pkgs.libvdpau-va-gl ];
-
-  # FIXME
-  services.dbus.enable = true;
-
-  environment.variables.VDPAU_DRIVER = "va_gl";
-  environment.variables.LIBVA_DRIVER_NAME = "nvidia";
-
   programs.bash.shellAliases = {
     bosereset = "sudo usb-reset 05a7:1020";
   };

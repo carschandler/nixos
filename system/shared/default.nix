@@ -9,4 +9,6 @@
       ];
     };
   };
+
+  services.dbus.enable = true;
 }
