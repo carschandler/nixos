@@ -52,13 +52,8 @@
     ];
   };
 
-
-
-
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
-    driSupport = true;
-    setLdLibraryPath = true;
 
     extraPackages = with pkgs; [
       mesa.drivers

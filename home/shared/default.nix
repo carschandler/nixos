@@ -149,6 +149,10 @@ in
       };
     };
 
+    helix = {
+      enable = true;
+    };
+
     neovim = {
       enable = true;
       # Ensure that neovim has access to gcc from nix, not whatever the system's
