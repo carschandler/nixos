@@ -42,6 +42,7 @@ in
     bat
     # emanote
     fd
+    file
     htop
     libnotify
     lsd

@@ -33,6 +33,7 @@
     openssh.authorizedKeys.keyFiles = [
       ./work_arch_rsa.pub
       ./work_windows_rsa.pub
+      ./work_ubuntu_rsa.pub
     ];
   };
 
@@ -73,5 +74,4 @@
   system.stateVersion = "23.11";
 
   services.openssh.enable = true;
-  services.sshd.enable = true;
 }
