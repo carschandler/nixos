@@ -16,14 +16,9 @@ local km = vim.keymap.set
 
 if not vim.g.vscode then
   if pcall(require, "which-key") then
-    require("which-key").register({
-      ss = {
-        "set invspell",
-      },
-      q = {
-        name = "QuickFix",
-      },
-    }, { prefix = "<Leader>" })
+    require("which-key").add({
+      { "<Leader>q", group = "QuickFix" },
+    })
   end
 end
 
@@ -38,7 +33,8 @@ if vim.g.vscode then
 end
 
 -- Make Escape close floating windows
--- This may conflict with plugins though...
+-- This may conflict with plugins though... FIXME: conflicted with escaping
+-- flash mode
 -- TODO: May need to check for filetype or something more specific to certain
 -- windows OR exclude windows that need to ignore it...
 -- km('n', '<Esc>', function()

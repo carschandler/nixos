@@ -11,7 +11,10 @@ return {
       local dap_vs = require("dap.ext.vscode")
       local wk = require("which-key")
 
-      wk.register({ ["<Leader>r"] = { name = "run/debug" } })
+      if wk then
+        wk.add({ "<Leader>r", group = "run/debug" })
+      end
+
       vim.keymap.set("n", "<F3>", function()
         dap.terminate()
       end, { desc = "Terminate Debug Session" })

@@ -12,12 +12,12 @@ return {
       local wk = require("which-key")
 
       -- Register which-key group for LSP keymaps
-      wk.register({
-        l = {
-          name = "LSP",
-          w = { "workspace" },
-        },
-      }, { prefix = "<Leader>" })
+      if wk then
+        wk.add({
+          { "<Leader>l", group = "LSP" },
+          { "<Leader>lw", desc = "workspace" },
+        })
+      end
 
       -- Set keymaps
       vim.keymap.set("n", "<Leader>ld", function()
