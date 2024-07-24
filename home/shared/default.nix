@@ -76,6 +76,7 @@ in
     efm-langserver
     lua-language-server
     nil
+    basedpyright
     pyright
     bash-language-server
     yaml-language-server
