@@ -22,7 +22,7 @@ return {
       },
       indent = {
         enable = true,
-        disable = {"yaml"},
+        disable = { "yaml" },
       },
       incremental_selection = {
         enable = true,
@@ -74,9 +74,9 @@ return {
           -- and should return the mode ('v', 'V', or '<c-v>') or a table
           -- mapping query_strings to modes.
           selection_modes = {
-            ['@parameter.outer'] = 'v', -- charwise
-            ['@function.outer'] = 'V', -- linewise
-            ['@class.outer'] = '<c-v>', -- blockwise
+            ["@parameter.outer"] = "v", -- charwise
+            ["@function.outer"] = "V", -- linewise
+            ["@class.outer"] = "<c-v>", -- blockwise
           },
           -- If you set this to `true` (default is `false`) then any textobject is
           -- extended to include preceding or succeeding whitespace. Succeeding
@@ -125,13 +125,13 @@ return {
           },
           goto_previous = {
             ["[c"] = "@conditional.outer",
-          }
+          },
         },
       },
 
-      sync_install = false,
+      sync_install = true,
       auto_install = false,
       modules = {},
     })
-  end
+  end,
 }

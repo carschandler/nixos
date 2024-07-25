@@ -18,6 +18,7 @@ in
 
     # gui apps
     _1password-gui
+    brave
     discord
     evince
     gimp
