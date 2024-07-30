@@ -1,63 +1,19 @@
--- vim.api.nvim_create_autocmd("BufWritePre", {
---   callback = function(args)
---     if vim.bo[args.buf].filetype == "python" then
---       vim.cmd.bufdo("PyrightOrganizeImports")
---     end
---   end,
--- })
-
 return {
   "stevearc/conform.nvim",
   config = function()
     local conform = require("conform")
 
-    -- local function pyright_organize_imports(bufnr)
-    --   local params = {
-    --     command = "pyright.organizeimports",
-    --     arguments = { vim.uri_from_bufnr(bufnr) },
-    --   }
-    --
-    --   local clients = require("lspconfig.util").get_lsp_clients({
-    --     bufnr = bufnr,
-    --     name = "pyright",
-    --   })
-    --   for _, client in ipairs(clients) do
-    --     client.request("workspace/executeCommand", params, nil, 0)
-    --   end
-    -- end
-    --
     conform.setup({
       formatters_by_ft = {
-        -- python = function()
-        --   pcall(pyright_organize_imports)
-        --   -- pcall(nf)
-        --   return { "black" }
-        -- end,
         python = { "isort", "black" },
         rust = { "rustfmt" },
         lua = { "stylua" },
       },
 
-      -- -- This doesn't work properly
-      -- formatters = {
-      --   pyright_organize_imports = {
-      --     command = function()
-      --       if vim.api.nvim_get_commands({})["PyrightOrganizeImports"] ~= nil then
-      --         vim.cmd("PyrightOrganizeImports")
-      --       end
-      --       return "true"
-      --     end,
-      --   },
-      -- },
-
       format_on_save = function(bufnr)
         -- Disable with a global or buffer-local variable
         if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
           return
-        end
-
-        if vim.bo[bufnr].filetype == "python" then
-          pyright_organize_imports(bufnr)
         end
 
         return { timeout_ms = 500, lsp_format = "fallback", async = false }
@@ -68,6 +24,13 @@ return {
       prepend_args = {
         "--preview",
         "--enable-unstable-feature=string_processing",
+      },
+    }
+
+    conform.formatters.isort = {
+      prepend_args = {
+        "--profile",
+        "black",
       },
     }
 

@@ -20,7 +20,8 @@ return {
       { "<Leader>ft", group = "this word" },
     })
 
-    vim.keymap.set("n", "<Leader>f;", fzf.builtin, { desc = "Menu" })
+    vim.keymap.set("n", "<Leader>f;", fzf.resume, { desc = "Resume" })
+    vim.keymap.set("n", "<Leader>fm", fzf.builtin, { desc = "Menu" })
     vim.keymap.set("n", "<Leader>ff", fzf.files, { desc = "Files" })
     vim.keymap.set("n", "<Leader><Space>", fzf.files, { desc = "Fuzzy find files" })
     vim.keymap.set("n", "<Leader>fh", fzf.help_tags, { desc = "Help tags" })

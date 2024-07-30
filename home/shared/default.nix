@@ -83,6 +83,7 @@ in
 
     # formatters/linters
     black
+    isort
     stylua
   ];
 
@@ -163,7 +164,6 @@ in
       # for the help!
 
       package = pkgs.neovim-unwrapped.overrideAttrs (attrs: {
-        disallowedReferences = [];
         nativeBuildInputs = attrs.nativeBuildInputs ++ [pkgs.makeWrapper];
         postFixup = ''
           wrapProgram $out/bin/nvim --prefix PATH : ${lib.makeBinPath [pkgs.gcc]}
@@ -173,6 +173,7 @@ in
       # Trying out this version now that we don't have gcc installed by default
       # so that we don't have to rebuild neovim every time
       # extraPackages = [ pkgs.gcc ];
+
       defaultEditor = true;
       viAlias = true;
       vimAlias = true;

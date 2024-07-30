@@ -111,9 +111,21 @@ return {
 
       lspconfig.nil_ls.setup({})
 
-      -- lspconfig.pyright.setup {}
+      lspconfig.pyright.setup({})
 
-      lspconfig.basedpyright.setup({})
+      -- lspconfig.basedpyright.setup({})
+
+      -- lspconfig.basedpyright.setup({
+      --   cmd = {
+      --     "basedpyright-langserver",
+      --     "--stdio",
+      --     "--verbose",
+      --     "-t",
+      --     "/nix/store/kg50zxb30zixssxi8x89afjgy48lw17y-basedpyright-1.13.3/lib/node_modules/basedpyright/dist/typeshed-fallback",
+      --   },
+      -- })
+
+      -- vim.lsp.set_log_level("debug")
 
       lspconfig.tsserver.setup({})
 
