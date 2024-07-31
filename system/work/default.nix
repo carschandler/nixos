@@ -1,9 +1,13 @@
-{ lib, pkgs, config, inputs, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  inputs,
+  ...
+}:
 
 {
-  imports = [
-    ../shared
-  ];
+  imports = [ ../shared ];
 
   # Check https://github.com/nix-community/NixOS-WSL/tree/main/modules for options
   wsl = {
@@ -29,7 +33,11 @@
     isNormalUser = true;
     home = "/home/chan";
     description = "Cars Chandler (Work)";
-    extraGroups = [ "wheel" "networkmanager" "video"];
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+      "video"
+    ];
     openssh.authorizedKeys.keyFiles = [
       ./work_arch_rsa.pub
       ./work_windows_rsa.pub
@@ -37,7 +45,6 @@
     ];
   };
 
-    
   # For mount.cifs, required unless domain name resolution is not needed.
   fileSystems."/mnt/share" = {
     device = "//10.200.11.72/OpticsLab";
@@ -74,4 +81,10 @@
   system.stateVersion = "23.11";
 
   services.openssh.enable = true;
+
+  services.ollama = {
+    enable = true;
+    acceleration = "cuda";
+    loadModels = [ "llama3.1" ];
+  };
 }
