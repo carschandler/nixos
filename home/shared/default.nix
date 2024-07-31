@@ -40,7 +40,6 @@ in
   home.packages = with pkgs; [
     # cli programs
     bat
-    # emanote
     fd
     file
     htop
@@ -51,7 +50,6 @@ in
     pdfgrep
     ripgrep
     skim
-    # texlive.combined.scheme-tetex
     tmux
     toipe
     typos
@@ -61,7 +59,6 @@ in
     xplr
     zellij
     zk
-    zoxide
     zsh
 
     # For qt themes to work
@@ -94,7 +91,6 @@ in
 
     direnv = {
       enable = true;
-      enableBashIntegration = true;
       nix-direnv.enable = true;
     };
 
@@ -158,11 +154,11 @@ in
 
     neovim = {
       enable = true;
+
       # Ensure that neovim has access to gcc from nix, not whatever the system's
       # gcc is. This is so treesitter doesn't freak out. Thanks to
       # https://www.reddit.com/r/neovim/comments/15lvm44/comment/jvflvyq
       # for the help!
-
       package = pkgs.neovim-unwrapped.overrideAttrs (attrs: {
         nativeBuildInputs = attrs.nativeBuildInputs ++ [pkgs.makeWrapper];
         postFixup = ''
@@ -171,7 +167,9 @@ in
       });
 
       # Trying out this version now that we don't have gcc installed by default
-      # so that we don't have to rebuild neovim every time
+      # so that we don't have to rebuild neovim every time. NOTE: works on some
+      # systems but on others there is a different gcc that is further up in the
+      # path and overrides.
       # extraPackages = [ pkgs.gcc ];
 
       defaultEditor = true;
@@ -180,10 +178,8 @@ in
       vimdiffAlias = true;
     };
 
-    yazi = {
+    nushell = {
       enable = true;
-      enableBashIntegration = true;
-      shellWrapperName = "y";
     };
 
     readline = {
@@ -215,7 +211,17 @@ in
 
     starship = {
       enable = true;
+    };
+
+    yazi = {
+      enable = true;
       enableBashIntegration = true;
+      enableNushellIntegration = true;
+      shellWrapperName = "y";
+    };
+
+    zoxide = {
+      enable = true;
     };
 
     bash = {
@@ -225,13 +231,11 @@ in
         hmn = "home-manager news --flake $HOME/nixos";
         nrs = "sudo nixos-rebuild switch --flake $HOME/nixos";
         nfu = "nix flake update --commit-lock-file $HOME/nixos";
-        #FIXME: override lesspipe somehow?
+        # FIXME: override lesspipe somehow?
         battery = "cat /sys/class/power_supply/BAT0/capacity";
         py = "nix develop ~/nixos/devshells/python/";
       };
       bashrcExtra = ''
-        eval "$(zoxide init bash)"
-
         if ! [[ $PATH =~ ${homedir}/.local/bin ]]; then
           PATH="$PATH:${homedir}/.local/bin"
         fi
@@ -265,6 +269,8 @@ in
           lsd --group-dirs=first --color=always --icon=always -l --tree "$@" | less -rF;
         }
 
+        # Prevent nix paths from being duplicated every time a new shell is
+        # initiated
         NIX_PATHS="$HOME/.nix-profile/bin:/nix/var/nix/profiles/default/bin:"
         NEWPATH=''${PATH/$NIX_PATHS}
         while [[ $NEWPATH =~ $NIX_PATHS ]]; do
