@@ -35,8 +35,7 @@ in
     libsForQt5.polkit-kde-agent
 
     # Status bar
-    # FIXME: https://github.com/NixOS/nixpkgs/issues/326465
-    # nwg-panel
+    nwg-panel
 
     # App Launcher
     tofi
