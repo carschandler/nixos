@@ -1,15 +1,23 @@
 let
-  mkSystemFont = { name, getPackage, relFilesDir, fileName, boldName, boldFileName }:
-  rec {
-    inherit name fileName getPackage;
-    getFileDir = pkgs: "${getPackage pkgs}/${relFilesDir}";
-    getFile = pkgs: "${getFileDir pkgs}/${fileName}";
-    bold = {
-      name = boldName;
-      fileName = boldFileName;
+  mkSystemFont =
+    {
+      name,
+      getPackage,
+      relFilesDir,
+      fileName,
+      boldName,
+      boldFileName,
+    }:
+    rec {
+      inherit name fileName getPackage;
+      getFileDir = pkgs: "${getPackage pkgs}/${relFilesDir}";
       getFile = pkgs: "${getFileDir pkgs}/${fileName}";
+      bold = {
+        name = boldName;
+        fileName = boldFileName;
+        getFile = pkgs: "${getFileDir pkgs}/${fileName}";
+      };
     };
-  };
 in
 rec {
   sans = Inter;

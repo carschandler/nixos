@@ -25,67 +25,78 @@
     # };
   };
 
-  outputs = { self, nixpkgs, home-manager, nixos-wsl, ... }@inputs:
-  {
-    nixosConfigurations = {
-      desktop = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = { inherit inputs; };
-        modules = [
-          ./system/desktop
-        ];
+  outputs =
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      nixos-wsl,
+      ...
+    }@inputs:
+    {
+      nixosConfigurations = {
+        desktop = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = {
+            inherit inputs;
+          };
+          modules = [ ./system/desktop ];
+        };
+
+        laptop = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = {
+            inherit inputs;
+          };
+          modules = [ ./system/laptop ];
+        };
+
+        TORCH-LT-7472 = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = {
+            inherit inputs;
+          };
+          modules = [
+            ./system/work
+            nixos-wsl.nixosModules.default
+          ];
+        };
       };
 
-      laptop = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = { inherit inputs; };
-        modules = [
-          ./system/laptop
-        ];
+      homeConfigurations = {
+        "chan@desktop" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          extraSpecialArgs = {
+            inherit inputs;
+          };
+          modules = [
+            ./home/shared
+            ./home/personal
+            ./home/desktop
+          ];
+        };
+        "chan@laptop" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          extraSpecialArgs = {
+            inherit inputs;
+          };
+          modules = [
+            ./home/shared
+            ./home/personal
+          ];
+        };
+        "chan@TORCH-LT-7472" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          extraSpecialArgs = {
+            inherit inputs;
+          };
+          modules = [
+            ./home/shared
+            ./home/work
+          ];
+        };
       };
 
-      TORCH-LT-7472 = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = { inherit inputs; };
-        modules = [
-          ./system/work
-          nixos-wsl.nixosModules.default
-        ];
-      };
+      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
     };
-
-    homeConfigurations = {
-      "chan@desktop" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        extraSpecialArgs = {
-          inherit inputs;
-        };
-        modules = [
-          ./home/shared
-          ./home/personal
-          ./home/desktop
-        ];
-      };
-      "chan@laptop" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        extraSpecialArgs = {
-          inherit inputs;
-        };
-        modules = [
-          ./home/shared
-          ./home/personal
-        ];
-      };
-      "chan@TORCH-LT-7472" = home-manager.lib.homeManagerConfiguration {
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        extraSpecialArgs = {
-          inherit inputs;
-        };
-        modules = [
-          ./home/shared
-          ./home/work
-        ];
-      };
-    };
-  };
 }

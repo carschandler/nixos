@@ -1,4 +1,10 @@
-{ inputs, config, pkgs, lib, ... }: 
+{
+  inputs,
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   homedir = "${config.home.homeDirectory}";
   dotfiles = "${homedir}/nixos/dotfiles";
@@ -8,7 +14,10 @@ in
   nix = {
     enable = true;
     package = pkgs.nixVersions.nix_2_18;
-    settings.experimental-features = [ "nix-command" "flakes" ];
+    settings.experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
     # Pin the nixpkgs version that this flake uses to the registry so that
     # `nix` commands use the same nixpkgs as our system does... do this
     # for each configuration in here
@@ -21,20 +30,18 @@ in
   };
 
   # You can import other home-manager modules here
-  imports = [
-  ];
+  imports = [ ];
 
   nixpkgs = {
-    overlays = [
-    ];
+    overlays = [ ];
     config = {
       allowUnfree = true;
     };
   };
 
   home = {
-      username = "chan";
-      homeDirectory = "/home/chan";
+    username = "chan";
+    homeDirectory = "/home/chan";
   };
 
   home.packages = with pkgs; [
@@ -63,7 +70,7 @@ in
 
     # For qt themes to work
     libsForQt5.qtstyleplugins # TODO needed?
-    
+
     # gui apps
     emacs29-pgtk
     feh
@@ -97,9 +104,7 @@ in
     firefox = {
       enable = true;
       package = pkgs.firefox.override {
-        nativeMessagingHosts = [
-          pkgs.tridactyl-native
-        ];
+        nativeMessagingHosts = [ pkgs.tridactyl-native ];
         cfg = {
           speechSynthesisSupport = true;
         };
@@ -134,7 +139,7 @@ in
     gh = {
       enable = true;
     };
-  
+
     git = {
       enable = true;
       userName = "carschandler";
@@ -160,9 +165,9 @@ in
       # https://www.reddit.com/r/neovim/comments/15lvm44/comment/jvflvyq
       # for the help!
       package = pkgs.neovim-unwrapped.overrideAttrs (attrs: {
-        nativeBuildInputs = attrs.nativeBuildInputs ++ [pkgs.makeWrapper];
+        nativeBuildInputs = attrs.nativeBuildInputs ++ [ pkgs.makeWrapper ];
         postFixup = ''
-          wrapProgram $out/bin/nvim --prefix PATH : ${lib.makeBinPath [pkgs.gcc]}
+          wrapProgram $out/bin/nvim --prefix PATH : ${lib.makeBinPath [ pkgs.gcc ]}
         '';
       });
 
@@ -189,7 +194,7 @@ in
         # instead of repeating available options over and over
         TAB: menu-complete
         set show-all-if-ambiguous on
-        
+
         # Completes the common prefix first before cycling through options
         set menu-complete-display-prefix on
 
@@ -295,17 +300,13 @@ in
 
   xdg = {
     configFile = {
-      "wezterm".source = config.lib.file.mkOutOfStoreSymlink
-        "${dotfiles}/wezterm/dot-config/wezterm";
-    
-      "nvim".source = config.lib.file.mkOutOfStoreSymlink
-        "${dotfiles}/nvim/dot-config/nvim";
+      "wezterm".source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/wezterm/dot-config/wezterm";
 
-      "tmux".source = config.lib.file.mkOutOfStoreSymlink
-        "${dotfiles}/tmux/dot-config/tmux";
+      "nvim".source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/nvim/dot-config/nvim";
 
-      "starship.toml".source = config.lib.file.mkOutOfStoreSymlink
-        "${dotfiles}/starship/dot-config/starship.toml";
+      "tmux".source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/tmux/dot-config/tmux";
+
+      "starship.toml".source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/starship/dot-config/starship.toml";
     };
 
     userDirs = {

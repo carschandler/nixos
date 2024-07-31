@@ -4,11 +4,13 @@
 
   home.packages = with pkgs; [
     # Fonts
-    (nerdfonts.override { fonts = [
-     "SourceCodePro"
-     "CommitMono"
-    ]; })
-    
+    (nerdfonts.override {
+      fonts = [
+        "SourceCodePro"
+        "CommitMono"
+      ];
+    })
+
     freefont_ttf
     source-code-pro
     cantarell-fonts

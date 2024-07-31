@@ -1,16 +1,21 @@
-{ inputs, outputs, lib, config, pkgs, nixgl, ... }:
+{
+  inputs,
+  outputs,
+  lib,
+  config,
+  pkgs,
+  nixgl,
+  ...
+}:
 let
   symlink = config.lib.file.mkOutOfStoreSymlink;
   homedir = "${config.home.homeDirectory}";
 in
 {
   # You can import other home-manager modules here
-  imports = [
-    ../fonts
-  ];
+  imports = [ ../fonts ];
 
-  nixpkgs = {
-  };
+  nixpkgs = { };
 
   # Add stuff for your user as you see fit
   home.packages = with pkgs; [
@@ -18,7 +23,7 @@ in
     # pkgs.nixgl.auto.nixGLNvidia
     pixi
   ];
-  
+
   home.file.".local/bin/clip.exe".source = symlink "/mnt/c/Windows/System32/clip.exe";
   home.file.".local/bin/explorer.exe".source = symlink "/mnt/c/Windows/explorer.exe";
   home.file.".local/bin/powershell.exe".source = symlink "/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe";
@@ -28,7 +33,7 @@ in
   home.sessionVariables = {
     BROWSER = "/mnt/c/Users/rchandler/AppData/Local/BraveSoftware/Brave-Browser/Application/brave.exe";
     # BROWSER = "/mnt/c/Users/rchandler/AppData/Local/Microsoft/WindowsApps/Arc.exe";
-    MESA_D3D12_DEFAULT_ADAPTER_NAME="NVIDIA";
+    MESA_D3D12_DEFAULT_ADAPTER_NAME = "NVIDIA";
   };
 
   programs = {
@@ -45,7 +50,6 @@ in
         };
       };
     };
-
 
     bash = {
       bashrcExtra = ''

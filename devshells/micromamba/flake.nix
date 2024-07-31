@@ -6,16 +6,16 @@
     flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { nixpkgs, flake-utils, ... }:
-    flake-utils.lib.eachDefaultSystem (system:
+  outputs =
+    { nixpkgs, flake-utils, ... }:
+    flake-utils.lib.eachDefaultSystem (
+      system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
         fhs = pkgs.buildFHSUserEnv {
           name = "my-fhs-environment";
 
-          targetPkgs = _: [
-            pkgs.micromamba
-          ];
+          targetPkgs = _: [ pkgs.micromamba ];
 
           profile = ''
             set -e
@@ -24,7 +24,8 @@
             set +e
           '';
         };
-      in {
+      in
+      {
         devShells.default = fhs.env;
       }
     );

@@ -5,9 +5,7 @@
 { config, pkgs, ... }:
 
 {
-  imports = [
-    ./hyprland-shared.nix
-  ];
+  imports = [ ./hyprland-shared.nix ];
 
   # Bootloader.
   # boot.loader.systemd-boot.enable = true;
@@ -28,11 +26,11 @@
     windowManager.i3 = {
       enable = true;
       extraPackages = [
-        pkgs.dmenu #application launcher most people use
+        pkgs.dmenu # application launcher most people use
         pkgs.i3status # gives you the default i3 status bar
-        pkgs.i3lock #default i3 screen locker
-        pkgs.i3blocks #if you are planning on using i3blocks over i3status
-     ];
+        pkgs.i3lock # default i3 screen locker
+        pkgs.i3blocks # if you are planning on using i3blocks over i3status
+      ];
     };
     windowManager.awesome = {
       enable = true;
@@ -43,7 +41,7 @@
     enable = true;
   };
 
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.nvidia = {
     # Modesetting is needed for most Wayland compositors
@@ -73,7 +71,6 @@
       viAlias = true;
     };
   };
-
 
   # TODO figure out how to handle this with networking.networkmanager
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -133,7 +130,6 @@
     #media-session.enable = true;
   };
 
-
   # Enable bluetooth
   hardware.bluetooth.enable = true;
 
@@ -145,9 +141,12 @@
   users.users.chan = {
     isNormalUser = true;
     description = "Cars Chandler";
-    extraGroups = [ "networkmanager" "wheel" "video"];
-    packages = with pkgs; [
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "video"
     ];
+    packages = with pkgs; [ ];
   };
 
   # Allow unfree packages
