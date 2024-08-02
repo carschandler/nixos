@@ -325,7 +325,18 @@ in
     mimeApps = {
       enable = true;
       defaultApplications = {
-        "application/pdf" = [ "org.gnome.Evince.desktop" ];
+        "application/pdf" = [ "org.gnome.Evince.desktop" "org.pwmt.zathura.desktop" "firefox.desktop" ];
+        "text/html" = ["firefox.desktop"];
+        "x-scheme-handler/http" = ["firefox.desktop" "brave-browser.desktop"];
+        "x-scheme-handler/https" = ["firefox.desktop" "brave-browser.desktop"];
+        "x-scheme-handler/about" = ["firefox.desktop" "brave-browser.desktop"];
+        "x-scheme-handler/unknown" = ["firefox.desktop" "brave-browser.desktop"];
+        "application/x-extension-htm" = ["firefox.desktop"];
+        "application/x-extension-html" = ["firefox.desktop"];
+        "application/x-extension-shtml" = ["firefox.desktop"];
+        "application/xhtml+xml" = ["firefox.desktop"];
+        "application/x-extension-xhtml" = ["firefox.desktop"];
+        "application/x-extension-xht" = ["firefox.desktop"];
       };
     };
   };

@@ -28,6 +28,11 @@
     bosereset = "sudo usb-reset 05a7:1020";
   };
 
+  services.ollama = {
+    enable = true;
+    acceleration = "cuda";
+  };
+
   # TODO: Trying to get desktop monitor brightness control...
   # programs.light.enable = true;
   # users.users.chan.extraGroups = [ "wheel" ];

@@ -1,17 +1,15 @@
-{
-  inputs,
-  outputs,
-  config,
-  pkgs,
-  ...
-}:
+{inputs, outputs, config, pkgs, ... }:
 let
   dotfiles = "${config.home.homeDirectory}/nixos/dotfiles";
 in
 {
   xdg.configFile = {
-    "hypr/source.conf".source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/hyprland/dot-config/hypr/hyprland-source.conf";
-    "hypr/noanims.sh".source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/hyprland/dot-config/hypr/noanims.sh";
+    "hypr/source.conf".source = 
+      config.lib.file.mkOutOfStoreSymlink
+      "${dotfiles}/hyprland/dot-config/hypr/hyprland-source.conf";
+    "hypr/noanims.sh".source =
+      config.lib.file.mkOutOfStoreSymlink
+      "${dotfiles}/hyprland/dot-config/hypr/noanims.sh";
   };
 
   wayland.windowManager.hyprland = {
@@ -21,7 +19,7 @@ in
     xwayland.enable = true;
     extraConfig = "source=./source.conf";
   };
-
+  
   home.packages = with pkgs; [
     # Notification Daemon
     mako
@@ -37,6 +35,7 @@ in
     libsForQt5.polkit-kde-agent
 
     # Status bar
+    # FIXME: https://github.com/NixOS/nixpkgs/issues/326465
     nwg-panel
 
     # App Launcher
@@ -68,7 +67,7 @@ in
     # Screenshots
     inputs.hyprland-contrib.packages.${pkgs.system}.grimblast
     pkgs.hyprpicker
-  ];
+ ];
 
   programs.hyprlock = {
     enable = true;

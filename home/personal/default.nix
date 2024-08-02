@@ -32,6 +32,7 @@ in
     obsidian
     spotify
     thunderbird
+    vlc
     vscode-fhs
     xfce.thunar
     zathura
@@ -67,6 +68,7 @@ in
           background_opacity = "0.9";
         };
       };
+    };
 
     tofi =
       let
@@ -90,6 +92,7 @@ in
           selection-match-color = "#8ec07c";
         };
       };
+    };
   };
 
   services = {
@@ -119,5 +122,12 @@ in
     # };
   };
 
+  # For Electron apps
+  home.sessionVariables = {
+    DEFAULT_BROWSER = "firefox";
+    BROWSER = "firefox";
+  };
+
   home.stateVersion = "22.11";
 }
+
