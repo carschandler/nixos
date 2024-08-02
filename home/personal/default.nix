@@ -68,7 +68,6 @@ in
           background_opacity = "0.9";
         };
       };
-    };
 
     tofi =
       let
@@ -92,7 +91,6 @@ in
           selection-match-color = "#8ec07c";
         };
       };
-    };
   };
 
   services = {
@@ -130,4 +128,3 @@ in
 
   home.stateVersion = "22.11";
 }
-
