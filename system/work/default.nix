@@ -81,10 +81,4 @@
   system.stateVersion = "23.11";
 
   services.openssh.enable = true;
-
-  services.ollama = {
-    enable = true;
-    acceleration = "cuda";
-    loadModels = [ "llama3.1" ];
-  };
 }

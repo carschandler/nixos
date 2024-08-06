@@ -68,9 +68,6 @@ in
     zk
     zsh
 
-    # For qt themes to work
-    libsForQt5.qtstyleplugins # TODO needed?
-
     # gui apps
     emacs29-pgtk
     feh
@@ -161,15 +158,13 @@ in
       enable = true;
 
       # Ensure that neovim has access to gcc from nix, not whatever the system's
-      # gcc is. This is so treesitter doesn't freak out. Thanks to
-      # https://www.reddit.com/r/neovim/comments/15lvm44/comment/jvflvyq
-      # for the help!
-      package = pkgs.neovim-unwrapped.overrideAttrs (attrs: {
-        nativeBuildInputs = attrs.nativeBuildInputs ++ [ pkgs.makeWrapper ];
-        postFixup = ''
-          wrapProgram $out/bin/nvim --prefix PATH : ${lib.makeBinPath [ pkgs.gcc ]}
-        '';
-      });
+      # gcc is. This is so treesitter doesn't freak out.
+      extraWrapperArgs = [
+        "--prefix"
+        "PATH"
+        ":"
+        "${lib.makeBinPath [ pkgs.gcc ]}"
+      ];
 
       # Trying out this version now that we don't have gcc installed by default
       # so that we don't have to rebuild neovim every time. NOTE: works on some
