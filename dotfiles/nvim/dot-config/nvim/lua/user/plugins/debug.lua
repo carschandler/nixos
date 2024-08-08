@@ -28,7 +28,6 @@ return {
           local ws_dirs = vim.lsp.buf.list_workspace_folders()
 
           if next(ws_dirs) == nil then
-            -- print('dapbug: No workspace')
             dap.continue()
           else
             for _, v in pairs(ws_dirs) do
@@ -39,10 +38,8 @@ return {
 
               -- dapconfig.lua takes priority
               if vim.fn.filereadable(lua_launch_file) == 1 then
-                -- print('dapbug: found lualaunch')
                 config_table = dofile(lua_launch_file)
                 if type(config_table) == "table" then
-                  -- print('dapbug: lualaunch table read successfully')
                   ui.pick_if_many(config_table, "dapconfig.lua configurations:", function(i)
                     return i.name
                   end, function(c)
@@ -53,19 +50,16 @@ return {
                   error("Error: expected " .. lua_launch_file .. " to return a table; returned " .. type(config_table))
                 end
               elseif vim.fn.filereadable(json_launch_file) == 1 then
-                -- print('dapbug: found launch.json')
-                dap_vs.load_launchjs(json_launch_file, { debugpy = { "python" } })
+                dap_vs.load_launchjs(json_launch_file)
                 dap.continue()
                 return
               else
-                -- print('dapbug: no launch file found')
                 dap.continue()
                 return
               end
             end
           end
         else
-          -- print('dapbug: session was not nil')
           dap.continue()
           return
         end
@@ -191,13 +185,13 @@ return {
         end,
       })
 
-      dap.adapters.python = {
+      dap.adapters.debugpy = {
         type = "executable",
         command = "python",
         args = { "-m", "debugpy.adapter" },
       }
 
-      dap.configurations.python = {
+      dap.configurations.debugpy = {
         {
           name = "Launch file",
           type = "python",
@@ -271,6 +265,7 @@ return {
   },
   {
     "rcarriga/nvim-dap-ui",
-    dependencies = { "nvim-neotest/nvim-nio" },
+    dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
+    opts = {},
   },
 }
