@@ -2,33 +2,35 @@
   description = "Rust devshell";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    rust-overlay = {
-      url = "github:oxalica/rust-overlay";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
+    naersk.url = "github:nix-community/naersk/master";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   };
 
   outputs =
-    { nixpkgs, rust-overlay, ... }:
+    {
+      self,
+      nixpkgs,
+      naersk,
+    }:
     let
-      system = "x86_64-linux";
-      overlays = [ (import rust-overlay) ];
-      pkgs = import nixpkgs { inherit system overlays; };
-
-      rustToolchain = pkgs.rust-bin.stable.latest.default.override {
-        extensions = [ "rust-src" ];
-        # targets = [];
-      };
+      pkgs = import nixpkgs.legacyPackages.x86_64-linux;
+      naersk-lib = pkgs.callPackage naersk { };
     in
     {
-      devShells.${system}.default = pkgs.mkShell {
+      defaultPackage.x86_64-linux = naersk-lib.buildPackage ./.;
+
+      devShells.x86_64-linux.default = pkgs.mkShell {
         buildInputs = [
-          rustToolchain
-          (pkgs.rust-analyzer.override { rustSrc = "${rustToolchain}/lib/rustlib/src/rust/library"; })
+          pkgs.cargo
+          pkgs.rustc
+          pkgs.rustfmt
+          pkgs.rust-analyzer
+          pkgs.rustPackages.clippy
         ];
+
+        RUST_SRC_PATH = pkgs.rustPlatform.rustLibSrc;
       };
+
+      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
     };
 }

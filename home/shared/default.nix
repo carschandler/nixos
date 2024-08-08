@@ -85,6 +85,7 @@ in
     # formatters/linters
     black
     isort
+    nixfmt-rfc-style
     stylua
   ];
 

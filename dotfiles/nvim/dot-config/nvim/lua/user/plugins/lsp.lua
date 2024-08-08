@@ -66,6 +66,7 @@ return {
 
           vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts_desc("Go to declaration"))
           vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts_desc("Go to definition"))
+          vim.keymap.set("n", "g<C-D>", vim.lsp.buf.type_definition, opts_desc("Go to definiton of this type"))
           vim.keymap.set("n", "K", vim.lsp.buf.hover, opts_desc("Show hover pane"))
           vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts_desc("Go to implementation"))
           vim.keymap.set({ "n", "i" }, "<C-k>", vim.lsp.buf.signature_help, opts_desc("LSP signature help"))
@@ -74,7 +75,6 @@ return {
           vim.keymap.set("n", "<Leader>lwl", function()
             print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
           end, opts_desc("List workspace dirs"))
-          vim.keymap.set("n", "<Leader>gt", vim.lsp.buf.type_definition, opts_desc("Go to definiton of this type"))
           vim.keymap.set("n", "<Leader>lr", vim.lsp.buf.rename, opts_desc("Rename symbol"))
           vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, opts_desc("Rename symbol"))
           vim.keymap.set({ "n", "v" }, "<Leader>la", vim.lsp.buf.code_action, opts_desc("Code actions"))

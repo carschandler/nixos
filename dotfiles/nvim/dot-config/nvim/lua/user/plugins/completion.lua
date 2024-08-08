@@ -14,7 +14,7 @@ return {
     "rcarriga/cmp-dap",
     "R-nvim/cmp-r",
     -- Snippets
-    "L3MON4D3/LuaSnip", -- Required
+    "L3MON4D3/LuaSnip", -- Required (not LuaSnip in particular, but a snippet engine)
     "saadparwaiz1/cmp_luasnip", -- Optional
     "rafamadriz/friendly-snippets", -- Optional
   },

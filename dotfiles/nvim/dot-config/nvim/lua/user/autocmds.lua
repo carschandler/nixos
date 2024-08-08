@@ -30,37 +30,37 @@ autocmd("WinEnter", {
 })
 
 -- Automatically commit lockfile after running Lazy Update (or Sync)
-autocmd("User", {
-  pattern = "LazyUpdate",
-  callback = function()
-    local repo_dir = "/home/chan/nixos"
-    local lockfile = repo_dir .. "/dotfiles/nvim/dot-config/nvim/lazy-lock.json"
-
-    local cmd = {
-      "git",
-      "-C",
-      repo_dir,
-      "commit",
-      lockfile,
-      "-m",
-      "Update lazy-lock.json",
-    }
-
-    local success, process = pcall(function()
-      return vim.system(cmd):wait()
-    end)
-
-    if process and process.code == 0 then
-      vim.notify("Committed lazy-lock.json")
-      vim.notify(process.stdout)
-    else
-      if not success then
-        vim.notify("Failed to run command '" .. table.concat(cmd, " ") .. "':", vim.log.levels.WARN, {})
-        vim.notify(tostring(process), vim.log.levels.WARN, {})
-      else
-        vim.notify("git ran but failed to commit:")
-        vim.notify(process.stdout, vim.log.levels.WARN, {})
-      end
-    end
-  end,
-})
+-- autocmd("User", {
+--   pattern = "LazyUpdate",
+--   callback = function()
+--     local repo_dir = "/home/chan/nixos"
+--     local lockfile = repo_dir .. "/dotfiles/nvim/dot-config/nvim/lazy-lock.json"
+--
+--     local cmd = {
+--       "git",
+--       "-C",
+--       repo_dir,
+--       "commit",
+--       lockfile,
+--       "-m",
+--       "Update lazy-lock.json",
+--     }
+--
+--     local success, process = pcall(function()
+--       return vim.system(cmd):wait()
+--     end)
+--
+--     if process and process.code == 0 then
+--       vim.notify("Committed lazy-lock.json")
+--       vim.notify(process.stdout)
+--     else
+--       if not success then
+--         vim.notify("Failed to run command '" .. table.concat(cmd, " ") .. "':", vim.log.levels.WARN, {})
+--         vim.notify(tostring(process), vim.log.levels.WARN, {})
+--       else
+--         vim.notify("git ran but failed to commit:")
+--         vim.notify(process.stdout, vim.log.levels.WARN, {})
+--       end
+--     end
+--   end,
+-- })

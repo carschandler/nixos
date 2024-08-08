@@ -8,6 +8,7 @@ return {
         python = { "isort", "black" },
         rust = { "rustfmt" },
         lua = { "stylua" },
+        nix = { "nixfmt" },
       },
 
       format_on_save = function(bufnr)

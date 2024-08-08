@@ -7,6 +7,15 @@ return {
       "sindrets/diffview.nvim",
       "ibhagwan/fzf-lua",
     },
+    keys = {
+      {
+        "<Leader>g",
+        function()
+          require("neogit").open()
+        end,
+        desc = "Git",
+      },
+    },
     opts = {
       signs = {
         -- item = { "", "" },

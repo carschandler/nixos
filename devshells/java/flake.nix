@@ -3,33 +3,23 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    flake-utils.url = "github:numtide/flake-utils";
   };
 
   outputs =
+    { nixpkgs, ... }:
+    let
+      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+    in
     {
-      self,
-      nixpkgs,
-      flake-utils,
-      ...
-    }:
-    flake-utils.lib.eachDefaultSystem (
-      system:
-      let
-        pkgs = nixpkgs.legacyPackages.${system};
-      in
-      {
-        devShells.default = pkgs.mkShell {
-          packages = [
-            pkgs.jdt-language-server
-            pkgs.python39
-            pkgs.temurin-bin-8
-            pkgs.maven
-          ];
+      devShells.default = pkgs.mkShell {
+        packages = [
+          pkgs.jdt-language-server
+          pkgs.python39
+          pkgs.temurin-bin-8
+          pkgs.maven
+        ];
 
-          # shellHook = ''
-          # '';
-        };
-      }
-    );
+        formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
+      };
+    };
 }
