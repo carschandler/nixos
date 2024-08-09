@@ -52,6 +52,7 @@ in
     htop
     libnotify
     lsd
+    mc
     neofetch
     pandoc
     pdfgrep
