@@ -47,6 +47,7 @@ in
   home.packages = with pkgs; [
     # cli programs
     bat
+    cbonsai
     fd
     file
     htop
@@ -54,6 +55,7 @@ in
     lsd
     mc
     neofetch
+    nh
     pandoc
     pdfgrep
     ripgrep
@@ -229,9 +231,9 @@ in
     bash = {
       enable = true;
       shellAliases = {
-        hms = "home-manager switch --flake $HOME/nixos";
+        hms = "nh home switch $HOME/nixos";
         hmn = "home-manager news --flake $HOME/nixos";
-        nrs = "sudo nixos-rebuild switch --flake $HOME/nixos";
+        nrs = "sudo nh os switch $HOME/nixos";
         nfu = "nix flake update --commit-lock-file $HOME/nixos";
         # FIXME: override lesspipe somehow?
         battery = "cat /sys/class/power_supply/BAT0/capacity";
