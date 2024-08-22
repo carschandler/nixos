@@ -1,4 +1,5 @@
 return {
-  "luukvbaal/nnn.nvim",
-  config = true,
+	"luukvbaal/nnn.nvim",
+	cond = not vim.g.vscode,
+	config = true,
 }

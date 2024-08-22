@@ -1,3 +1,4 @@
 return {
-   "jeffkreeftmeijer/vim-numbertoggle"
+	"jeffkreeftmeijer/vim-numbertoggle",
+	cond = not vim.g.vscode,
 }
