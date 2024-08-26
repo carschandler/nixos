@@ -48,6 +48,10 @@ in
           hostname = "fs2.torch2003.com";
           user = "rchandler";
         };
+        "astro" = {
+          hostname = "10.5.21.78";
+          user = "cchandler";
+        };
       };
     };
 
