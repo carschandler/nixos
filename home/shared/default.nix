@@ -41,7 +41,7 @@ in
 
   home = {
     username = "chan";
-    homeDirectory = "/home/chan";
+    homeDirectory = "/home/${config.home.username}";
   };
 
   home.packages = with pkgs; [
