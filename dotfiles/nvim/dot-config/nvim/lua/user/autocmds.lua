@@ -33,7 +33,7 @@ autocmd("WinEnter", {
 -- autocmd("User", {
 --   pattern = "LazyUpdate",
 --   callback = function()
---     local repo_dir = "/home/chan/nixos"
+--     local repo_dir = os.getenv("HOME") .. "/nixos"
 --     local lockfile = repo_dir .. "/dotfiles/nvim/dot-config/nvim/lazy-lock.json"
 --
 --     local cmd = {

@@ -9,7 +9,6 @@
 }:
 let
   symlink = config.lib.file.mkOutOfStoreSymlink;
-  homedir = "${config.home.homeDirectory}";
 in
 {
   # You can import other home-manager modules here
@@ -54,7 +53,7 @@ in
 
     bash = {
       bashrcExtra = ''
-        MICROMAMBA_INIT="/home/chan/.activate_micromamba.sh"
+        MICROMAMBA_INIT="${config.home.homeDirectory}/.activate_micromamba.sh"
         if [[ -e $MICROMAMBA_INIT ]]; then
           source $MICROMAMBA_INIT
         fi
@@ -63,7 +62,7 @@ in
 
     git.extraConfig = {
       "http \"https://repo.torchtechnologies.com\"" = {
-        sslCAInfo = "/home/chan/nixos/home/work/certs/DigiCertGlobalG2TLSRSASHA2562020CA1-1.pem";
+        sslCAInfo = "${config.home.homeDirectory}/nixos/home/work/certs/DigiCertGlobalG2TLSRSASHA2562020CA1-1.pem";
       };
       credential.helper = "/mnt/c/Users/rchandler/AppData/Local/Programs/Git/mingw64/bin/git-credential-manager.exe";
     };
