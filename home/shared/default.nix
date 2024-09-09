@@ -19,8 +19,7 @@ in
       "flakes"
     ];
     # Pin the nixpkgs version that this flake uses to the registry so that
-    # `nix` commands use the same nixpkgs as our system does... do this
-    # for each configuration in here
+    # `nix` commands use the same nixpkgs as our system does
     registry.nixpkgs.flake = inputs.nixpkgs;
     gc = {
       automatic = true;

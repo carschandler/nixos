@@ -20,6 +20,11 @@
       url = "github:hyprwm/contrib";
     };
 
+    nixos-cosmic = {
+      url = "github:lilyinstarlight/nixos-cosmic";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # emanote = {
     #   url = "github:srid/emanote";
     # };
@@ -40,7 +45,16 @@
           specialArgs = {
             inherit inputs;
           };
-          modules = [ ./system/desktop ];
+          modules = [ 
+            {
+              nix.settings = {
+                substituters = [ "https://cosmic.cachix.org/" ];
+                trusted-public-keys = [ "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE=" ];
+              };
+            }
+            inputs.nixos-cosmic.nixosModules.default
+            ./system/desktop
+          ];
         };
 
         laptop = nixpkgs.lib.nixosSystem {

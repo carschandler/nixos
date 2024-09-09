@@ -28,7 +28,7 @@ config = {
 }
 
 if wezterm.hostname() == "desktop" then
-	-- config.front_end = "OpenGL"
+	config.front_end = "WebGpu"
 	config.enable_wayland = false
 elseif wezterm.hostname() == "laptop" then
 	config.enable_wayland = false

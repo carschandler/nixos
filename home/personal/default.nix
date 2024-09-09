@@ -18,20 +18,21 @@ in
     # terminal emulators
     alacritty
     foot
-    # kitty below
     wezterm
+    # kitty in programs
 
     # gui apps
     _1password-gui
-    brave
     discord
     evince
     gimp
+    ladybird
     libreoffice-fresh
     nautilus
     obsidian
     spotify
     thunderbird
+    chromium
     vlc
     vscode-fhs
     xfce.thunar
@@ -118,6 +119,28 @@ in
     #   '';
     #   onChange = "${pkgs.mako}/bin/makoctl reload";
     # };
+  };
+
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    config = {
+      common = {
+        default = [ "gtk" ];
+      };
+      hyprland = {
+        default = [
+          "hyprland"
+          "gtk"
+        ];
+      };
+      sway = {
+        default = [
+          "wlr"
+          "gtk"
+        ];
+      };
+    };
   };
 
   # For Electron apps

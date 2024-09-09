@@ -28,10 +28,16 @@
     bosereset = "sudo usb-reset 05a7:1020";
   };
 
-  services.ollama = {
-    enable = true;
-    acceleration = "cuda";
-  };
+  services.desktopManager.cosmic.enable = true;
+  services.displayManager.cosmic-greeter.enable = false;
+
+  services.xserver.desktopManager.gnome.enable = true;
+  # environment.gnome.excludePackages
+
+  # services.ollama = {
+  #   enable = true;
+  #   acceleration = "cuda";
+  # };
 
   # TODO: Trying to get desktop monitor brightness control...
   # programs.light.enable = true;
@@ -52,7 +58,7 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  services.openssh.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

@@ -32,9 +32,12 @@
         pkgs.i3blocks # if you are planning on using i3blocks over i3status
       ];
     };
-    windowManager.awesome = {
-      enable = true;
-    };
+  };
+
+  security.polkit.enable = true;
+  programs.sway = {
+    enable = true;
+    wrapperFeatures.gtk = true;
   };
 
   hardware.graphics = {
