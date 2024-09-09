@@ -71,8 +71,33 @@ in
     pkgs.hyprpicker
   ];
 
-  programs.hyprlock = {
-    enable = true;
+  programs = {
+    hyprlock = {
+      enable = true;
+    };
+
+    tofi =
+      let
+        fontFile = (import ../fonts/systemFonts).sans.getFile pkgs;
+      in
+      {
+        enable = true;
+        settings = {
+          font = fontFile;
+          width = "100%";
+          height = "100%";
+          border-width = 0;
+          outline-width = 0;
+          padding-left = "35%";
+          padding-top = "35%";
+          result-spacing = 25;
+          num-results = 5;
+          background-color = "#000a";
+          text-color = "#ebdbb2";
+          selection-color = "#689d6a";
+          selection-match-color = "#8ec07c";
+        };
+      };
   };
 
   services = {
@@ -91,27 +116,4 @@ in
       font = (import ../fonts/systemFonts).sans.name;
     };
   };
-
-  tofi =
-    let
-      fontFile = (import ../fonts/systemFonts).sans.getFile pkgs;
-    in
-    {
-      enable = true;
-      settings = {
-        font = fontFile;
-        width = "100%";
-        height = "100%";
-        border-width = 0;
-        outline-width = 0;
-        padding-left = "35%";
-        padding-top = "35%";
-        result-spacing = 25;
-        num-results = 5;
-        background-color = "#000a";
-        text-color = "#ebdbb2";
-        selection-color = "#689d6a";
-        selection-match-color = "#8ec07c";
-      };
-    };
 }

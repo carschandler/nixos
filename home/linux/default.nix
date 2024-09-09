@@ -137,32 +137,32 @@ in
           background_opacity = "0.9";
         };
       };
-  };
 
-  firefox = {
-    enable = true;
-    package = pkgs.firefox.override {
-      nativeMessagingHosts = [ pkgs.tridactyl-native ];
-      cfg = {
-        speechSynthesisSupport = true;
+    firefox = {
+      enable = true;
+      package = pkgs.firefox.override {
+        nativeMessagingHosts = [ pkgs.tridactyl-native ];
+        cfg = {
+          speechSynthesisSupport = true;
+        };
       };
-    };
 
-    # profiles.chan = {
-    #   isDefault = true;
-    #   userChrome = ''
-    #     @-moz-document url("chrome://browser/content/browser.xul") {
-    #       #TabsToolbar {
-    #         visibility: collapse !important;
-    #         margin-bottom: 21px !important;
-    #       }
-    #     
-    #       #sidebar-box[sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"] #sidebar-header {
-    #         visibility: collapse !important;
-    #       }
-    #     }
-    #   '';
-    # };
+      # profiles.chan = {
+      #   isDefault = true;
+      #   userChrome = ''
+      #     @-moz-document url("chrome://browser/content/browser.xul") {
+      #       #TabsToolbar {
+      #         visibility: collapse !important;
+      #         margin-bottom: 21px !important;
+      #       }
+      #     
+      #       #sidebar-box[sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"] #sidebar-header {
+      #         visibility: collapse !important;
+      #       }
+      #     }
+      #   '';
+      # };
+    };
   };
 
   gtk = {
