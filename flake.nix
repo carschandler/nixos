@@ -16,8 +16,11 @@
       # Don't override hyprland's nixpkgs or the Cachix won't work
     };
 
-    hyprland-contrib = {
-      url = "github:hyprwm/contrib";
+    hyprland-contrib.url = "github:hyprwm/contrib";
+
+    nix-darwin = {
+      url = "github:LnL7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nixos-cosmic = {
@@ -25,9 +28,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # emanote = {
-    #   url = "github:srid/emanote";
-    # };
+    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
   };
 
   outputs =
@@ -36,6 +37,8 @@
       nixpkgs,
       home-manager,
       nixos-wsl,
+      nix-darwin,
+      nix-homebrew,
       ...
     }@inputs:
     {
@@ -45,7 +48,7 @@
           specialArgs = {
             inherit inputs;
           };
-          modules = [ 
+          modules = [
             {
               nix.settings = {
                 substituters = [ "https://cosmic.cachix.org/" ];
@@ -87,6 +90,8 @@
             ./home/shared
             ./home/personal
             ./home/desktop
+            ./home/hyprland
+            ./home/linux
           ];
         };
         "chan@laptop" = home-manager.lib.homeManagerConfiguration {
@@ -97,6 +102,8 @@
           modules = [
             ./home/shared
             ./home/personal
+            ./home/hyprland
+            ./home/linux
           ];
         };
         "chan@TORCH-LT-7472" = home-manager.lib.homeManagerConfiguration {
@@ -107,6 +114,7 @@
           modules = [
             ./home/shared
             ./home/work
+            ./home/linux
           ];
         };
         "cchandler@astro" = home-manager.lib.homeManagerConfiguration {
@@ -118,7 +126,38 @@
             ./home/shared
             ./home/work
             ./home/work/astro
+            ./home/linux
           ];
+        };
+        "chan@macbook.local" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.aarch64-darwin;
+          extraSpecialArgs = {
+            inherit inputs;
+          };
+          modules = [
+            ./home/shared
+            ./home/personal
+            ./home/mac
+          ];
+        };
+      };
+
+      darwinConfigurations = {
+        "macbook" = nix-darwin.lib.darwinSystem {
+          modules = [
+            ./system/darwin
+            nix-homebrew.darwinModules.nix-homebrew
+            {
+              nix-homebrew = {
+                enable = true;
+                enableRosetta = true;
+                user = "chan";
+              };
+            }
+          ];
+          # specialArgs = {
+          #   inherit inputs;
+          # };
         };
       };
 
