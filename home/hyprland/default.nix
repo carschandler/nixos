@@ -41,8 +41,8 @@ in
     nwg-panel
 
     # App Launcher
+    rofi-wayland
     tofi
-    nwg-drawer
 
     # Logout menu
     nwg-bar
