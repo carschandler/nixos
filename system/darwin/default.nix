@@ -16,9 +16,11 @@
       "1password"
       "bettertouchtool"
       "discord"
+      "middleclick"
       "obsidian"
       "raycast"
       "spotify"
+      "thunderbird"
       "visual-studio-code"
       "wezterm"
       "zed"
@@ -60,4 +62,6 @@
       NSAutomaticSpellingCorrectionEnabled = false;
     };
   };
+
+  system.stateVersion = 5;
 }
