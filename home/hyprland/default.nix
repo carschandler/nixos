@@ -27,18 +27,13 @@ in
     mako
     swaynotificationcenter
 
-    # pipewire should is taken care of at system level
-    # pipewire
-    # wireplumber
-
     # qt stuff / authentication agent
     qt6.qtwayland
     libsForQt5.qt5.qtwayland
     libsForQt5.polkit-kde-agent
 
     # Status bar
-    # FIXME: https://github.com/NixOS/nixpkgs/issues/326465
-    nwg-panel
+    # nwg-panel
 
     # App Launcher
     rofi-wayland
