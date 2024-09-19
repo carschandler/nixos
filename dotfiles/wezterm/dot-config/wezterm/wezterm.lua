@@ -23,6 +23,7 @@ config = {
 		bottom = 2,
 	},
 	window_background_opacity = 0.90,
+	macos_window_background_blur = 50,
 	xcursor_theme = "Adwaita",
 	xcursor_size = 24,
 }

@@ -123,6 +123,9 @@ in
       extraConfig = {
         pull.rebase = true;
       };
+      ignores = [
+        "*.DS_Store"
+      ];
     };
 
     helix = {

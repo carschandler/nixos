@@ -52,6 +52,7 @@
     };
     NSGlobalDomain = {
       # "com.apple.messages.text.EmojiReplacement" = 1; TODO
+      # "com.apple.driver.AppleBluetoothMultitouch.trackpad.TrackpadThreeFingerVertSwipeGesture" = 1; TODO
       "com.apple.keyboard.fnState" = true;
       "com.apple.mouse.tapBehavior" = 1;
       "com.apple.sound.beep.feedback" = 1;
