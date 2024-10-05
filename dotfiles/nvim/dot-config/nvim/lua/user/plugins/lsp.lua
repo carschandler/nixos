@@ -127,7 +127,7 @@ return {
 
       -- vim.lsp.set_log_level("debug")
 
-      lspconfig.ts_ls.setup({})
+      -- lspconfig.ts_ls.setup({})
 
       -- -- Set up format-on-save behavior via lsp-format.nvim
       -- vim.g.rustaceanvim = { server = { on_attach = require('lsp-format').on_attach } }

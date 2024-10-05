@@ -132,7 +132,7 @@
             ./home/linux
           ];
         };
-        "chan@macbook.local" = home-manager.lib.homeManagerConfiguration {
+        "chan@mbp" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.aarch64-darwin;
           extraSpecialArgs = {
             inherit inputs;
@@ -146,7 +146,7 @@
       };
 
       darwinConfigurations = {
-        "macbook" = nix-darwin.lib.darwinSystem {
+        "mbp" = nix-darwin.lib.darwinSystem {
           modules = [
             ./system/darwin
             nix-homebrew.darwinModules.nix-homebrew
