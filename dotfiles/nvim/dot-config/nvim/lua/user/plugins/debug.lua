@@ -30,11 +30,11 @@ return {
           if next(ws_dirs) == nil then
             dap.continue()
           else
-            for _, v in pairs(ws_dirs) do
-              local lua_launch_file = vim.fs.normalize(v) .. filesep .. "dapconfig.lua"
+            for _, ws_dir in pairs(ws_dirs) do
+              local lua_launch_file = vim.fs.normalize(ws_dir) .. filesep .. "dapconfig.lua"
               local config_table
 
-              local json_launch_file = vim.fs.normalize(v) .. filesep .. ".vscode" .. filesep .. "launch.json"
+              local json_launch_file = vim.fs.normalize(ws_dir) .. filesep .. ".vscode" .. filesep .. "launch.json"
 
               -- dapconfig.lua takes priority
               if vim.fn.filereadable(lua_launch_file) == 1 then
@@ -50,7 +50,8 @@ return {
                   error("Error: expected " .. lua_launch_file .. " to return a table; returned " .. type(config_table))
                 end
               elseif vim.fn.filereadable(json_launch_file) == 1 then
-                dap_vs.load_launchjs(json_launch_file)
+                local vscode_type_to_filetypes = { debugpy = { "python" } }
+                dap_vs.load_launchjs(json_launch_file, vscode_type_to_filetypes)
                 dap.continue()
                 return
               else
@@ -191,10 +192,10 @@ return {
         args = { "-m", "debugpy.adapter" },
       }
 
-      dap.configurations.debugpy = {
+      dap.configurations.python = {
         {
           name = "Launch file",
-          type = "python",
+          type = "debugpy",
           request = "launch",
           program = "${file}",
           pythonPath = "python",
@@ -202,7 +203,7 @@ return {
         },
         {
           name = "Custom",
-          type = "python",
+          type = "debugpy",
           request = "launch",
           program = function()
             local file = vim.fn.input("filename: ", "", "file")
