@@ -27,7 +27,9 @@ return {
           vim.diagnostic.enable(false)
         end
       end, { desc = "Toggle buffer diagnostics" })
-      vim.keymap.set("n", "<Leader>li", require("lspconfig.ui.lspinfo"), { desc = "LSP info" })
+      vim.keymap.set("n", "<Leader>li", function()
+        vim.cmd.checkhealth("lspconfig")
+      end, { desc = "LSP info" })
       vim.keymap.set("n", "<Leader>le", vim.diagnostic.open_float, { desc = "Show diagnostics" })
       vim.keymap.set("n", "<M-k>", vim.diagnostic.open_float, { desc = "Show diagnostics" })
       vim.keymap.set("n", "[e", vim.diagnostic.goto_prev, { desc = "Previous diagnostic" })
@@ -76,6 +78,7 @@ return {
             print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
           end, opts_desc("List workspace dirs"))
           vim.keymap.set("n", "<Leader>lr", vim.lsp.buf.rename, opts_desc("Rename symbol"))
+          vim.keymap.set("n", "<Leader>lR", vim.cmd.LspRestart, opts_desc("Restart LSP"))
           vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, opts_desc("Rename symbol"))
           vim.keymap.set({ "n", "v" }, "<Leader>la", vim.lsp.buf.code_action, opts_desc("Code actions"))
           vim.keymap.set("n", "gr", vim.lsp.buf.references, opts_desc("Go to references"))
