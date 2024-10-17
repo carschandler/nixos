@@ -108,9 +108,10 @@ in
     zed-editor
 
     # hardware utils
+    glxinfo
+    playerctl
     usbutils
     usb-reset
-    glxinfo
   ];
 
   # programs.thunderbird = {

@@ -58,9 +58,6 @@ in
     # Brightness control
     brightnessctl
 
-    # Media control
-    playerctl
-
     # Screenshots
     inputs.hyprland-contrib.packages.${pkgs.system}.grimblast
     pkgs.hyprpicker
