@@ -127,7 +127,7 @@ in
       in
       {
         enable = true;
-        theme = "Gruvbox Dark";
+        themeFile = "gruvbox-dark";
         settings = {
           font_family = "${monospaceFont}";
           bold_font = "${monospaceFont} Bold";
