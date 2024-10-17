@@ -34,6 +34,21 @@
   # services.desktopManager.cosmic.enable = true;
   # services.displayManager.cosmic-greeter.enable = false;
 
+  # services.xserver.enable = true;
+  # services.xserver.desktopManager.gnome.enable = true;
+  # services.xserver.displayManager.gdm.enable = true;
+
+  services.xserver.enable = true;
+  services.displayManager.sddm.enable = true;
+  services.desktopManager.plasma6.enable = true;
+
+  # services.desktopManager.plasma6 = {
+  #   enable = true;
+  # };
+  # services.displayManager.sddm = {
+  #   enable = true;
+  #   wayland.enable = true;
+  # };
 
   virtualisation.docker.enable = true;
   users.users.chan.extraGroups = [ "docker" ];
