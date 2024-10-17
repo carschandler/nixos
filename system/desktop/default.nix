@@ -19,6 +19,9 @@
   boot.loader.grub.gfxmodeEfi = "1280x1024";
   boot.loader.grub.font = "${pkgs.source-code-pro}/share/fonts/opentype/SourceCodePro-Medium.otf";
 
+  # Attempt to fix Bluetooth ACPI _PRR error after suspend
+  boot.kernelModules = [ "btintel" ];
+
   hardware.nvidia = {
     # This fixed hyprland crashing after waking from suspend!
     powerManagement.enable = true;
@@ -28,10 +31,13 @@
     bosereset = "sudo usb-reset 05a7:1020";
   };
 
-  services.desktopManager.cosmic.enable = true;
-  services.displayManager.cosmic-greeter.enable = false;
+  # services.desktopManager.cosmic.enable = true;
+  # services.displayManager.cosmic-greeter.enable = false;
 
-  services.xserver.desktopManager.gnome.enable = true;
+
+  virtualisation.docker.enable = true;
+  users.users.chan.extraGroups = [ "docker" ];
+
   # environment.gnome.excludePackages
 
   # services.ollama = {

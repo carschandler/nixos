@@ -20,25 +20,25 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
-  services.xserver = {
-    enable = true;
-    displayManager.gdm.enable = true;
-    windowManager.i3 = {
-      enable = true;
-      extraPackages = [
-        pkgs.dmenu # application launcher most people use
-        pkgs.i3status # gives you the default i3 status bar
-        pkgs.i3lock # default i3 screen locker
-        pkgs.i3blocks # if you are planning on using i3blocks over i3status
-      ];
-    };
-  };
+  # services.xserver = {
+  #   enable = true;
+  #   displayManager.gdm.enable = true;
+  #   windowManager.i3 = {
+  #     enable = true;
+  #     extraPackages = [
+  #       pkgs.dmenu # application launcher most people use
+  #       pkgs.i3status # gives you the default i3 status bar
+  #       pkgs.i3lock # default i3 screen locker
+  #       pkgs.i3blocks # if you are planning on using i3blocks over i3status
+  #     ];
+  #   };
+  # };
 
   security.polkit.enable = true;
-  programs.sway = {
-    enable = true;
-    wrapperFeatures.gtk = true;
-  };
+  # programs.sway = {
+  #   enable = true;
+  #   wrapperFeatures.gtk = true;
+  # };
 
   hardware.graphics = {
     enable = true;
@@ -135,6 +135,13 @@
 
   # Enable bluetooth
   hardware.bluetooth.enable = true;
+  environment.systemPackages = [
+    pkgs.overskride
+  ];
+
+  environment.variables = {
+    NIXOS_OZONE_WL = "1";
+  };
 
   # Enable blueman for managing connections
   services.blueman.enable = true;

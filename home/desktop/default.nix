@@ -1,4 +1,7 @@
 { pkgs, ... }:
 {
-  home.packages = [ pkgs.prismlauncher pkgs.clonehero ];
+  home.packages = [
+    pkgs.prismlauncher
+    pkgs.clonehero
+  ];
 }
