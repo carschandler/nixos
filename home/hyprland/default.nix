@@ -49,7 +49,7 @@ in
     hyprcursor
 
     # Clipboard
-    wl-clipboard
+    # wl-clipboard -> moved to linux config
     cliphist
 
     # Audio control GUI

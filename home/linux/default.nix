@@ -103,6 +103,7 @@ in
     thunderbird
     vlc
     vscode-fhs
+    wl-clipboard
     xfce.thunar
     zathura
     zed-editor
