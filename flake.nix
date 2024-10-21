@@ -117,7 +117,6 @@
           modules = [
             ./home/shared
             ./home/work
-            ./home/linux
           ];
         };
         "cchandler@astro" = home-manager.lib.homeManagerConfiguration {
