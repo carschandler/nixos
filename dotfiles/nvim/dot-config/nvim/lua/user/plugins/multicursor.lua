@@ -1,0 +1,91 @@
+return {
+  -- "jake-stewart/multicursor.nvim",
+  -- branch = "1.0",
+  -- config = function()
+  --   local mc = require("multicursor-nvim")
+  --
+  --   mc.setup()
+  --
+  --   local km = vim.keymap.set
+  --   local wk = require("which-key")
+  --
+  --   wk.add({
+  --     mode = {"n", "v"},
+  --     -- Add or skip cursor above/below the main cursor.
+  --     {"<Leader><Up>", function() mc.lineAddCursor(-1) end, desc="Add cursor above"},
+  --     {"<Leader><Down>", function() mc.lineAddCursor(1) end, desc="Add cursor below"},
+  --     {"<Leader>s<Up>", function() mc.lineSkipCursor(-1) end, desc="Skip cursor up"},
+  --     {"<Leader>s<Down>", function() mc.lineSkipCursor(1) end, desc="Skip cursor down"},
+  --
+  --     -- Add or skip adding a new cursor by matching word/selection
+  --     {"<M-m>", function() mc.matchAddCursor(1) end},
+  --     {"<M-i>", function() mc.matchAddCursor(-1) end},
+  --     {"<M-C-m>", function() mc.matchSkipCursor(1) end},
+  --     {"<M-C-i>", function() mc.matchSkipCursor(-1) end},
+  --
+  --     -- Rotate the main cursor.
+  --     {"<M-c>", mc.nextCursor},
+  --     {"<M-C-c>", mc.prevCursor},
+  --
+  --     -- Delete the main cursor.
+  --     {"<M-x>", mc.deleteCursor},
+  --
+  --     -- Add and remove cursors with control + left click.
+  --     {"n", "<c-leftmouse>", mc.handleMouse},
+  --
+  --     km({ "n", "v" }, "<M-q>", function()
+  --       if mc.cursorsEnabled() then
+  --         -- Stop other cursors from moving.
+  --         -- This allows you to reposition the main cursor.
+  --         mc.disableCursors()
+  --       else
+  --         mc.addCursor()
+  --       end
+  --     end)
+  --
+  --     -- clone every cursor and disable the originals
+  --     km({ "n", "v" }, "<M-C-q>", mc.duplicateCursors)
+  --
+  --   })
+  --
+  --   km("n", "<esc>", function()
+  --     if not mc.cursorsEnabled() then
+  --       mc.enableCursors()
+  --     elseif mc.hasCursors() then
+  --       mc.clearCursors()
+  --     else
+  --       -- Default <esc> handler.
+  --     end
+  --   end)
+  --
+  --   -- Align cursor columns.
+  --   km("v", "<C-a>", mc.alignCursors)
+  --
+  --   -- Split visual selections by regex.
+  --   km("x", "<C-s>", mc.splitCursors)
+  --
+  --   -- Append/insert for each line of visual selections.
+  --   km("v", "I", mc.insertVisual)
+  --   km("v", "A", mc.appendVisual)
+  --
+  --   -- match new cursors within visual selections by regex.
+  --   km("v", "<C-m>", mc.matchCursors)
+  --
+  --   -- Rotate visual selection contents.
+  --   km("v", "<leader>t", function()
+  --     mc.transposeCursors(1)
+  --   end)
+  --   km("v", "<leader>T", function()
+  --     mc.transposeCursors(-1)
+  --   end)
+  --
+  --   -- Customize how cursors look.
+  --   local hl = vim.api.nvim_set_hl
+  --   hl(0, "MultiCursorCursor", { link = "Cursor" })
+  --   hl(0, "MultiCursorVisual", { link = "Visual" })
+  --   hl(0, "MultiCursorSign", { link = "SignColumn" })
+  --   hl(0, "MultiCursorDisabledCursor", { link = "Visual" })
+  --   hl(0, "MultiCursorDisabledVisual", { link = "Visual" })
+  --   hl(0, "MultiCursorDisabledSign", { link = "SignColumn" })
+  -- end,
+}

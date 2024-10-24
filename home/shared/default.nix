@@ -196,6 +196,20 @@ in
       enableBashIntegration = true;
       enableNushellIntegration = true;
       shellWrapperName = "y";
+      keymap = {
+        manager.prepend_keymap = [
+          {
+            on = "q";
+            run = "quit --no-cwd-file";
+            desc = "Exit the process without writing cwd-file";
+          }
+          {
+            on = "Q";
+            run = "quit";
+            desc = "Exit the process without writing cwd-file";
+          }
+        ];
+      };
     };
 
     zoxide = {
