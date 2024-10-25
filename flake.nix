@@ -71,6 +71,14 @@
           modules = [ ./system/laptop ];
         };
 
+        homelab = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = {
+            inherit inputs;
+          };
+          modules = [ ./system/homelab ];
+        };
+
         TORCH-LT-7472 = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = {
@@ -107,6 +115,16 @@
             ./home/personal
             ./home/hyprland
             ./home/linux
+          ];
+        };
+        "chan@homelab" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          extraSpecialArgs = {
+            inherit inputs;
+          };
+          modules = [
+            ./home/shared
+            ./home/homelab
           ];
         };
         "chan@TORCH-LT-7472" = home-manager.lib.homeManagerConfiguration {
