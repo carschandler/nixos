@@ -158,6 +158,10 @@ in
 
     nushell = {
       enable = true;
+      extraConfig = ''
+        $env.config.completions.algorithm = "fuzzy"
+        $env.edit_mode = "vi"
+      '';
     };
 
     readline = {
