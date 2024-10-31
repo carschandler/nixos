@@ -44,7 +44,7 @@ in
 
   home.packages = with pkgs; [
     # cli programs
-    _1password_cli
+    _1password-cli
     bat
     cbonsai
     fd
