@@ -91,7 +91,7 @@ in
       #         size = "100%";
       #         content = {
       #           type = "zfs";
-      #           pool = "zroot";
+      #           pool = "spinpool";
       #         };
       #       };
       #     };
@@ -116,11 +116,6 @@ in
                   "/dev/disk/by-partlabel/disk-flash0-zfs-mirror"
                 ];
               }
-              {
-                members = [
-                  "/dev/disk/by-partlabel/disk-flash0-store"
-                ];
-              }
             ];
           };
         };
@@ -138,7 +133,7 @@ in
             type = "zfs_fs";
             mountpoint = "/";
             options."com.sun:auto-snapshot" = "false";
-            postCreateHook = "zfs list -t snapshot -H -o name | grep -E '^zroot/local/root@blank$' || zfs snapshot zroot/local/root@blank";
+            postCreateHook = "zfs list -t snapshot -H -o name | grep -E '^rootpool/drop/root@blank$' || zfs snapshot rootpool/drop/root@blank";
           };
           "drop/nix" = {
             type = "zfs_fs";
