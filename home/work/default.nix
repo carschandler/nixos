@@ -18,6 +18,7 @@
     # TODO: find out if there is a way to make nixGL work with nvidia on WSL
     # pkgs.nixgl.auto.nixGLNvidia
     pixi
+    meld
   ];
 
   programs = {

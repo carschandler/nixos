@@ -65,7 +65,9 @@ in
     toipe
     tree-sitter
     typos
+    typst
     unzip
+    uv
     wget
     xdg-utils
     xplr
@@ -161,6 +163,18 @@ in
       extraConfig = ''
         $env.config.completions.algorithm = "fuzzy"
         $env.edit_mode = "vi"
+        $env.config.keybindings = [
+          {
+            name: insert_last_token
+            modifier: alt
+            keycode: char_.
+            mode: [ vi_normal vi_insert ]
+            event: [
+              { edit: InsertString, value: " !$" }
+              { send: Enter }
+            ]
+          }
+        ]
       '';
     };
 
@@ -212,8 +226,20 @@ in
             run = "quit";
             desc = "Exit the process without writing cwd-file";
           }
+          {
+            on = "T";
+            run = "plugin --sync hide-preview";
+            desc = "Hide or show preview";
+          }
         ];
       };
+      plugins =
+        let
+          plugdir = ../../dotfiles/yazi/plugins;
+        in
+        {
+          hide-preview = plugdir + "/hide-preview";
+        };
     };
 
     zoxide = {
