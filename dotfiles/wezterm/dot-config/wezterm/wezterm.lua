@@ -34,7 +34,7 @@ if wezterm.hostname() == "desktop" then
 elseif wezterm.hostname() == "laptop" then
 	config.enable_wayland = false
 	-- config.front_end = "Software"
-elseif wezterm.hostname() == "macbook.local" then
+elseif wezterm.hostname() == "mbp" then
 	config.default_prog = { "/Users/chan/.nix-profile/bin/bash", "-l" }
 end
 

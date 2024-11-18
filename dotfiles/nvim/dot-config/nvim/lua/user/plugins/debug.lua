@@ -186,7 +186,7 @@ return {
         end,
       })
 
-      dap.adapters.debugpy = {
+      dap.adapters.python = {
         type = "executable",
         command = "python",
         args = { "-m", "debugpy.adapter" },

@@ -6,6 +6,9 @@ return {
     },
     ft = "quarto",
     opts = {},
+    config = function()
+      vim.treesitter.language.register("markdown", { "quarto", "rmd" })
+    end,
   },
 
   { -- directly open ipynb files as quarto docuements

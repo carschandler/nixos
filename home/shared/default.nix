@@ -223,13 +223,7 @@ in
     bash = {
       enable = true;
       shellAliases = {
-        hms = "nh home switch $HOME/nixos";
-        hmn = "home-manager news --flake $HOME/nixos";
-        nrs = "nh os switch $HOME/nixos";
-        nfu = "nix flake update --commit-lock-file $HOME/nixos";
-        # FIXME: override lesspipe somehow?
-        battery = "cat /sys/class/power_supply/BAT0/capacity";
-        py = "nix develop ~/nixos/devshells/python/";
+        ls = "lsd --group-dirs=first";
       };
       bashrcExtra = ''
         if ! [[ $PATH =~ ${homedir}/.local/bin ]]; then
@@ -238,32 +232,6 @@ in
 
         shopt -s direxpand
         shopt -s cdable_vars
-
-        alias ls="lsd --group-dirs=first"
-
-        function ll() {
-          lsd --group-dirs=first --color=always --icon=always -l "$@" | less -rF
-        }
-
-        function lr() {
-           lsd --group-dirs=first --color=always --icon=always -l --date=relative "$@" | less -rF
-        }
-
-        function la() {
-          lsd --group-dirs=first --color=always --icon=always -A "$@" | less -rF
-        }
-
-        function lt() {
-          lsd --group-dirs=first --tree --color=always --icon=always "$@" | less -rF
-        }
-
-        function lla() {
-          lsd --group-dirs=first --color=always --icon=always -lA "$@" | less -rF
-        }
-
-        function llt() {
-          lsd --group-dirs=first --color=always --icon=always -l --tree "$@" | less -rF;
-        }
 
         # Prevent nix paths from being duplicated every time a new shell is
         # initiated
@@ -276,6 +244,32 @@ in
       '';
     };
   };
+
+  home.file =
+    let
+      localBin = {
+        "hms" = "nh home switch $HOME/nixos";
+        "hmn" = "home-manager news --flake $HOME/nixos";
+        "nrs" = "nh os switch $HOME/nixos";
+        "nfu" = "nix flake update --commit-lock-file $HOME/nixos";
+        "drs" = "darwin-rebuild switch --flake $HOME/nixos";
+        "battery" = "cat /sys/class/power_supply/BAT0/capacity";
+        "py" = "nix develop ~/nixos/devshells/python/";
+        "l" = "lsd --group-dirs=first";
+        "ll" = ''lsd --group-dirs=first --color=always --icon=always -l "$@" | less -rF'';
+        "lr" = ''lsd --group-dirs=first --color=always --icon=always -l --date=relative "$@" | less -rF'';
+        "la" = ''lsd --group-dirs=first --color=always --icon=always -A "$@" | less -rF'';
+        "lt" = ''lsd --group-dirs=first --tree --color=always --icon=always "$@" | less -rF'';
+        "lla" = ''lsd --group-dirs=first --color=always --icon=always -lA "$@" | less -rF'';
+        "llt" = ''lsd --group-dirs=first --color=always --icon=always -l --tree "$@" | less -rF;'';
+      };
+    in
+    lib.attrsets.concatMapAttrs (name: value: {
+      ".local/bin/${name}" = {
+        text = value;
+        executable = true;
+      };
+    }) localBin;
 
   home.sessionVariables = {
     EDITOR = "nvim";

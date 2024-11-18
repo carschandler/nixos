@@ -78,7 +78,6 @@ return {
             print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
           end, opts_desc("List workspace dirs"))
           vim.keymap.set("n", "<Leader>lr", vim.lsp.buf.rename, opts_desc("Rename symbol"))
-          vim.keymap.set("n", "<Leader>lR", vim.cmd.LspRestart, opts_desc("Restart LSP"))
           vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, opts_desc("Rename symbol"))
           vim.keymap.set({ "n", "v" }, "<Leader>la", vim.lsp.buf.code_action, opts_desc("Code actions"))
           vim.keymap.set("n", "gr", vim.lsp.buf.references, opts_desc("Go to references"))
@@ -127,6 +126,8 @@ return {
       --     "/nix/store/kg50zxb30zixssxi8x89afjgy48lw17y-basedpyright-1.13.3/lib/node_modules/basedpyright/dist/typeshed-fallback",
       --   },
       -- })
+
+      -- vim.lsp.set_log_level("debug")
 
       -- lspconfig.ts_ls.setup({})
 

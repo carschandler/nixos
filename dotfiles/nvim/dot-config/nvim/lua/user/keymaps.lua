@@ -109,6 +109,8 @@ km("n", "q:", "<NOP>")
 
 -- Like M-q from emacs:
 km("n", "<M-q>", "gwip")
+km("i", "<M-q>", "<Esc>gwipa")
+km("v", "<M-q>", "gw")
 
 -- Set text wrapping
 km({ "n", "i" }, "<M-p>", function()

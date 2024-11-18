@@ -7,6 +7,10 @@
   nixpkgs.hostPlatform = "aarch64-darwin";
   services.nix-daemon.enable = true;
 
+  networking.hostName = "mbp";
+
+  security.pam.enableSudoTouchIdAuth = true;
+
   users.users.chan.shell = pkgs.bashInteractive;
 
   homebrew = {
@@ -16,12 +20,13 @@
       "1password"
       "bettertouchtool"
       "discord"
-      "middleclick"
       "obsidian"
       "raycast"
       "spotify"
       "thunderbird"
       "visual-studio-code"
+      "visual-studio-code@insiders"
+      "warp"
       "wezterm"
       "zed"
       "zen-browser"
@@ -50,6 +55,9 @@
       Clicking = true;
       Dragging = true;
       TrackpadRightClick = true;
+    };
+    screencapture = {
+      location = "~/Pictures/screenshots";
     };
     NSGlobalDomain = {
       # "com.apple.messages.text.EmojiReplacement" = 1; TODO

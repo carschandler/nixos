@@ -34,3 +34,6 @@ subdirs
 linux
 PowerShell
 relavent/!
+CTDE
+RL
+TorchRL
