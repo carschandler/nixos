@@ -19,7 +19,10 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "homelab"; # Define your hostname.
+  networking = {
+    hostName = "homelab"; # Define your hostname.
+    hostId = "c007d31d"; # Required by ZFS; generated using head -c 8 /etc/machine-id
+  };
 
   services.xserver.videoDrivers = [ "nvidia" ];
 
