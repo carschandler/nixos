@@ -39,6 +39,7 @@
       self,
       nixpkgs,
       home-manager,
+      disko,
       nixos-wsl,
       nix-darwin,
       nix-homebrew,
@@ -76,7 +77,10 @@
           specialArgs = {
             inherit inputs;
           };
-          modules = [ ./system/homelab ];
+          modules = [
+            ./system/homelab
+            disko.nixosModules.disko
+          ];
         };
 
         TORCH-LT-7472 = nixpkgs.lib.nixosSystem {

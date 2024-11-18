@@ -6,6 +6,7 @@
 
     # System-specific hardware configuration
     ./hardware-configuration.nix
+    ./disko.nix
   ];
 
   services = {
@@ -52,16 +53,24 @@
   };
 
   virtualisation.docker.enable = true;
-  users.users.chan = {
-    isNormalUser = true;
-    description = "Cars Chandler";
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-      "video"
-      "docker"
+  users.users = {
+    root.openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK3Qpp98RwhGQy5KvENz9iejZ2HcYklJ2ymB0nwHh3ME"
     ];
-    packages = [ ];
+    chan = {
+      isNormalUser = true;
+      description = "Cars Chandler";
+      extraGroups = [
+        "networkmanager"
+        "wheel"
+        "video"
+        "docker"
+      ];
+      packages = [ ];
+      openssh.authorizedKeys.keys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK3Qpp98RwhGQy5KvENz9iejZ2HcYklJ2ymB0nwHh3ME"
+      ];
+    };
   };
 
   nixpkgs.config.allowUnfree = true;
