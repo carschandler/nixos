@@ -74,8 +74,20 @@ in
             flash = {
               size = "100%";
               content = {
-                type = "zfs";
-                pool = "flashpool";
+                type = "luks";
+                name = "flashluks";
+                passwordFile = "/tmp/secret.phrase";
+                settings = {
+                  # Enables TRIM; does have some security concerns, but they seem minor to me
+                  allowDiscards = true;
+                  keyFile = "/tmp/secret.key";
+                  keyFileTimeout = 30;
+                  fallbackToPassword = true;
+                };
+                content = {
+                  type = "zfs";
+                  pool = "flashpool";
+                };
               };
             };
           };

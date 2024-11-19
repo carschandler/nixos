@@ -115,6 +115,8 @@ in
     wl-clipboard
   ];
 
+  services.cliphist.enable = true;
+
   # programs.thunderbird = {
   #   enable = true;
   #   profiles.chan = {
@@ -123,8 +125,6 @@ in
   # };
 
   programs = {
-    cliphist.enable = true;
-
     kitty =
       let
         monospaceFont = (import ../fonts/systemFonts).monospace.name;
