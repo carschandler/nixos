@@ -94,7 +94,7 @@ in
     evince
     feh
     gimp
-    ladybird
+    # ladybird
     libreoffice-fresh
     meld
     nautilus
@@ -192,7 +192,7 @@ in
     };
   };
 
-  # home.sessionVariables.GTK_THEME = "adw-gtk3-dark";
+  home.sessionVariables.GTK_THEME = "adw-gtk3-dark";
 
   qt = {
     enable = true;

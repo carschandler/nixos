@@ -31,24 +31,33 @@
     bosereset = "sudo usb-reset 05a7:1020";
   };
 
-  # services.desktopManager.cosmic.enable = true;
-  # services.displayManager.cosmic-greeter.enable = false;
+  services.desktopManager.cosmic.enable = true;
+  services.displayManager.cosmic-greeter.enable = true;
 
   # services.xserver.enable = true;
   # services.xserver.desktopManager.gnome.enable = true;
   # services.xserver.displayManager.gdm.enable = true;
+  # environment.systemPackages = [ pkgs.adwaita-icon-theme ];
 
-  services.xserver.enable = true;
-  services.displayManager.sddm.enable = true;
-  services.desktopManager.plasma6.enable = true;
+  # nixpkgs.overlays = [
+  #   # GNOME 46: triple-buffering-v4-46
+  #   (final: prev: {
+  #     mutter = prev.mutter.overrideAttrs (old: {
+  #       src = pkgs.fetchFromGitLab {
+  #         domain = "gitlab.gnome.org";
+  #         owner = "vanvugt";
+  #         repo = "mutter";
+  #         rev = "triple-buffering-v4-46";
+  #         hash = "sha256-C2VfW3ThPEZ37YkX7ejlyumLnWa9oij333d5c4yfZxc=";
+  #       };
+  #     });
+  #   })
+  # ];
 
-  # services.desktopManager.plasma6 = {
-  #   enable = true;
-  # };
-  # services.displayManager.sddm = {
-  #   enable = true;
-  #   wayland.enable = true;
-  # };
+  # services.xserver.enable = true;
+  # services.displayManager.sddm.enable = true;
+  # services.displayManager.sddm.wayland.enable = true;
+  # services.desktopManager.plasma6.enable = true;
 
   virtualisation.docker.enable = true;
   users.users.chan.extraGroups = [ "docker" ];

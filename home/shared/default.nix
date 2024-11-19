@@ -205,7 +205,7 @@ in
         hms = "nh home switch $HOME/nixos";
         hmn = "home-manager news --flake $HOME/nixos";
         nrs = "nh os switch $HOME/nixos";
-        nfu = "nix flake update --commit-lock-file $HOME/nixos";
+        nfu = "nix flake update --commit-lock-file --flake $HOME/nixos/";
         # FIXME: override lesspipe somehow?
         battery = "cat /sys/class/power_supply/BAT0/capacity";
         py = "nix develop ~/nixos/devshells/python/";
