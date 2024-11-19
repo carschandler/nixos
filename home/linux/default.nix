@@ -1,4 +1,8 @@
-{ pkgs, config, ... }:
+{
+  pkgs,
+  config,
+  ...
+}:
 let
   xdgUserDir = "${config.home.homeDirectory}/xdg";
 in
@@ -203,4 +207,6 @@ in
     DEFAULT_BROWSER = "firefox";
     BROWSER = "firefox";
   };
+
+  home.stateVersion = "22.11";
 }
