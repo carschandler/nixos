@@ -33,7 +33,7 @@ in
     libsForQt5.polkit-kde-agent
 
     # Status bar
-    # nwg-panel
+    nwg-panel
 
     # App Launcher
     rofi-wayland

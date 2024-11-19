@@ -94,7 +94,7 @@ in
     evince
     feh
     gimp
-    ladybird
+    # ladybird
     libreoffice-fresh
     meld
     nautilus
@@ -103,7 +103,6 @@ in
     thunderbird
     vlc
     vscode-fhs
-    wl-clipboard
     xfce.thunar
     zathura
     zed-editor
@@ -113,6 +112,7 @@ in
     playerctl
     usbutils
     usb-reset
+    wl-clipboard
   ];
 
   # programs.thunderbird = {
@@ -123,6 +123,8 @@ in
   # };
 
   programs = {
+    cliphist.enable = true;
+
     kitty =
       let
         monospaceFont = (import ../fonts/systemFonts).monospace.name;
@@ -193,7 +195,7 @@ in
     };
   };
 
-  # home.sessionVariables.GTK_THEME = "adw-gtk3-dark";
+  home.sessionVariables.GTK_THEME = "adw-gtk3-dark";
 
   qt = {
     enable = true;
