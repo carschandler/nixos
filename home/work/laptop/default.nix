@@ -36,4 +36,6 @@ in
   home.file.".local/bin/powershell.exe".source = symlink "/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe";
   home.file.".local/bin/excel.exe".source = symlink "/mnt/c/Program Files/Microsoft Office/root/Office16/EXCEL.EXE";
   home.file.".local/bin/code".source = symlink "/mnt/c/Users/rchandler/AppData/Local/Programs/Microsoft VS Code Insiders/bin/code-insiders";
+
+  home.stateVersion = "23.11";
 }

@@ -1,8 +1,4 @@
-{
-  pkgs,
-  config,
-  ...
-}:
+{ pkgs, config, ... }:
 let
   xdgUserDir = "${config.home.homeDirectory}/xdg";
 in
@@ -94,7 +90,10 @@ in
     evince
     feh
     gimp
+<<<<<<< Updated upstream
     # ladybird
+=======
+>>>>>>> Stashed changes
     libreoffice-fresh
     meld
     nautilus
@@ -209,6 +208,4 @@ in
     DEFAULT_BROWSER = "firefox";
     BROWSER = "firefox";
   };
-
-  home.stateVersion = "22.11";
 }
