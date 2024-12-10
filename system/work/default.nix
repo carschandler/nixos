@@ -25,9 +25,12 @@
       interop.appendWindowsPath = false;
       network = {
         hostname = "TORCH-LT-7472";
+        generateResolvConf = false;
       };
     };
   };
+
+  services.tailscale.enable = true;
 
   users.users.chan = {
     isNormalUser = true;
@@ -43,6 +46,11 @@
       ./work_windows_rsa.pub
       ./work_ubuntu_rsa.pub
     ];
+  };
+
+  networking = {
+    search = [ "torch2003.com " ];
+    nameservers = [ "10.255.255.254" ];
   };
 
   # For mount.cifs, required unless domain name resolution is not needed.
