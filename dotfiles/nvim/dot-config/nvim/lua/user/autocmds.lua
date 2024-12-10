@@ -5,7 +5,6 @@ autocmd("TermOpen", {
     vim.opt.spell = false
     vim.opt.number = false
     vim.opt.relativenumber = false
-    vim.cmd.startinsert()
   end,
   desc = "Turn off line numbers, spellcheck for terminal mode",
 })
@@ -19,15 +18,22 @@ autocmd("WinEnter", {
 })
 
 autocmd("WinEnter", {
-  pattern = { "\\[dap-repl\\]" },
+  pattern = { "\\[dap-repl*\\]" },
   callback = function()
-    vim.cmd.startinsert()
     vim.opt.spell = false
-    -- vim.opt.number = false
-    -- vim.opt.relativenumber = false
+    vim.opt.number = false
+    vim.opt.relativenumber = false
   end,
   desc = "Enter insert mode whenever entering a dap window",
 })
+
+if vim.g.vscode then
+  autocmd({ "VimEnter", "ModeChanged" }, {
+    callback = function()
+      require("vscode").call("setContext", { args = { "neovim.fullMode", vim.fn.mode(1) } })
+    end,
+  })
+end
 
 -- Automatically commit lockfile after running Lazy Update (or Sync)
 -- autocmd("User", {

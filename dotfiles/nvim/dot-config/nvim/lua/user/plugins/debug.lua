@@ -11,6 +11,8 @@ return {
       local dap_vs = require("dap.ext.vscode")
       local wk = require("which-key")
 
+      dap.defaults.fallback.terminal_win_cmd = "tabnew"
+
       if wk then
         wk.add({ "<Leader>r", group = "run/debug" })
       end
@@ -50,8 +52,11 @@ return {
                   error("Error: expected " .. lua_launch_file .. " to return a table; returned " .. type(config_table))
                 end
               elseif vim.fn.filereadable(json_launch_file) == 1 then
-                local vscode_type_to_filetypes = { debugpy = { "python" } }
-                dap_vs.load_launchjs(json_launch_file, vscode_type_to_filetypes)
+                -- TODO: if in the workspace root, then nvim-dap picks this up
+                -- by default and will duplicate entries, but not if in a child
+                -- directory
+                -- local vscode_type_to_filetypes = { debugpy = { "python" } }
+                -- dap_vs.load_launchjs(json_launch_file, vscode_type_to_filetypes)
                 dap.continue()
                 return
               else
@@ -166,7 +171,7 @@ return {
       vim.fn.sign_define("DapLogPoint", { text = "", numhl = "DiagnosticInfo" })
       vim.fn.sign_define("DapStopped", { text = "", texthl = "DiagnosticSignOk" })
       vim.fn.sign_define("DapBreakpointRejected", { text = "", texthl = "DiagnosticWarn" })
-      -- vim.fn.sign_define('DapBreakpoint', { text='󰧟', texthl='DiagnosticError' })
+      -- vim.fn.sign_define("DapBreakpoint", { text = "󰧟", texthl = "DiagnosticError" })
 
       -- repl.commands = vim.tbl_extend('force', repl.commands, {
       --   custom_commands = {
@@ -179,14 +184,7 @@ return {
       --   },
       -- })
 
-      vim.api.nvim_create_autocmd("FileType", {
-        pattern = "dap-repl",
-        callback = function()
-          vim.keymap.set("i", "<Tab>", "<C-X><C-O>", { buffer = true, desc = "DAP Omnifunc" })
-        end,
-      })
-
-      dap.adapters.python = {
+      dap.adapters.debugpy = {
         type = "executable",
         command = "python",
         args = { "-m", "debugpy.adapter" },
@@ -223,6 +221,8 @@ return {
           pythonPath = "python",
         },
       }
+
+      -- This is how we would configure rust if not using rustacean.nvim
 
       -- dap.adapters.codelldb = {
       --   type = 'server',
@@ -264,10 +264,10 @@ return {
       -- }
     end,
   },
-  {
-    "rcarriga/nvim-dap-ui",
-    cond = not vim.g.vscode,
-    dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
-    opts = {},
-  },
+  -- {
+  --   "rcarriga/nvim-dap-ui",
+  --   cond = not vim.g.vscode,
+  --   dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
+  --   opts = {},
+  -- },
 }

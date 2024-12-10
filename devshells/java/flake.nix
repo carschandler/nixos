@@ -1,5 +1,5 @@
 {
-  description = "Python Shell";
+  description = "Java Shell";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -14,12 +14,14 @@
       devShells.default = pkgs.mkShell {
         packages = [
           pkgs.jdt-language-server
-          pkgs.python39
+          pkgs.vscode-extensions.vscjava.vscode-java-debug
           pkgs.temurin-bin-8
           pkgs.maven
         ];
 
+        JAVA_DEBUG_PATH = pkgs.vscode-extensions.vscjava.vscode-java-debug;
         formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
+
       };
     };
 }
