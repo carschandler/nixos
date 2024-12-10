@@ -8,7 +8,7 @@ return {
       up_right = "╰",
     },
   },
-  config = function(opts)
+  config = function(_, opts)
     require("lsp_lines").setup(opts)
     vim.diagnostic.config({ virtual_text = false })
   end,
