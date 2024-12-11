@@ -1,8 +1,8 @@
 return {
-  -- "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-  "lsp_lines.nvim",
+  "https://git.sr.ht/~carschandler/lsp_lines.nvim",
+  -- "lsp_lines.nvim",
+  -- dev = true,
   cond = not vim.g.vscode,
-  dev = true,
   opts = {
     box_drawing_characters = {
       up_right = "╰",
