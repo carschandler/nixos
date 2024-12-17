@@ -104,7 +104,6 @@ in
     vscode-fhs
     xfce.thunar
     zathura
-    zed-editor
 
     # hardware utils
     glxinfo

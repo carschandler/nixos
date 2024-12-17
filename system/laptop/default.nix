@@ -16,6 +16,9 @@
 
   networking.hostName = "laptop"; # Define your hostname.
 
+  virtualisation.docker.enable = true;
+  users.users.chan.extraGroups = [ "docker" ];
+
   # TODO
   # Fingerprint reader
   # services.fprintd = {
