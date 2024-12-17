@@ -72,6 +72,7 @@
         ../../keys/laptop
         ../../keys/macbook
       ];
+      initialHashedPassword = "$y$j9T$mKGUGgyfGw.85QRIZ20gG0$SkKYGrxS79JHmk4fvRgIdElUHkQrglZbI4GcfivOkq8";
     };
   };
 
