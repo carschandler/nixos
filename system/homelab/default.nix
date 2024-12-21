@@ -24,7 +24,7 @@
     hostId = "054060bf"; # Required by ZFS; generated using head -c 8 /etc/machine-id
     interfaces.eno1.ipv4.addresses = [
       {
-        address = "192.168.1.10";
+        address = "192.168.1.2";
         prefixLength = 24;
       }
     ];
