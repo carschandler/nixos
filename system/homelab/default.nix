@@ -21,7 +21,15 @@
 
   networking = {
     hostName = "homelab"; # Define your hostname.
-    hostId = "c007d31d"; # Required by ZFS; generated using head -c 8 /etc/machine-id
+    hostId = "054060bf"; # Required by ZFS; generated using head -c 8 /etc/machine-id
+    interfaces.eno1.ipv4.addresses = [
+      {
+        address = "192.168.1.10";
+        prefixLength = 24;
+      }
+    ];
+    defaultGateway = "192.168.1.1";
+    nameservers = [ "1.1.1.1" ];
   };
 
   services.xserver.videoDrivers = [ "nvidia" ];
@@ -71,6 +79,7 @@
         ../../keys/desktop
         ../../keys/laptop
         ../../keys/macbook
+        ../../keys/iphone
       ];
       initialHashedPassword = "$y$j9T$mKGUGgyfGw.85QRIZ20gG0$SkKYGrxS79JHmk4fvRgIdElUHkQrglZbI4GcfivOkq8";
     };
