@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   imports = [
@@ -16,8 +21,21 @@
     openssh.enable = true;
   };
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot = {
+    loader = {
+      efi.canTouchEfiVariables = true;
+      # lanzaboote replaces systemd-boot
+      systemd-boot.enable = lib.mkForce false;
+    };
+
+    lanzaboote = {
+      enable = true;
+      pkiBundle = "/etc/secureboot";
+    };
+
+    # To decrypt LUKS using TPM, this must be enabled
+    initrd.systemd.enable = true;
+  };
 
   networking = {
     hostName = "homelab"; # Define your hostname.
@@ -94,6 +112,10 @@
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+
+  environment.systemPackages = [
+    pkgs.sbctl
+  ];
 
   programs = {
     neovim = {

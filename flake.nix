@@ -9,8 +9,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
-
     hyprland = {
       url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
       # Don't override hyprland's nixpkgs or the Cachix won't work
@@ -30,6 +28,13 @@
 
     nix-homebrew = {
       url = "github:zhaofengli-wip/nix-homebrew";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
+
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -80,6 +85,7 @@
           modules = [
             ./system/homelab
             disko.nixosModules.disko
+            inputs.lanzaboote.nixosModules.lanzaboote
           ];
         };
 
