@@ -21,7 +21,11 @@
 
   networking = {
     hostName = "homelab"; # Define your hostname.
-    hostId = "054060bf"; # Required by ZFS; generated using head -c 8 /etc/machine-id
+    # Required by ZFS; generated using head -c 8 /etc/machine-id
+    # NOTE: this is actually from an old system, but we can't change it to match
+    # the machine-id on this system now that it has been initialized as this, so
+    # just leave it as-is since it seems to be an arbitrary choice.
+    hostId = "c007d31d";
     interfaces.eno1.ipv4.addresses = [
       {
         address = "192.168.1.2";
