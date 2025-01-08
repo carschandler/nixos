@@ -11,4 +11,8 @@
   };
 
   home.stateVersion = "24.05";
+
+  home.sessionPath = [
+    "$HOME/Library/Flutter/bin"
+  ];
 }
