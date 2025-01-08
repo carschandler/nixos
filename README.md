@@ -43,3 +43,7 @@ nixos-rebuild --extra-experimental-features "nix-command flakes" switch --flake 
 ## Troubleshooting
 
 - If no dotfiles are being loaded (i.e. neovim), `~/.config` may need to be created manually
+
+## Homelab
+
+Check details in `./system/homelab/README.md`

@@ -12,6 +12,7 @@
     # System-specific hardware configuration
     ./hardware-configuration.nix
     ./disko.nix
+    ./samba.nix
   ];
 
   services = {
