@@ -3,14 +3,8 @@
   nixpkgs.config.input-fonts.acceptLicense = true;
 
   home.packages = with pkgs; [
-    # Fonts
-    (nerdfonts.override {
-      fonts = [
-        "SourceCodePro"
-        "CommitMono"
-      ];
-    })
-
+    nerd-fonts.commit-mono
+    nerd-fonts.sauce-code-pro
     freefont_ttf
     source-code-pro
     public-sans
