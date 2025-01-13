@@ -90,10 +90,6 @@ in
     evince
     feh
     gimp
-<<<<<<< Updated upstream
-    # ladybird
-=======
->>>>>>> Stashed changes
     libreoffice-fresh
     meld
     nautilus
