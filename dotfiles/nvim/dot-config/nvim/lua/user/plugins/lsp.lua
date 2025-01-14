@@ -1,13 +1,67 @@
 return {
   {
     "neovim/nvim-lspconfig",
+    dependencies = { "saghen/blink.cmp" },
     cond = not vim.g.vscode,
 
-    config = function()
+    opts = {
+      servers = {
+        lua_ls = {
+          settings = {
+            Lua = {
+              runtime = {
+                -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+                version = "LuaJIT",
+              },
+              diagnostics = {
+                -- Get the language server to recognize the `vim` global
+                globals = { "vim" },
+              },
+              workspace = {
+                -- Make the server aware of Neovim runtime files
+                library = vim.api.nvim_get_runtime_file("", true),
+                -- Prevent the LS from prompting about workspace every time on
+                -- startup
+                checkThirdParty = false,
+              },
+              -- Do not send telemetry data containing a randomized but unique identifier
+              telemetry = {
+                enable = false,
+              },
+            },
+          },
+        },
+        nil_ls = {},
+        pyright = {},
+        -- basedpyright = {},
+        -- basedpyright = {
+        --   cmd = {
+        --     "basedpyright-langserver",
+        --     "--stdio",
+        --     "--verbose",
+        --     "-t",
+        --     "/nix/store/kg50zxb30zixssxi8x89afjgy48lw17y-basedpyright-1.13.3/lib/node_modules/basedpyright/dist/typeshed-fallback",
+        --   },
+        -- },
+        yamlls = {},
+        bashls = {},
+        r_language_server = {},
+        -- ts_ls = {},
+        -- rust_analyzer = {},
+      },
+    },
+    config = function(_, opts)
+      -- vim.lsp.set_log_level("debug")
+
       local lspconfig = require("lspconfig")
       require("lspconfig.ui.windows").default_options.border = "rounded"
 
-      local capabilities = require("cmp_nvim_lsp").default_capabilities()
+      -- local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+      for server, config in pairs(opts.servers) do
+        config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
+        lspconfig[server].setup(config)
+      end
 
       local wk = require("which-key")
 
@@ -83,66 +137,6 @@ return {
           vim.keymap.set("n", "gr", vim.lsp.buf.references, opts_desc("Go to references"))
         end,
       })
-
-      -- Set up individual languages
-      lspconfig.lua_ls.setup({
-        settings = {
-          Lua = {
-            runtime = {
-              -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-              version = "LuaJIT",
-            },
-            diagnostics = {
-              -- Get the language server to recognize the `vim` global
-              globals = { "vim" },
-            },
-            workspace = {
-              -- Make the server aware of Neovim runtime files
-              library = vim.api.nvim_get_runtime_file("", true),
-              -- Prevent the LS from prompting about workspace every time on
-              -- startup
-              checkThirdParty = false,
-            },
-            -- Do not send telemetry data containing a randomized but unique identifier
-            telemetry = {
-              enable = false,
-            },
-          },
-        },
-      })
-
-      lspconfig.nil_ls.setup({})
-
-      lspconfig.pyright.setup({})
-
-      -- lspconfig.basedpyright.setup({})
-
-      -- lspconfig.basedpyright.setup({
-      --   cmd = {
-      --     "basedpyright-langserver",
-      --     "--stdio",
-      --     "--verbose",
-      --     "-t",
-      --     "/nix/store/kg50zxb30zixssxi8x89afjgy48lw17y-basedpyright-1.13.3/lib/node_modules/basedpyright/dist/typeshed-fallback",
-      --   },
-      -- })
-
-      -- vim.lsp.set_log_level("debug")
-
-      -- lspconfig.ts_ls.setup({})
-
-      -- -- Set up format-on-save behavior via lsp-format.nvim
-      -- vim.g.rustaceanvim = { server = { on_attach = require('lsp-format').on_attach } }
-
-      lspconfig.yamlls.setup({})
-
-      lspconfig.bashls.setup({})
-
-      lspconfig.r_language_server.setup({})
-
-      -- lspconfig.rust_analyzer.setup {
-      --   capabilities = capabilities
-      -- }
     end,
   },
 

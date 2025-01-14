@@ -20,8 +20,8 @@
         ];
 
         JAVA_DEBUG_PATH = pkgs.vscode-extensions.vscjava.vscode-java-debug;
-        formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
-
       };
+
+      formatter.x86_64-linux = pkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
     };
 }

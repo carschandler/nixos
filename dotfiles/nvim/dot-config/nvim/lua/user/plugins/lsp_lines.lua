@@ -10,6 +10,6 @@ return {
   },
   config = function(_, opts)
     require("lsp_lines").setup(opts)
-    vim.diagnostic.config({ virtual_text = false })
+    vim.diagnostic.config({ virtual_text = true, signs = false, virtual_lines = { only_current_line = true } })
   end,
 }
