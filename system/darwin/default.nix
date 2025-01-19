@@ -19,7 +19,9 @@
     casks = [
       "1password"
       "bettertouchtool"
+      "blackhole-2ch"
       "discord"
+      "ghostty"
       "obsidian"
       "raycast"
       "spotify"
