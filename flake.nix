@@ -9,10 +9,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hyprland = {
-      url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-      # Don't override hyprland's nixpkgs or the Cachix won't work
-    };
+    # Don't override hyprland's nixpkgs or the Cachix won't work
+    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
 
     hyprland-contrib.url = "github:hyprwm/contrib";
 
@@ -58,12 +56,6 @@
             inherit inputs;
           };
           modules = [
-            {
-              nix.settings = {
-                substituters = [ "https://cosmic.cachix.org/" ];
-                trusted-public-keys = [ "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE=" ];
-              };
-            }
             inputs.nixos-cosmic.nixosModules.default
             ./system/desktop
           ];
