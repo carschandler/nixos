@@ -13,6 +13,77 @@ return {
 
       dap.defaults.fallback.terminal_win_cmd = "tabnew"
 
+      local running_handle = nil
+      local exited = false
+      local poll = require("fidget.poll")
+
+      local poller = poll.Poller({
+        name = "dap",
+        poll = function()
+          if running_handle then
+            running_handle.message = require("dap").status()
+          end
+          return true
+        end,
+      })
+
+      for _, message in ipairs({
+        "launch",
+        "continue",
+        "next",
+        "stepIn",
+        "stepOut",
+        "stepBack",
+        "stepInTargets",
+      }) do
+        dap.listeners.after[message]["dap_conf"] = function(session, _)
+          local title
+          if session.current_frame then
+            title = "in " .. vim.fs.basename(session.current_frame.source.path)
+          else
+            title = ""
+          end
+
+          running_handle = require("fidget.progress").handle.create({
+            lsp_client = {
+              name = session.config.type,
+            },
+            title = title,
+            -- message = "Executing",
+            cancellable = true,
+          })
+          poller:start_polling(5)
+        end
+      end
+
+      dap.listeners.after["event_exited"]["conf"] = function(_, body)
+        if running_handle then
+          running_handle.message = "Exited with code " .. body.exitCode
+          running_handle.done = true
+          exited = true
+        end
+      end
+
+      dap.listeners.after["event_terminated"]["conf"] = function(_, _)
+        if running_handle and not exited then
+          running_handle.message = "Terminated"
+          running_handle.done = true
+          exited = false
+        end
+      end
+
+      for _, message in ipairs({ "event_stopped" }) do
+        dap.listeners.after[message]["conf"] = function(_, _)
+          if running_handle then
+            -- running_handle.message = "Execution complete!"
+            running_handle.done = true
+            -- if message ~= "event_terminated" then
+            --   require("fidget.notification").clear()
+            -- end
+          end
+        end
+      end
+
       if wk then
         wk.add({ "<Leader>r", group = "run/debug" })
       end
@@ -51,14 +122,14 @@ return {
                 else
                   error("Error: expected " .. lua_launch_file .. " to return a table; returned " .. type(config_table))
                 end
-              elseif vim.fn.filereadable(json_launch_file) == 1 then
-                -- TODO: if in the workspace root, then nvim-dap picks this up
-                -- by default and will duplicate entries, but not if in a child
-                -- directory
-                -- local vscode_type_to_filetypes = { debugpy = { "python" } }
-                -- dap_vs.load_launchjs(json_launch_file, vscode_type_to_filetypes)
-                dap.continue()
-                return
+              -- elseif vim.fn.filereadable(json_launch_file) == 1 then
+              --   -- TODO: if in the workspace root, then nvim-dap picks this up
+              --   -- by default and will duplicate entries, but not if in a child
+              --   -- directory
+              --   -- local vscode_type_to_filetypes = { debugpy = { "python" } }
+              --   -- dap_vs.load_launchjs(json_launch_file, vscode_type_to_filetypes)
+              --   dap.continue()
+              --   return
               else
                 dap.continue()
                 return
@@ -118,10 +189,16 @@ return {
 
       vim.keymap.set("n", "<Leader>rr", function()
         if not dap.repl.close({ mode = "toggle" }) then
-          local _, win = dap.repl.open()
+          local _, win = dap.repl.open({}, "vsplit")
           vim.api.nvim_set_current_win(win)
         end
       end, { desc = "Open REPL" })
+      vim.keymap.set("n", "<Leader>rR", function()
+        if not dap.repl.close({ mode = "toggle" }) then
+          local _, win = dap.repl.open({ height = 15 })
+          vim.api.nvim_set_current_win(win)
+        end
+      end, { desc = "Open REPL Horizontally" })
 
       vim.keymap.set("n", "<Leader>rl", function()
         dap.list_breakpoints(true)
