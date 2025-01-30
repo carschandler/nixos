@@ -3,8 +3,9 @@
   home.packages = [
     pkgs.prismlauncher
     pkgs.clonehero
-    pkgs.ladybird
+    pkgs.nvtop
   ];
-
-  home.stateVersion = "22.11";
+  programs.obs-studio = {
+    enable = true;
+  };
 }

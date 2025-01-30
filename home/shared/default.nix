@@ -250,6 +250,7 @@ in
       enable = true;
       shellAliases = {
         ls = "lsd --group-dirs=first";
+        rt = ''cd $(git rev-parse --show-toplevel)'';
       };
       bashrcExtra = ''
         if ! [[ $PATH =~ ${homedir}/.local/bin ]]; then
@@ -317,7 +318,8 @@ in
 
       "tmux".source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/tmux/dot-config/tmux";
 
-      "starship.toml".source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/starship/dot-config/starship.toml";
+      "starship.toml".source =
+        config.lib.file.mkOutOfStoreSymlink "${dotfiles}/starship/dot-config/starship.toml";
     };
   };
 

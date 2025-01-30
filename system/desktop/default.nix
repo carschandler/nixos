@@ -2,7 +2,12 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   imports = [
@@ -14,7 +19,9 @@
     ./hardware-configuration.nix
   ];
 
-  networking.hostName = "desktop"; # Define your hostname.
+  services.tailscale.enable = true;
+
+  networking.hostName = "desktop";
 
   boot.loader.grub.gfxmodeEfi = "1280x1024";
   boot.loader.grub.font = "${pkgs.source-code-pro}/share/fonts/opentype/SourceCodePro-Medium.otf";
@@ -31,8 +38,8 @@
     bosereset = "sudo usb-reset 05a7:1020";
   };
 
-  services.desktopManager.cosmic.enable = true;
-  services.displayManager.cosmic-greeter.enable = true;
+  # services.desktopManager.cosmic.enable = true;
+  # services.displayManager.cosmic-greeter.enable = true;
 
   # services.xserver.enable = true;
   # services.xserver.desktopManager.gnome.enable = true;
@@ -59,8 +66,26 @@
   # services.displayManager.sddm.wayland.enable = true;
   # services.desktopManager.plasma6.enable = true;
 
-  virtualisation.docker.enable = true;
-  users.users.chan.extraGroups = [ "docker" ];
+  virtualisation = {
+    docker = {
+      enable = true;
+    };
+    incus = {
+      enable = false;
+    };
+  };
+
+  # Enable GPU passthrough in docker using docker run --device=nvidia.com/gpu=all
+  hardware.nvidia-container-toolkit.enable = lib.mkIf config.virtualisation.docker.enable true;
+
+  # Required for incus, but causes problems for docker; specifically docker
+  # compose
+  networking.nftables.enable = lib.mkIf config.virtualisation.incus.enable true;
+
+  users.users.chan.extraGroups = [
+    "docker"
+    "incus-admin"
+  ];
 
   # environment.gnome.excludePackages
 
@@ -88,7 +113,16 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
+  services.openssh = {
+    enable = true;
+    ports = [ 22 ];
+    settings = {
+      PasswordAuthentication = false;
+      KbdInteractiveAuthentication = false;
+      PermitRootLogin = "prohibit-password"; # "yes", "without-password", "prohibit-password", "forced-commands-only", "no"
+      AllowUsers = [ "chan" ]; # Allows all users by default. Can be [ "user1" "user2" ]
+    };
+  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

@@ -157,6 +157,14 @@
       "video"
     ];
     packages = with pkgs; [ ];
+    openssh.authorizedKeys.keys = [
+      # iPhone
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFhR+e7uVUt/6zuclSFxo9Pfk+GRCu+EEXMWGQvr2cVw"
+      # macbook
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK3Qpp98RwhGQy5KvENz9iejZ2HcYklJ2ymB0nwHh3ME"
+      # work laptop
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICJI2SpJgzXtJBzGi7ex2i1rcx8yZKawuDfMjF0jWRYS chan@work"
+    ];
   };
 
   # Allow unfree packages
