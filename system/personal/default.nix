@@ -117,7 +117,7 @@
   # Enable sound with pipewire.
   # TODO determine if any of this needs to be system-specific
   # sound.enable = true; # Removed per https://nixos.wiki/wiki/PipeWire
-  hardware.pulseaudio.enable = false; # Required by NixOS to use PipeWire
+  services.pulseaudio.enable = false; # Required by NixOS to use PipeWire
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
