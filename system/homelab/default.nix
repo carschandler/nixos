@@ -70,10 +70,7 @@
     package = config.boot.kernelPackages.nvidiaPackages.stable;
 
     # This fixed hyprland crashing after waking from suspend!
-    # powerManagement.enable = true;
-
-    # Experimental support for turning off GPU when not in use
-    # powerManagement.finegrained = true;
+    powerManagement.enable = true;
   };
 
   # CUDA binary cache

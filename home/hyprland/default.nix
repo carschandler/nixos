@@ -1,6 +1,4 @@
 {
-  inputs,
-  outputs,
   config,
   pkgs,
   ...
@@ -10,15 +8,15 @@ let
 in
 {
   xdg.configFile = {
-    "hypr/source.conf".source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/hyprland/dot-config/hypr/hyprland-source.conf";
-    "hypr/noanims.sh".source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/hyprland/dot-config/hypr/noanims.sh";
+    "hypr/source.conf".source =
+      config.lib.file.mkOutOfStoreSymlink "${dotfiles}/hyprland/dot-config/hypr/hyprland-source.conf";
+    "hypr/noanims.sh".source =
+      config.lib.file.mkOutOfStoreSymlink "${dotfiles}/hyprland/dot-config/hypr/noanims.sh";
   };
 
   wayland.windowManager.hyprland = {
     enable = true;
-    package = inputs.hyprland.packages.x86_64-linux.hyprland;
-    systemd.enable = true;
-    xwayland.enable = true;
+    systemd.enable = false; # Default true; conflicts with UWSM
     extraConfig = "source=./source.conf";
   };
 
@@ -59,8 +57,7 @@ in
     brightnessctl
 
     # Screenshots
-    inputs.hyprland-contrib.packages.${pkgs.system}.grimblast
-    pkgs.hyprpicker
+    hyprshot
   ];
 
   programs = {
