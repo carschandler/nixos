@@ -9,11 +9,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Don't override hyprland's nixpkgs or the Cachix won't work
-    # hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-    #
-    # hyprland-contrib.url = "github:hyprwm/contrib";
-
     nix-darwin = {
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
