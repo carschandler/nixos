@@ -165,6 +165,7 @@
       # work laptop
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICJI2SpJgzXtJBzGi7ex2i1rcx8yZKawuDfMjF0jWRYS chan@work"
     ];
+    hashedPassword = "$y$j9T$mKGUGgyfGw.85QRIZ20gG0$SkKYGrxS79JHmk4fvRgIdElUHkQrglZbI4GcfivOkq8";
   };
 
   # Allow unfree packages
