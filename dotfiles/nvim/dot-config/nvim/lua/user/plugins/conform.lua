@@ -66,8 +66,12 @@ return {
       },
     }
 
-    vim.keymap.set("n", "<Leader>lf", conform.format, { desc = "Format buffer" })
-    vim.keymap.set("n", "<M-F>", conform.format, { desc = "Format buffer" })
+    vim.keymap.set("n", "<Leader>lf", function()
+      conform.format({ async = true })
+    end, { desc = "Format buffer" })
+    vim.keymap.set("n", "<M-F>", function()
+      conform.format({ async = true })
+    end, { desc = "Format buffer" })
 
     -- Set commands to disable format-on-save temporarily
     vim.api.nvim_create_user_command("FormatDisable", function(args)
