@@ -34,6 +34,7 @@
       "wezterm"
       "zed"
       "zen-browser"
+      "zotero"
     ];
     masApps = { };
 
@@ -73,6 +74,8 @@
       AppleInterfaceStyleSwitchesAutomatically = false;
       ApplePressAndHoldEnabled = false;
       NSAutomaticCapitalizationEnabled = false;
+      # Double space for period
+      NSAutomaticPeriodSubstitutionEnabled = false;
       NSAutomaticSpellingCorrectionEnabled = false;
     };
   };

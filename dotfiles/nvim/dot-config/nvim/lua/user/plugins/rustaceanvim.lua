@@ -11,6 +11,16 @@ return {
           border = "rounded",
         },
       },
+      server = {
+        default_settings = {
+          -- rust-analyzer language server configuration
+          ["rust-analyzer"] = {
+            files = {
+              excludeDirs = { ".direnv" },
+            },
+          },
+        },
+      },
     }
   end,
 }
