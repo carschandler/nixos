@@ -104,6 +104,7 @@ in
     vscode-fhs
     xfce.thunar
     zathura
+    zotero
 
     # hardware utils
     glxinfo
@@ -157,7 +158,7 @@ in
       #         visibility: collapse !important;
       #         margin-bottom: 21px !important;
       #       }
-      #     
+      #
       #       #sidebar-box[sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"] #sidebar-header {
       #         visibility: collapse !important;
       #       }
