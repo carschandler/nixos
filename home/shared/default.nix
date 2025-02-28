@@ -228,8 +228,8 @@ in
           }
           {
             on = "T";
-            run = "plugin --sync hide-preview";
-            desc = "Hide or show preview";
+            run = "plugin toggle-pane min-preview";
+            desc = "Show or hide the preview pane";
           }
         ];
       };
@@ -238,7 +238,7 @@ in
           plugdir = ../../dotfiles/yazi/plugins;
         in
         {
-          hide-preview = plugdir + "/hide-preview";
+          toggle-pane = plugdir + "/toggle-pane";
         };
     };
 
