@@ -246,6 +246,15 @@ in
       enable = true;
     };
 
+    bash.initExtra =
+      let
+        cfg = config.programs.zoxide;
+        cfgOptions = lib.concatStringsSep " " cfg.options;
+      in
+      lib.mkOrder 2500 ''
+        eval "$(${cfg.package}/bin/zoxide init bash ${cfgOptions})"
+      '';
+
     bash = {
       enable = true;
       shellAliases = {
