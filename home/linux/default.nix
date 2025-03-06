@@ -90,7 +90,7 @@ in
     brave
     chromium
     discord
-    emacs29-pgtk
+    emacs-pgtk
     evince
     feh
     gimp
