@@ -5,7 +5,8 @@
 }@inputs:
 {
   nixpkgs.hostPlatform = "aarch64-darwin";
-  services.nix-daemon.enable = true;
+
+  ids.gids.nixbld = 30000;
 
   networking.hostName = "mbp";
 
