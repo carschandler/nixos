@@ -29,8 +29,6 @@
     nameservers = [ "1.1.1.1" ];
   };
 
-  virtualisation.docker.enable = true;
-
   users = {
     groups = {
       smb = { };
