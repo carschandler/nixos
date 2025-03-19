@@ -78,7 +78,7 @@ Autodesk
 Arduino
 YAML
 DBSCAN
-KD-trees
+#D-trees
 SNG-DBSCAN
 subsampled
 SNG
@@ -90,3 +90,5 @@ DBSCAN's
 MinPts
 subsample
 subgraph
+KD-trees/!
+FFI

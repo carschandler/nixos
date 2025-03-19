@@ -4,15 +4,21 @@
   ...
 }@inputs:
 {
+  imports = [
+    ./t9.nix
+  ];
+
   nixpkgs.hostPlatform = "aarch64-darwin";
 
   ids.gids.nixbld = 30000;
 
   networking.hostName = "mbp";
 
-  security.pam.enableSudoTouchIdAuth = true;
+  security.pam.services.sudo_local.touchIdAuth = true;
 
   users.users.chan.shell = pkgs.bashInteractive;
+
+  t9.enable = true;
 
   homebrew = {
     enable = true;
@@ -23,13 +29,13 @@
       "blackhole-2ch"
       "discord"
       "ghostty"
+      "gimp"
       "obsidian"
       "raycast"
       "spotify"
       "tailscale"
       "thunderbird"
       "visual-studio-code"
-      "visual-studio-code@insiders"
       "vlc"
       "warp"
       "wezterm"
