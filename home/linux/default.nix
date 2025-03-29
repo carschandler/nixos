@@ -83,12 +83,12 @@ in
     alacritty
     foot
     # kitty below
+    # TODO: install terminfo automatically https://wezterm.org/faq.html#how-do-i-enable-undercurl-curly-underlines
     wezterm
 
     # gui apps
     _1password-gui
-    brave
-    chromium
+    ungoogled-chromium
     discord
     emacs-pgtk
     evince

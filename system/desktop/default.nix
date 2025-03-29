@@ -19,6 +19,11 @@
     ./hardware-configuration.nix
   ];
 
+  programs.appimage = {
+    enable = true;
+    binfmt = true;
+  };
+
   services.tailscale.enable = true;
 
   networking.hostName = "desktop";
@@ -50,25 +55,28 @@
   # services.xserver.displayManager.gdm.enable = true;
   # environment.systemPackages = [ pkgs.adwaita-icon-theme ];
 
-  # nixpkgs.overlays = [
-  #   # GNOME 46: triple-buffering-v4-46
-  #   (final: prev: {
-  #     mutter = prev.mutter.overrideAttrs (old: {
-  #       src = pkgs.fetchFromGitLab {
-  #         domain = "gitlab.gnome.org";
-  #         owner = "vanvugt";
-  #         repo = "mutter";
-  #         rev = "triple-buffering-v4-46";
-  #         hash = "sha256-C2VfW3ThPEZ37YkX7ejlyumLnWa9oij333d5c4yfZxc=";
-  #       };
-  #     });
-  #   })
-  # ];
-
   # services.xserver.enable = true;
-  # services.displayManager.sddm.enable = true;
-  # services.displayManager.sddm.wayland.enable = true;
+  services.displayManager.sddm.enable = true;
+  services.displayManager.sddm.wayland.enable = true;
   # services.desktopManager.plasma6.enable = true;
+
+  # programs.regreet = {
+  #   enable = true;
+  #   settings = {
+  #     background.path = "$HOME/nixos/wallpapers/space.png";
+  #     GTK = {
+  #       application_prefer_dark_theme = true;
+  #       cursor_theme_name = "Adwaita";
+  #       icon_theme_name = "Adwaita";
+  #       theme_name = "Adwaita";
+  #     };
+  #   };
+  # };
+  #
+  # services.greetd.settings.default_session = {
+  #   command = "Hyprland --config /etc/greetd/regreet-hyprland.conf";
+  #   user = "greeter";
+  # };
 
   virtualisation = {
     docker = {
