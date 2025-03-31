@@ -1,5 +1,9 @@
 { pkgs, ... }:
 {
+  imports = [
+    ../t9
+  ];
+
   home.packages = [
     pkgs.prismlauncher
     pkgs.clonehero
