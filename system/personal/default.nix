@@ -2,7 +2,12 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   imports = [ ./hyprland-shared.nix ];
@@ -157,14 +162,9 @@
       "video"
     ];
     packages = with pkgs; [ ];
-    openssh.authorizedKeys.keys = [
-      # iPhone
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFhR+e7uVUt/6zuclSFxo9Pfk+GRCu+EEXMWGQvr2cVw"
-      # macbook
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIK3Qpp98RwhGQy5KvENz9iejZ2HcYklJ2ymB0nwHh3ME"
-      # work laptop
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICJI2SpJgzXtJBzGi7ex2i1rcx8yZKawuDfMjF0jWRYS chan@work"
-    ];
+    openssh.authorizedKeys = {
+      keyFiles = lib.filesystem.listFilesRecursive ../../keys;
+    };
     hashedPassword = "$y$j9T$mKGUGgyfGw.85QRIZ20gG0$SkKYGrxS79JHmk4fvRgIdElUHkQrglZbI4GcfivOkq8";
   };
 
