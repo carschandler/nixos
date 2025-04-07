@@ -28,5 +28,8 @@ in
       ++ lib.optionals cfg.apps.development.enable [
         "postman"
       ];
+
+    ids.gids.nixbld = lib.mkForce 350;
+    networking.hostName = lib.mkForce "mba-t9";
   };
 }

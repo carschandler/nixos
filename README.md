@@ -40,6 +40,11 @@ nixos-rebuild --extra-experimental-features "nix-command flakes" switch --flake 
   - If using WSL, use [NixOS-WSL](https://github.com/nix-community/NixOS-WSL) and its options
   - Ensure that new files have been added in git or the flake will not pick them up
 
+## Darwin
+
+`homebrew.enable` needs to be set to false on the first initialization so that
+`nix-homebrew` can first install brew.
+
 ## Troubleshooting
 
 - If no dotfiles are being loaded (i.e. neovim), `~/.config` may need to be created manually

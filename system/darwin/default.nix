@@ -1,12 +1,20 @@
 {
   pkgs,
   lib,
+  inputs,
   ...
-}@inputs:
+}:
 {
   imports = [
     ./t9.nix
+    inputs.nix-homebrew.darwinModules.nix-homebrew
   ];
+
+  nix-homebrew = {
+    enable = true;
+    enableRosetta = true;
+    user = "chan";
+  };
 
   nixpkgs.hostPlatform = "aarch64-darwin";
 
@@ -25,6 +33,7 @@
     brews = [ ];
     casks = [
       "1password"
+      "arc"
       "bettertouchtool"
       "blackhole-2ch"
       "discord"

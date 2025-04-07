@@ -158,24 +158,36 @@
             ./home/mac
           ];
         };
+        "chan@mba-t9" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.aarch64-darwin;
+          extraSpecialArgs = {
+            inherit inputs;
+          };
+          modules = [
+            ./home/shared
+            ./home/personal
+            ./home/mac
+            ./home/t9
+          ];
+        };
       };
 
       darwinConfigurations = {
         "mbp" = nix-darwin.lib.darwinSystem {
           modules = [
             ./system/darwin
-            nix-homebrew.darwinModules.nix-homebrew
-            {
-              nix-homebrew = {
-                enable = true;
-                enableRosetta = true;
-                user = "chan";
-              };
-            }
           ];
           # specialArgs = {
           #   inherit inputs;
           # };
+        };
+        "mba-t9" = nix-darwin.lib.darwinSystem {
+          modules = [
+            ./system/darwin
+          ];
+          specialArgs = {
+            inherit inputs;
+          };
         };
       };
 
