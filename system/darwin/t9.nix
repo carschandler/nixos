@@ -20,7 +20,7 @@ in
     t9.apps.development.enable = lib.mkDefault true;
 
     homebrew.casks =
-      [ ]
+      [ "jordanbaird-ice" ]
       ++ lib.optionals cfg.apps.communication.enable [
         "slack"
         "emclient"
