@@ -70,7 +70,7 @@
     };
     finder = {
       AppleShowAllExtensions = true;
-      # AppleShowAllFiles = true;
+      AppleShowAllFiles = true;
     };
     trackpad = {
       Clicking = true;
