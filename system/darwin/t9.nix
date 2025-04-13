@@ -19,6 +19,10 @@ in
     t9.apps.communication.enable = lib.mkDefault true;
     t9.apps.development.enable = lib.mkDefault true;
 
+    homebrew.brews = [
+      "livekit-cli"
+    ];
+
     homebrew.casks =
       [ "jordanbaird-ice" ]
       ++ lib.optionals cfg.apps.communication.enable [

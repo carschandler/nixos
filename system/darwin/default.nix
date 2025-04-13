@@ -43,7 +43,6 @@
       "raycast"
       "spotify"
       "tailscale"
-      "thunderbird"
       "visual-studio-code"
       "vlc"
       "warp"
