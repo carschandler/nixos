@@ -175,15 +175,15 @@
       darwinConfigurations = {
         "mbp" = nix-darwin.lib.darwinSystem {
           modules = [
-            ./system/darwin
+            ./darwin/hosts/mbp
           ];
-          # specialArgs = {
-          #   inherit inputs;
-          # };
+          specialArgs = {
+            inherit inputs;
+          };
         };
         "mba-t9" = nix-darwin.lib.darwinSystem {
           modules = [
-            ./system/darwin
+            ./darwin/hosts/mba-t9
           ];
           specialArgs = {
             inherit inputs;
