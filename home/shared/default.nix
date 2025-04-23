@@ -56,6 +56,7 @@ in
     mc
     neofetch
     nh
+    pnpm
     pandoc
     pdfgrep
     pixi
