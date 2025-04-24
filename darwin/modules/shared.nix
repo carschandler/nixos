@@ -93,6 +93,15 @@ in
         NSAutomaticSpellingCorrectionEnabled = false;
       };
     };
+
+    system.activationScripts = {
+      postUserActivation = {
+        enable = true;
+        text = ''
+          mkdir -p "$HOME/Pictures/screenshots"
+        '';
+      };
+    };
   };
 
 }

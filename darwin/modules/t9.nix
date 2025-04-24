@@ -27,7 +27,6 @@ in
         [ "jordanbaird-ice" ]
         ++ lib.optionals cfg.apps.communication.enable [
           "slack"
-          "emclient"
         ]
         ++ lib.optionals cfg.apps.development.enable [
           "postman"
