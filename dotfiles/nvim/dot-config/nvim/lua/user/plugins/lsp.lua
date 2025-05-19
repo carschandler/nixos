@@ -53,14 +53,11 @@ return {
     config = function(_, opts)
       -- vim.lsp.set_log_level("debug")
 
-      local lspconfig = require("lspconfig")
       require("lspconfig.ui.windows").default_options.border = "rounded"
 
-      -- local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
       for server, config in pairs(opts.servers) do
-        config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
-        lspconfig[server].setup(config)
+        vim.lsp.config(server, config)
+        vim.lsp.enable(server)
       end
 
       local wk = require("which-key")
@@ -82,7 +79,7 @@ return {
         end
       end, { desc = "Toggle buffer diagnostics" })
       vim.keymap.set("n", "<Leader>li", function()
-        vim.cmd.checkhealth("lspconfig")
+        vim.cmd.checkhealth("vim.lsp")
       end, { desc = "LSP info" })
       vim.keymap.set("n", "<Leader>le", vim.diagnostic.open_float, { desc = "Show diagnostics" })
       vim.keymap.set("n", "<M-k>", vim.diagnostic.open_float, { desc = "Show diagnostics" })
