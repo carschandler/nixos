@@ -326,6 +326,7 @@ in
     }) localBin;
 
   home.sessionVariables = {
+    NIXPKGS_ALLOW_UNFREE = 1;
     EDITOR = "nvim";
     HMDIR = "${homedir}/nixos/home";
     HMFILE = "${homedir}/nixos/home/shared/default.nix";
