@@ -1,10 +1,6 @@
 { pkgs, lib, ... }:
 {
   home.packages = [
-    # FIXME: need these on linux but not mac
-    # pkgs.postman
-    # pkgs.slack
-    # pkgs.thunderbird
     pkgs.awscli2
     pkgs.aws-sam-cli
     pkgs.terraform

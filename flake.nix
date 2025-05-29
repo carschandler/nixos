@@ -37,10 +37,6 @@
       self,
       nixpkgs,
       home-manager,
-      disko,
-      nixos-wsl,
-      nix-darwin,
-      nix-homebrew,
       ...
     }@inputs:
     {
@@ -71,19 +67,18 @@
           };
           modules = [
             ./system/homelab
-            disko.nixosModules.disko
+            inputs.disko.nixosModules.disko
             inputs.lanzaboote.nixosModules.lanzaboote
           ];
         };
 
-        TORCH-LT-7472 = nixpkgs.lib.nixosSystem {
+        desktop-t9 = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = {
             inherit inputs;
           };
           modules = [
-            ./system/work
-            nixos-wsl.nixosModules.default
+            ./system/t9
           ];
         };
       };
@@ -102,6 +97,7 @@
             ./home/linux
           ];
         };
+
         "chan@laptop" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
           extraSpecialArgs = {
@@ -114,6 +110,7 @@
             ./home/linux
           ];
         };
+
         "chan@homelab" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
           extraSpecialArgs = {
@@ -124,17 +121,7 @@
             ./home/homelab
           ];
         };
-        "chan@TORCH-LT-7472" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-linux;
-          extraSpecialArgs = {
-            inherit inputs;
-          };
-          modules = [
-            ./home/shared
-            ./home/work
-            ./home/work/laptop
-          ];
-        };
+
         "cchandler@astro" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
           extraSpecialArgs = {
@@ -142,11 +129,12 @@
           };
           modules = [
             ./home/shared
-            ./home/work
-            ./home/work/astro
+            ./home/torch
+            ./home/torch/astro
             ./home/linux
           ];
         };
+
         "chan@mbp" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.aarch64-darwin;
           extraSpecialArgs = {
@@ -158,6 +146,7 @@
             ./home/mac
           ];
         };
+
         "chan@mba-t9" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.aarch64-darwin;
           extraSpecialArgs = {
@@ -170,10 +159,22 @@
             ./home/t9
           ];
         };
+
+        "chan@desktop-t9" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          extraSpecialArgs = {
+            inherit inputs;
+          };
+          modules = [
+            ./home/shared
+            ./home/linux
+            ./home/t9
+          ];
+        };
       };
 
       darwinConfigurations = {
-        "mbp" = nix-darwin.lib.darwinSystem {
+        "mbp" = inputs.nix-darwin.lib.darwinSystem {
           modules = [
             ./darwin/hosts/mbp
           ];
@@ -181,7 +182,8 @@
             inherit inputs;
           };
         };
-        "mba-t9" = nix-darwin.lib.darwinSystem {
+
+        "mba-t9" = inputs.nix-darwin.lib.darwinSystem {
           modules = [
             ./darwin/hosts/mba-t9
           ];
