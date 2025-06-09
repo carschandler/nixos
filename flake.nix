@@ -177,6 +177,8 @@
             ./home/shared
             ./home/linux
             ./home/t9
+            ./home/hyprland
+            ./home/personal
           ];
         };
       };

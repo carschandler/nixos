@@ -97,12 +97,14 @@ in
 
     mako = {
       enable = true;
-      backgroundColor = "#282828E6";
-      borderColor = "#BBBBBBCC";
-      borderRadius = 10;
-      borderSize = 2;
-      defaultTimeout = 10000;
-      font = (import ../fonts/systemFonts).sans.name;
+      settings = {
+        backgroundColor = "#282828E6";
+        borderColor = "#BBBBBBCC";
+        borderRadius = 10;
+        borderSize = 2;
+        defaultTimeout = 10000;
+        font = (import ../fonts/systemFonts).sans.name;
+      };
     };
   };
 }

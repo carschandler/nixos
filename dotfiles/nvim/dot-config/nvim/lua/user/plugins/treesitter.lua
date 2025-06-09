@@ -12,6 +12,7 @@ return {
       ensure_installed = "all",
       ignore_install = {
         "csv",
+        "ipkg",
       },
       highlight = {
         enable = true,
