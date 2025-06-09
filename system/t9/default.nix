@@ -7,12 +7,21 @@
 }:
 
 {
-  imports = [ ../shared ];
+  imports = [
+    ../shared
+    ./hardware-configuration.nix
+    ./disko.nix
+    # ./lanzaboote.nix
+  ];
 
   services = {
     tailscale.enable = true;
     openssh.enable = true;
   };
+
+  # FIXME: delete after enabling lanzaboote
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
 
   users.users.chan = {
     isNormalUser = true;
@@ -37,6 +46,7 @@
 
   networking = {
     hostName = "desktop-t9";
+    hostId = "bd4e6365";
   };
 
   hardware.graphics = {

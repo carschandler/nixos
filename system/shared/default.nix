@@ -4,10 +4,10 @@
     nix-ld = {
       enable = true;
       package = pkgs.nix-ld-rs;
-      libraries = with pkgs; [
-        libGL
-        glib
-        zbar
+      libraries = [
+        pkgs.libGL
+        pkgs.glib
+        pkgs.zbar
         # Included by default
         # zlib
         # zstd

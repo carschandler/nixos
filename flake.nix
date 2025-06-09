@@ -4,6 +4,11 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -79,7 +84,10 @@
           specialArgs = {
             inherit inputs;
           };
-          modules = [ ./hosts/desktop-t9 ];
+          modules = [
+            inputs.disko.nixosModules.disko
+            ./system/t9
+          ];
         };
       };
 
