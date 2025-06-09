@@ -10,11 +10,4 @@
       AllowUsers = [ "chan" ];
     };
   };
-  users.users.chan.openssh.authorizedKeys.keyFiles = [
-    ../../../keys/desktop
-    ../../../keys/laptop
-    ../../../keys/macbook
-    ../../../keys/iphone
-    ../../../keys/mba-t9
-  ];
 }

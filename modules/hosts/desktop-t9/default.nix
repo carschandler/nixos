@@ -23,8 +23,6 @@
       "networkmanager"
       "video"
     ];
-    openssh.authorizedKeys.keyFiles = [
-    ];
     initialHashedPassword = "$y$j9T$3F0wnFpeirh.ucFK101Z6/$Nk6T1in2qPfMCrai/x.tnIplqhtFP9AOzbmuSCVZ5R5";
   };
 
