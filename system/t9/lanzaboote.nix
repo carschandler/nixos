@@ -1,18 +1,21 @@
 {
   lib,
+  inputs,
   ...
 }:
 {
+  imports = [ inputs.lanzaboote.nixosModules.lanzaboote ];
+
   boot = {
-    loader = {
-      efi.canTouchEfiVariables = true;
+    loader = lib.mkForce {
       # lanzaboote replaces systemd-boot
-      systemd-boot.enable = lib.mkForce false;
+      systemd-boot.enable = false;
+      grub.enable = false;
     };
 
     lanzaboote = {
       enable = true;
-      pkiBundle = "/etc/secureboot";
+      pkiBundle = "/keep/secureboot";
     };
 
     # To decrypt LUKS using TPM, this must be enabled

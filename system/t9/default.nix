@@ -13,7 +13,7 @@
     ./disko.nix
     ./hyprland-shared.nix
     ./ssh.nix
-    # ./lanzaboote.nix
+    ./lanzaboote.nix
   ];
 
   services = {
@@ -21,14 +21,10 @@
     openssh.enable = true;
   };
 
-  # FIXME: delete after enabling lanzaboote
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
   users.users.chan = {
     isNormalUser = true;
     home = "/home/chan";
-    description = "Cars Chandler (T9)";
+    description = "Cars Chandler";
     extraGroups = [
       "wheel"
       "networkmanager"

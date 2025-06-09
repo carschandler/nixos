@@ -165,7 +165,7 @@
     openssh.authorizedKeys = {
       keyFiles = lib.filesystem.listFilesRecursive ../../keys;
     };
-    hashedPassword = "$y$j9T$mKGUGgyfGw.85QRIZ20gG0$SkKYGrxS79JHmk4fvRgIdElUHkQrglZbI4GcfivOkq8";
+    initialHashedPassword = "$y$j9T$3F0wnFpeirh.ucFK101Z6/$Nk6T1in2qPfMCrai/x.tnIplqhtFP9AOzbmuSCVZ5R5";
   };
 
   # Allow unfree packages
@@ -192,13 +192,4 @@
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "22.11"; # Did you read the comment?
-
 }
