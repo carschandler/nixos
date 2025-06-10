@@ -21,6 +21,7 @@
     openssh.enable = true;
   };
 
+  users.mutableUsers = false;
   users.users.chan = {
     isNormalUser = true;
     home = "/home/chan";
@@ -30,7 +31,7 @@
       "networkmanager"
       "video"
     ];
-    initialHashedPassword = "$y$j9T$3F0wnFpeirh.ucFK101Z6/$Nk6T1in2qPfMCrai/x.tnIplqhtFP9AOzbmuSCVZ5R5";
+    hashedPassword = "$y$j9T$uxCqrhaofIQdeJERyH4ZB/$d7LgPgp3CLQNSKnkLYKLZqrXS/F3gqfMDKglePFWmWB";
   };
 
   environment.systemPackages = [

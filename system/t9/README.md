@@ -14,3 +14,23 @@ nix run github:nix-community/nixos-anywhere -- --generate-hardware-config nixos-
 ```
 
 Next, need to set up TPM and lanzaboote.
+
+```
+sudo sbctl create-keys
+sudo mkdir /keep/secureboot
+sudo mv /var/lib/sbctl/{GUID,keys} /keep/secureboot
+# The `boot.lanzaboote.pkiBundle` should be the parent dir of `keys/`
+sudo nixos-rebuild switch
+sudo mkdir /etc/sbctl
+sudo echo 'keydir: /keep/secureboot/keys' > /etc/sbctl/sbctl.conf
+sudo echo 'guid: /keep/secureboot/GUID' >>> /etc/sbctl/sbctl.conf
+sudo sbctl verify
+sudo reboot
+# Enable secureboot, ensure "external" keys are loaded and not factory ones,
+# enable UEFI password
+sudo sbctl enroll-keys --microsoft
+sudo bootctl status
+# The correct partition should tab-complete below
+sudo systemd-cryptenroll --tpm2-device=auto --tpm2-pcrs=0+2+7+12 --wipe-slot=tpm2 /dev/<luks-partition>
+# Should prompt for encryption password here
+```
