@@ -314,7 +314,7 @@ in
         "lr" = ''lsd --group-dirs=first --color=always --icon=always -l --date=relative "$@" | less -rF'';
         "la" = ''lsd --group-dirs=first --color=always --icon=always -A "$@" | less -rF'';
         "lt" = ''lsd --group-dirs=first --tree --color=always --icon=always "$@" | less -rF'';
-        "lla" = ''lsd --group-dirs=first --color=always --icon=always -lA "$@" | less -rF'';
+        "lla" = ''lsd --group-dirs=first --color=always --icon=always -l "$@" | less -rF'';
         "llt" = ''lsd --group-dirs=first --color=always --icon=always -l --tree "$@" | less -rF;'';
       };
     in
