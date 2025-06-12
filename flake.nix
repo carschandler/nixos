@@ -9,20 +9,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    flake-parts = {
-      url = "github:hercules-ci/flake-parts";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    flake-parts.url = "github:hercules-ci/flake-parts";
 
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    import-tree = {
-      url = "github:vic/import-tree";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    import-tree.url = "github:vic/import-tree";
 
     lanzaboote = {
       url = "github:nix-community/lanzaboote";
@@ -34,10 +28,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-homebrew = {
-      url = "github:zhaofengli-wip/nix-homebrew";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
   };
 
   outputs =
