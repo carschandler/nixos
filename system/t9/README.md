@@ -16,14 +16,11 @@ nix run github:nix-community/nixos-anywhere -- --generate-hardware-config nixos-
 Next, need to set up TPM and lanzaboote.
 
 ```
-sudo sbctl create-keys
-sudo mkdir /keep/secureboot
-sudo mv /var/lib/sbctl/{GUID,keys} /keep/secureboot
+# If using an impermanence setup, ensure the keys are placed in a persistent
+# location and read from there using /etc/sbctl/sbctl.conf.
 # The `boot.lanzaboote.pkiBundle` should be the parent dir of `keys/`
+sudo sbctl create-keys
 sudo nixos-rebuild switch
-sudo mkdir /etc/sbctl
-sudo echo 'keydir: /keep/secureboot/keys' > /etc/sbctl/sbctl.conf
-sudo echo 'guid: /keep/secureboot/GUID' >>> /etc/sbctl/sbctl.conf
 sudo sbctl verify
 sudo reboot
 # Enable secureboot, ensure "external" keys are loaded and not factory ones,
