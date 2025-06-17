@@ -1,8 +1,6 @@
 {
-  lib,
   pkgs,
   config,
-  inputs,
   ...
 }:
 
@@ -19,6 +17,7 @@
   services = {
     tailscale.enable = true;
     openssh.enable = true;
+    hardware.openrgb.enable = true;
   };
 
   users.mutableUsers = false;
@@ -66,6 +65,8 @@
 
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
     package = config.boot.kernelPackages.nvidiaPackages.stable;
+
+    powerManagement.enable = true;
   };
 
   # Auto-mount USB (hopefully?)

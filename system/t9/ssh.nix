@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, ... }:
 {
   services.openssh = {
     enable = true;
@@ -10,4 +10,6 @@
       AllowUsers = [ "chan" ];
     };
   };
+
+  users.users.chan.openssh.authorizedKeys.keyFiles = lib.filesystem.listFilesRecursive ../../keys;
 }
