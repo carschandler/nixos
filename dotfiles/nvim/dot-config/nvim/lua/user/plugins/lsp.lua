@@ -46,7 +46,7 @@ return {
         yamlls = {},
         bashls = {},
         r_language_server = {},
-        -- ts_ls = {},
+        ts_ls = {},
         -- rust_analyzer = {},
       },
     },
