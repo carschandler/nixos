@@ -11,11 +11,11 @@
     systemd.enable = true;
   };
 
-  programs.bash.profileExtra = ''
-    if uwsm check may-start && uwsm select; then
-      exec uwsm start default
-    fi
-  '';
+  # programs.bash.profileExtra = ''
+  #   if [[ ! -z $DISPLAY ]] uwsm check may-start && uwsm select; then
+  #     exec uwsm start default
+  #   fi
+  # '';
 
   home.packages = [
     pkgs.awscli2

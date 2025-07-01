@@ -71,6 +71,7 @@ in
     uv
     wget
     xdg-utils
+    xh
     xplr
     zellij
     zk
