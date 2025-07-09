@@ -25,6 +25,11 @@
         # systemd
       ];
     };
+
+    appimage = {
+      enable = true;
+      binfmt = true;
+    };
   };
 
   services.dbus.enable = true;

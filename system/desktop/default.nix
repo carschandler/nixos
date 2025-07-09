@@ -19,11 +19,6 @@
     ./hardware-configuration.nix
   ];
 
-  programs.appimage = {
-    enable = true;
-    binfmt = true;
-  };
-
   services.tailscale.enable = true;
 
   networking.hostName = "desktop";

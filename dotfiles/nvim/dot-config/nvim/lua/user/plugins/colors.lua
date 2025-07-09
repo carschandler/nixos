@@ -57,10 +57,14 @@ return {
       Cursor = {
         reverse = true,
       },
+      -- With blink.cmp, this was necessary when using transparent mode
+      Pmenu = {
+        bg = "none",
+      },
       -- Transparent Mode makes borderless floating windows hard to view
       -- Enable this when using borderless, otherwise leave it out
       -- NormalFloat = {
-      --   bg = "#3c3836"
+      --   bg = "#3c3836",
       -- },
     },
     dim_inactive = false,

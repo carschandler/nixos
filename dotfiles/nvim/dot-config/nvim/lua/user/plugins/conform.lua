@@ -11,6 +11,8 @@ return {
         lua = { "stylua" },
         nix = { "nixfmt" },
         quarto = { "injected" },
+        javascript = { "prettier" },
+        json = { "prettier" },
       },
 
       format_on_save = function(bufnr)
