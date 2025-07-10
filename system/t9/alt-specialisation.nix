@@ -1,38 +1,24 @@
 {
   pkgs,
   config,
+  inputs,
   ...
 }:
 
 {
   imports = [
-    ../shared
     ./hardware-configuration.nix
+    inputs.disko.nixosModules.disko
     ./disko.nix
-    ./hyprland-shared.nix
-    ./ssh.nix
-    ./lanzaboote.nix
   ];
 
-  services = {
-    tailscale.enable = true;
-    openssh.enable = true;
-    hardware.openrgb.enable = true;
-  };
-
-  specialisation = {
-    alt = {
-      inheritParentConfig = false;
-      configuration = {
-        imports = [ ./alt-specialisation.nix ];
-      };
-    };
-  };
+  services.displayManager.gdm.enable = true;
+  services.desktopManager.gnome.enable = true;
 
   users.mutableUsers = false;
-  users.users.chan = {
+  users.users.frankie = {
     isNormalUser = true;
-    home = "/home/chan";
+    home = "/home/frankie";
     description = "Cars Chandler";
     extraGroups = [
       "wheel"
@@ -48,6 +34,7 @@
     pkgs.thunderbird
     pkgs.glxinfo
     pkgs.overskride
+    pkgs.wezterm
   ];
 
   networking = {
@@ -122,12 +109,12 @@
   # Enable bluetooth
   hardware.bluetooth.enable = true;
 
-  environment.variables = {
-    NIXOS_OZONE_WL = "1";
-  };
+  # environment.variables = {
+  #   NIXOS_OZONE_WL = "1";
+  # };
 
   # Enable blueman for managing connections
-  services.blueman.enable = true;
+  # services.blueman.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
