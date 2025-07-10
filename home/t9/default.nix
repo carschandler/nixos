@@ -5,11 +5,11 @@
   ...
 }:
 {
-  imports = [ inputs.hyprpanel.homeManagerModules.hyprpanel ];
-  programs.hyprpanel = {
-    enable = true;
-    systemd.enable = true;
-  };
+  # imports = [ inputs.hyprpanel.homeManagerModules.hyprpanel ];
+  # programs.hyprpanel = {
+  #   enable = true;
+  #   systemd.enable = true;
+  # };
 
   # programs.bash.profileExtra = ''
   #   if [[ ! -z $DISPLAY ]] uwsm check may-start && uwsm select; then

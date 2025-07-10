@@ -3,6 +3,7 @@
   nixpkgs.config.input-fonts.acceptLicense = true;
 
   home.packages = with pkgs; [
+    adwaita-fonts
     nerd-fonts.commit-mono
     nerd-fonts.sauce-code-pro
     freefont_ttf

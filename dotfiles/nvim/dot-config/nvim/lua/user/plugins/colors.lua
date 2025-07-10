@@ -57,10 +57,11 @@ return {
       Cursor = {
         reverse = true,
       },
-      -- With blink.cmp, this was necessary when using transparent mode
-      Pmenu = {
-        bg = "none",
-      },
+      -- With blink.cmp, this was necessary when using transparent mode with
+      -- rounded borders
+      -- Pmenu = {
+      --   bg = "none",
+      -- },
       -- Transparent Mode makes borderless floating windows hard to view
       -- Enable this when using borderless, otherwise leave it out
       -- NormalFloat = {

@@ -196,27 +196,27 @@ in
       name = (import ../fonts/systemFonts).sans.name;
       size = 12;
     };
-    theme = {
-      name = "adw-gtk3-dark";
-      package = pkgs.adw-gtk3;
-    };
+    # theme = {
+    #   name = "Adwaita";
+    #   # package = pkgs.adw-gtk3;
+    # };
     cursorTheme = {
       name = "Adwaita";
-      package = pkgs.gnome-themes-extra;
+      package = pkgs.adwaita-icon-theme;
     };
-    iconTheme = {
-      name = "Adwaita";
-      package = pkgs.gnome-themes-extra;
-    };
-    gtk3.extraConfig = {
-      gtk-application-prefer-dark-theme = 1;
-    };
-    gtk4.extraConfig = {
-      gtk-application-prefer-dark-theme = 1;
-    };
+    # iconTheme = {
+    #   name = "Adwaita";
+    #   package = pkgs.adwaita-icon-theme;
+    # };
+    # gtk3.extraConfig = {
+    #   gtk-application-prefer-dark-theme = 1;
+    # };
+    # gtk4.extraConfig = {
+    #   gtk-application-prefer-dark-theme = 1;
+    # };
   };
 
-  home.sessionVariables.GTK_THEME = "adw-gtk3-dark";
+  # home.sessionVariables.GTK_THEME = "Adwaita:dark";
 
   qt = {
     enable = true;

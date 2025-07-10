@@ -34,7 +34,7 @@ vim.filetype.add({
 vim.o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 vim.o.foldmethod = "expr"
 vim.o.foldlevelstart = 99
-vim.o.winborder = "rounded"
+-- vim.o.winborder = "rounded"
 
 -- TODO rounded statuslines? Need an autocmd so that it updates each time a
 -- window is split/moved
