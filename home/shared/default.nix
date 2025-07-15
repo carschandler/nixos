@@ -234,7 +234,7 @@ in
       enableNushellIntegration = true;
       shellWrapperName = "y";
       keymap = {
-        manager.prepend_keymap = [
+        mgr.prepend_keymap = [
           {
             on = "q";
             run = "quit --no-cwd-file";
