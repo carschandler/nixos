@@ -93,7 +93,7 @@ in
     emacs-pgtk
     evince
     feh
-    gimp
+    gimp3
     libreoffice-fresh
     meld
     nautilus

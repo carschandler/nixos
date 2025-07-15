@@ -97,41 +97,6 @@ in
 
     swaync = {
       enable = true;
-      package =
-        if (lib.versionAtLeast pkgs.swaynotificationcenter.version "11.1") then
-          (lib.warn "swaync has updated to fix blur on scaled display; remove manual build" pkgs.swaynotificationcenter)
-        else
-          (pkgs.swaynotificationcenter.overrideAttrs (oldAttrs: {
-            src = pkgs.fetchFromGitHub {
-              owner = "ErikReider";
-              repo = "swaynotificationcenter";
-              rev = "main";
-              hash = "sha256-ZXxgVIGlcSfR5vvPATItURQlrAS2VoCFWupci37HaSc=";
-            };
-            buildInputs = [
-              pkgs.blueprint-compiler
-              pkgs.dbus
-              pkgs.dbus-glib
-              pkgs.gdk-pixbuf
-              pkgs.glib
-              # pkgs.gtk-layer-shell
-              # pkgs.gtk3
-              pkgs.gtk4-layer-shell
-              pkgs.gtk4
-              pkgs.gvfs
-              pkgs.json-glib
-              pkgs.libadwaita
-              pkgs.libgee
-              pkgs.libhandy
-              pkgs.libnotify
-              pkgs.libpulseaudio
-              pkgs.librsvg
-              # pkgs.pantheon.granite
-              pkgs.pantheon.granite7
-              # systemd # ends with broken permission
-              pkgs.wayland-scanner
-            ];
-          }));
     };
 
     # mako = {

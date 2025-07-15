@@ -47,6 +47,7 @@ return {
         bashls = {},
         r_language_server = {},
         ts_ls = {},
+        gopls = {},
         -- rust_analyzer = {},
       },
     },
