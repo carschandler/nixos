@@ -13,7 +13,12 @@
   ];
 
   services.displayManager.gdm.enable = true;
-  services.desktopManager.gnome.enable = true;
+
+  # services.desktopManager.gnome.enable = true;
+
+  programs.niri.enable = true;
+  programs.sway.enable = true;
+  programs.sway.wrapperFeatures.gtk = true;
 
   users.mutableUsers = false;
   users.users.frankie = {
@@ -32,10 +37,22 @@
     pkgs.postman
     pkgs.slack
     pkgs.thunderbird
+    pkgs.firefox
+    pkgs.pavucontrol
+    pkgs.vscode-fhs
     pkgs.glxinfo
     pkgs.overskride
     pkgs.wezterm
+    pkgs.alacritty
+    pkgs.fuzzel
+    pkgs.swaylock
+    pkgs.waybar
+    pkgs.grim # screenshot functionality
+    pkgs.slurp # screenshot functionality
+    pkgs.wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
+    pkgs.mako # notification system developed by swaywm maintainer
   ];
+  services.gnome.gnome-keyring.enable = true;
 
   networking = {
     hostName = "desktop-t9";
