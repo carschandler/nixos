@@ -13,10 +13,15 @@ in
   nix = {
     enable = true;
     package = pkgs.nix;
-    settings.experimental-features = [
-      "nix-command"
-      "flakes"
-    ];
+    settings = {
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+      extra-substituters = [
+        "https://nix-community.cachix.org"
+      ];
+    };
     # Pin the nixpkgs version that this flake uses to the registry so that
     # `nix` commands use the same nixpkgs as our system does
     registry.nixpkgs.flake = inputs.nixpkgs;
@@ -91,6 +96,11 @@ in
     isort
     nixfmt-rfc-style
     stylua
+  ];
+
+  # For blink-cmp to build
+  nix.settings.extra-trusted-public-keys = lib.mkIf config.programs.neovim.enable [
+    "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs"
   ];
 
   programs = {
@@ -315,7 +325,7 @@ in
         "lr" = ''lsd --group-dirs=first --color=always --icon=always -l --date=relative "$@" | less -rF'';
         "la" = ''lsd --group-dirs=first --color=always --icon=always -A "$@" | less -rF'';
         "lt" = ''lsd --group-dirs=first --tree --color=always --icon=always "$@" | less -rF'';
-        "lla" = ''lsd --group-dirs=first --color=always --icon=always -l "$@" | less -rF'';
+        "lla" = ''lsd --group-dirs=first --color=always --icon=always -la "$@" | less -rF'';
         "llt" = ''lsd --group-dirs=first --color=always --icon=always -l --tree "$@" | less -rF;'';
       };
     in

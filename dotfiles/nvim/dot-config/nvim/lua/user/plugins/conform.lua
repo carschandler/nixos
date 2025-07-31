@@ -13,6 +13,7 @@ return {
         quarto = { "injected" },
         javascript = { "prettier" },
         json = { "prettier" },
+        typescript = { "prettier" },
       },
 
       format_on_save = function(bufnr)

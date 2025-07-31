@@ -52,6 +52,8 @@ in
         "application/xhtml+xml" = [ "firefox.desktop" ];
         "application/x-extension-xhtml" = [ "firefox.desktop" ];
         "application/x-extension-xht" = [ "firefox.desktop" ];
+        "image/png" = [ "imv.desktop" ];
+        "image/jpeg" = [ "imv.desktop" ];
       };
     };
 
@@ -94,6 +96,7 @@ in
     evince
     feh
     gimp3
+    imv
     libreoffice-fresh
     meld
     nautilus

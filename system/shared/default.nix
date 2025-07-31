@@ -34,6 +34,7 @@
 
   services.dbus.enable = true;
 
+  # So that root can use them?
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
