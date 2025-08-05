@@ -13,6 +13,7 @@ return {
         quarto = { "injected" },
         javascript = { "prettier" },
         json = { "prettier" },
+        terraform = { "terraform_fmt" },
         typescript = { "prettier" },
       },
 

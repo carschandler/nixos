@@ -19,6 +19,7 @@ return {
     vim.api.nvim_set_hl(0, "debugPC", { link = "CursorLine" })
     vim.api.nvim_set_hl(0, "OilDir", { link = "GruvboxBlueBold" })
     vim.api.nvim_set_hl(0, "FlashMatch", { link = "GruvboxPurpleBold" })
+    vim.api.nvim_set_hl(0, "TreesitterContextSeparator", { link = "GruvboxBg1" })
 
     -- See my comment at
     -- https://gist.github.com/swarn/fb37d9eefe1bc616c2a7e476c0bc0316?permalink_comment_id=5110169#gistcomment-5110169
