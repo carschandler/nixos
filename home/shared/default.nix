@@ -50,7 +50,6 @@ in
   home.packages = with pkgs; [
     # cli programs
     _1password-cli
-    bat
     cbonsai
     fd
     file
@@ -98,11 +97,6 @@ in
     stylua
   ];
 
-  # For blink-cmp to build
-  nix.settings.extra-trusted-public-keys = lib.mkIf config.programs.neovim.enable [
-    "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs"
-  ];
-
   programs = {
     home-manager = {
       enable = true;
@@ -128,6 +122,13 @@ in
             export VIRTUAL_ENV
         }        
       '';
+    };
+
+    bat = {
+      enable = true;
+      config = {
+        theme = "gruvbox-dark";
+      };
     };
 
     fzf = {
