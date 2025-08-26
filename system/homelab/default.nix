@@ -21,12 +21,15 @@
     hostId = "c007d31d";
     interfaces.eno1.ipv4.addresses = [
       {
-        address = "192.168.1.2";
+        address = "10.12.23.2";
         prefixLength = 24;
       }
     ];
-    defaultGateway = "192.168.1.1";
-    nameservers = [ "1.1.1.1" ];
+    defaultGateway = "10.12.23.1";
+    nameservers = [
+      "1.1.1.1"
+      "8.8.8.8"
+    ];
   };
 
   users = {

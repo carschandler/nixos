@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 {
   # networking.nat = {
   #   enable = true;
@@ -9,7 +9,10 @@
   networking.firewall = {
     allowedUDPPorts = [
       61822
-      61823
+      53
+    ];
+    allowedTCPPorts = [
+      53
     ];
   };
   networking.wireguard.enable = true;
@@ -18,7 +21,7 @@
     wg0 = {
       # Determines the IP address and subnet of the server's end of the tunnel interface.
       ips = [
-        "10.0.0.1/24"
+        # "10.0.0.1/24"
         "fd00::1/64"
       ];
 
@@ -49,11 +52,49 @@
           publicKey = "BFNgdnAQCmiF+Uc+9MKJXx0ntAxOpKP6KBNqglQtWBQ=";
           # List of IPs assigned to this peer within the tunnel subnet. Used to configure routing.
           allowedIPs = [
-            "10.0.0.2/32"
-            "fd00::2/64"
+            # "10.0.0.2/32"
+            "fd00::2/128"
+          ];
+        }
+        {
+          publicKey = "36iBkyTT3d5GaZTIU7/5T+GzyuO+/ZTInH41bY+SGmo=";
+          allowedIPs = [
+            # "10.0.0.3/32"
+            "fd00::3/128"
           ];
         }
       ];
+    };
+  };
+  services.dnsmasq = {
+    enable = false;
+    settings = {
+      # interface = [
+      #   "wg0"
+      #   "lo"
+      # ];
+      # bind-interfaces = true;
+      listen-address = [
+        "fd00::1"
+        "::1"
+      ];
+      domain = "home";
+      local = "/home/";
+      expand-hosts = true;
+      domain-needed = true;
+      bogus-priv = true;
+      cache-size = 150;
+
+      address = [
+        "/srv.home/fd00::1"
+        "/mac.home/fd00::2"
+        "/ios.home/fd00::3"
+      ];
+
+      server = [ "1.1.1.1" ];
+
+      no-resolv = true;
+      strict-order = true;
     };
   };
 }

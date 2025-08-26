@@ -19,6 +19,7 @@
       # powerManagement.enable = true;
 
       # Experimental support for turning off GPU when not in use
+      # Only available on notebooks (https://download.nvidia.com/XFree86/Linux-x86_64/435.17/README/dynamicpowermanagement.html)
       # powerManagement.finegrained = true;
     };
   };
