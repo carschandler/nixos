@@ -30,6 +30,10 @@
       enable = true;
       binfmt = true;
     };
+
+    npm = {
+      enable = true;
+    };
   };
 
   services.dbus.enable = true;

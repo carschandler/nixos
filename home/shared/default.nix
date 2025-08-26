@@ -27,7 +27,7 @@ in
     registry.nixpkgs.flake = inputs.nixpkgs;
     gc = {
       automatic = true;
-      frequency = "weekly";
+      dates = "weekly";
       options = "--delete-older-than 30d";
     };
   };
@@ -95,6 +95,7 @@ in
     isort
     nixfmt-rfc-style
     stylua
+    nodePackages.prettier
   ];
 
   programs = {
@@ -276,15 +277,6 @@ in
       enable = true;
     };
 
-    bash.initExtra =
-      let
-        cfg = config.programs.zoxide;
-        cfgOptions = lib.concatStringsSep " " cfg.options;
-      in
-      lib.mkOrder 2500 ''
-        eval "$(${cfg.package}/bin/zoxide init bash ${cfgOptions})"
-      '';
-
     bash = {
       enable = true;
       shellAliases = {
@@ -308,6 +300,15 @@ in
           NEWPATH=''${NEWPATH/$NIX_PATHS}
         done
       '';
+      initExtra =
+        let
+          cfg = config.programs.zoxide;
+          cfgOptions = lib.concatStringsSep " " cfg.options;
+        in
+        lib.mkOrder 2500 ''
+          eval "$(${cfg.package}/bin/zoxide init bash ${cfgOptions})"
+        '';
+
     };
   };
 

@@ -28,10 +28,11 @@ in
     # qt stuff / authentication agent
     qt6.qtwayland
     libsForQt5.qt5.qtwayland
-    libsForQt5.polkit-kde-agent
+
+    hyprpolkitagent
 
     # Status bar
-    nwg-panel
+    # nwg-panel
 
     # App Launcher
     rofi-wayland
