@@ -45,14 +45,15 @@
   #   trusted-public-keys = [ "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE=" ];
   # };
 
-  # services.xserver.enable = true;
-  # services.xserver.desktopManager.gnome.enable = true;
-  # services.xserver.displayManager.gdm.enable = true;
+  services.desktopManager.gnome.enable = true;
+  services.displayManager.gdm.enable = true;
+  services.gnome.core-apps.enable = false;
+  services.gnome.games.enable = false;
   # environment.systemPackages = [ pkgs.adwaita-icon-theme ];
 
   # services.xserver.enable = true;
-  services.displayManager.sddm.enable = true;
-  services.displayManager.sddm.wayland.enable = true;
+  # services.displayManager.sddm.enable = true;
+  # services.displayManager.sddm.wayland.enable = true;
   # services.desktopManager.plasma6.enable = true;
 
   # programs.regreet = {

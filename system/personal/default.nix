@@ -165,8 +165,10 @@
     openssh.authorizedKeys = {
       keyFiles = lib.filesystem.listFilesRecursive ../../keys;
     };
-    initialHashedPassword = "$y$j9T$3F0wnFpeirh.ucFK101Z6/$Nk6T1in2qPfMCrai/x.tnIplqhtFP9AOzbmuSCVZ5R5";
+    hashedPassword = "$y$j9T$UPPnh1xdGG0NfzhKD/em1.$u7vkDL0bTSYqhLQsFC29HPKTPlGruZIvnQHJS9zA173";
   };
+
+  users.mutableUsers = false;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;

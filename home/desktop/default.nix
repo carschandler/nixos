@@ -8,4 +8,7 @@
   programs.obs-studio = {
     enable = true;
   };
+  programs.spotify-player = {
+    enable = true;
+  };
 }
