@@ -5,5 +5,6 @@
     ./samba.nix
     ./ssh.nix
     ./wireguard.nix
+    ./cloudflare-dyndns.nix
   ];
 }

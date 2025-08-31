@@ -7,9 +7,14 @@
 {
   services.immich = {
     enable = true;
+    # In case we need to roll back to an older version...
+    # package = pkgs.immich.override {
+    #   sourcesJSON = ./immichsources.json;
+    # };
     openFirewall = true;
     host = "::";
     mediaLocation = "/flash/services/immich";
+    database.enableVectors = false;
   };
 
   hardware.graphics.intelVideoAcceleration.enable = true;
