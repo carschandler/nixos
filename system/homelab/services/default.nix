@@ -6,5 +6,6 @@
     ./ssh.nix
     ./wireguard.nix
     ./cloudflare-dyndns.nix
+    ./nfs.nix
   ];
 }
