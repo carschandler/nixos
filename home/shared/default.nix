@@ -18,9 +18,6 @@ in
         "nix-command"
         "flakes"
       ];
-      extra-substituters = [
-        "https://nix-community.cachix.org"
-      ];
     };
     # Pin the nixpkgs version that this flake uses to the registry so that
     # `nix` commands use the same nixpkgs as our system does

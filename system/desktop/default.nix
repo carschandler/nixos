@@ -21,7 +21,31 @@
 
   services.tailscale.enable = true;
 
-  networking.hostName = "desktop";
+  networking = {
+    hostName = "desktop"; # Define your hostname.
+    # Required by ZFS; generated using head -c 8 /etc/machine-id
+    # NOTE: this is actually from an old system, but we can't change it to match
+    # the machine-id on this system now that it has been initialized as this, so
+    # just leave it as-is since it seems to be an arbitrary choice.
+    hostId = "5e16045e";
+    interfaces.wlp8s0.ipv4.addresses = [
+      {
+        address = "10.12.23.3";
+        prefixLength = 24;
+      }
+    ];
+    # interfaces.enp4s0.ipv4.addresses = [
+    #   {
+    #     address = "10.12.23.3";
+    #     prefixLength = 24;
+    #   }
+    # ];
+    defaultGateway = "10.12.23.1";
+    nameservers = [
+      "1.1.1.1"
+      "8.8.8.8"
+    ];
+  };
 
   boot.loader.grub.gfxmodeEfi = "1280x1024";
   boot.loader.grub.font = "${pkgs.source-code-pro}/share/fonts/opentype/SourceCodePro-Medium.otf";
@@ -45,11 +69,30 @@
   #   trusted-public-keys = [ "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE=" ];
   # };
 
-  services.desktopManager.gnome.enable = true;
-  services.displayManager.gdm.enable = true;
-  services.gnome.core-apps.enable = false;
-  services.gnome.games.enable = false;
-  # environment.systemPackages = [ pkgs.adwaita-icon-theme ];
+  programs.niri.enable = true;
+  environment.systemPackages = [
+    pkgs.fuzzel
+    pkgs.swaylock
+    pkgs.waybar
+  ];
+
+  services.xserver.enable = true;
+  services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver.desktopManager.xterm.enable = true;
+  services.xserver.windowManager.bspwm = {
+    enable = true;
+  };
+  services.xserver.windowManager.i3 = {
+    enable = true;
+    extraPackages = [
+      pkgs.dmenu # application launcher most people use
+      pkgs.i3status # gives you the default i3 status bar
+      pkgs.i3lock # default i3 screen locker
+    ];
+  };
+  services.xserver.windowManager.awesome = {
+    enable = true;
+  };
 
   # services.xserver.enable = true;
   # services.displayManager.sddm.enable = true;
@@ -137,6 +180,22 @@
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
+
+  boot.supportedFilesystems = [ "nfs" ];
+  fileSystems."/flash" = {
+    # device = "//10.12.23.2/flash";
+    # fsType = "cifs";
+    # options = [
+    #   "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,user=chan,uid=1000,credentials=/etc/smb-credentials"
+    # ];
+    device = "10.12.23.2:/flash";
+    fsType = "nfs";
+    options = [
+      "nfsvers=4.2"
+      "x-systemd.automount"
+      "noauto"
+    ];
+  };
 
   system.stateVersion = "22.11";
 }
