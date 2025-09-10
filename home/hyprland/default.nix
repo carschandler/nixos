@@ -98,6 +98,7 @@ in
 
     swaync = {
       enable = true;
+      style = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/swaync/dot-config/style.css";
     };
 
     # mako = {
