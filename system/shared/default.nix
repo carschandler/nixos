@@ -1,5 +1,13 @@
 { pkgs, ... }:
 {
+  users.groups.fileshare = {
+    gid = 1111;
+    members = [
+      "chan"
+      "root"
+    ];
+  };
+
   programs = {
     nix-ld = {
       enable = true;

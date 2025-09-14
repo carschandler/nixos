@@ -22,7 +22,7 @@
   users.users.immich.extraGroups = [
     "video"
     "render"
-    "smb"
+    "fileshare"
   ];
 
   systemd.tmpfiles.settings = {
