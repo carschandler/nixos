@@ -31,4 +31,10 @@
         (pkgs.callPackage ./livekit-cli/package.nix { })
     )
   ];
+
+  programs = {
+    claude-code = {
+      enable = true;
+    };
+  };
 }
