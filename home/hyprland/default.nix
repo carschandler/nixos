@@ -15,6 +15,9 @@ in
       config.lib.file.mkOutOfStoreSymlink "${dotfiles}/hyprland/dot-config/hypr/noanims.sh";
   };
 
+  home.file.".local/share/icons/macOS".source =
+    config.lib.file.mkOutOfStoreSymlink "${dotfiles}/hyprland/dot-local/share/icons/macOS";
+
   wayland.windowManager.hyprland = {
     enable = true;
     systemd.enable = false; # Default true; conflicts with UWSM

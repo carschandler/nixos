@@ -29,7 +29,7 @@ config = {
 
 if wezterm.hostname() == "desktop" then
 	-- config.front_end = "Software"
-	config.enable_wayland = false
+	config.enable_wayland = true
 elseif wezterm.hostname() == "desktop-t9" then
 	-- config.front_end = "WebGpu"
 	-- config.enable_wayland = true
