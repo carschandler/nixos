@@ -53,12 +53,14 @@ return {
     contrast = "", -- can be "hard", "soft" or empty string
     palette_overrides = {},
     overrides = {
+      DiffAdd = { bg = "#585834" },
+      DiffDelete = { bg = "#6e2623" },
+      DiffChange = { bg = "#3b4c45" },
+      DiffText = { fg = "none", bg = "#72613d" },
       -- String = {
       --   italic = false
       -- },
-      Cursor = {
-        reverse = true,
-      },
+      Cursor = { reverse = true },
       -- With blink.cmp, this was necessary when using transparent mode with
       -- rounded borders
       -- Pmenu = {
@@ -66,9 +68,7 @@ return {
       -- },
       -- Transparent Mode makes borderless floating windows hard to view
       -- Enable this when using borderless, otherwise leave it out
-      NormalFloat = {
-        bg = "#3c3836",
-      },
+      NormalFloat = { bg = "#3c3836" },
     },
     dim_inactive = false,
     transparent_mode = true,
