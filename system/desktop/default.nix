@@ -69,19 +69,20 @@
   #   trusted-public-keys = [ "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE=" ];
   # };
 
-  programs.niri.enable = true;
-  environment.systemPackages = [
-    pkgs.fuzzel
-    pkgs.swaylock
-    pkgs.waybar
-  ];
+  # programs.niri.enable = true;
+  # environment.systemPackages = [
+  #   pkgs.fuzzel
+  #   pkgs.swaylock
+  #   pkgs.waybar
+  # ];
 
-  services.xserver.enable = true;
-  services.xserver.videoDrivers = [ "nvidia" ];
-  services.xserver.desktopManager.xterm.enable = true;
-  services.xserver.windowManager.bspwm = {
-    enable = true;
-  };
+  # services.xserver.enable = true;
+  # services.xserver.videoDrivers = [ "nvidia" ];
+  # services.xserver.desktopManager.xterm.enable = true;
+  # services.xserver.windowManager.bspwm = {
+  #   enable = true;
+  # };
+
   services.xserver.windowManager.i3 = {
     enable = true;
     extraPackages = [
@@ -93,6 +94,21 @@
   services.xserver.windowManager.awesome = {
     enable = true;
   };
+
+  # programs.sway.enable = true;
+  # xdg.portal.extraPortals = [
+  #   pkgs.xdg-desktop-portal-wlr
+  #   pkgs.xdg-desktop-portal-gtk
+  # ];
+  # xdg.portal = {
+  #   enable = true;
+  #   config = {
+  #     common = {
+  #       default = "wlr";
+  #     };
+  #   };
+  #   wlr.enable = true;
+  # };
 
   # services.xserver.enable = true;
   # services.displayManager.sddm.enable = true;
@@ -196,6 +212,8 @@
       "noauto"
     ];
   };
+
+  services.flatpak.enable = true;
 
   system.stateVersion = "22.11";
 }
