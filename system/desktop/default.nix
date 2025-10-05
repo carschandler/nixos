@@ -83,6 +83,8 @@
   #   enable = true;
   # };
 
+  services.xserver.enable = true;
+  services.xserver.videoDrivers = [ "nvidia" ];
   services.xserver.windowManager.i3 = {
     enable = true;
     extraPackages = [
