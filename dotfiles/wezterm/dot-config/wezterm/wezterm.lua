@@ -32,7 +32,7 @@ if wezterm.hostname() == "desktop" then
 	config.enable_wayland = true
 elseif wezterm.hostname() == "desktop-t9" then
 	-- config.front_end = "WebGpu"
-	-- config.enable_wayland = true
+	config.enable_wayland = true
 elseif wezterm.hostname() == "laptop" then
 	config.enable_wayland = false
 	-- config.front_end = "Software"

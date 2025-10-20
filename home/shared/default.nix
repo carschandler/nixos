@@ -144,13 +144,15 @@ in
 
     git = {
       enable = true;
-      userName = "carschandler";
-      userEmail = "92899389+carschandler@users.noreply.github.com";
-      aliases = {
-        lg = "log --all --oneline --graph --color=always --decorate";
-        lgg = "log --oneline --graph --color=always --decorate";
-      };
-      extraConfig = {
+      settings = {
+        user = {
+          name = "carschandler";
+          email = "92899389+carschandler@users.noreply.github.com";
+        };
+        alias = {
+          lg = "log --all --oneline --graph --color=always --decorate";
+          lgg = "log --oneline --graph --color=always --decorate";
+        };
         pull.rebase = true;
       };
       ignores = [

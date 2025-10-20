@@ -20,6 +20,38 @@
     hardware.openrgb.enable = true;
   };
 
+  networking.nftables.enable = true;
+  virtualisation.incus.enable = true;
+  # virtualisation.incus.preseed = {
+  #   networks = [
+  #     {
+  #       config = {
+  #         "ipv4.address" = "10.0.0.1/24";
+  #         "ipv4.nat" = "true";
+  #       };
+  #       name = "docker0";
+  #       type = "bridge";
+  #     }
+  #   ];
+  #   profiles = [
+  #     {
+  #       devices = {
+  #         eth0 = {
+  #           name = "eth0";
+  #           network = "docker0";
+  #           type = "nic";
+  #         };
+  #         root = {
+  #           path = "/";
+  #           pool = "default";
+  #           size = "20GiB";
+  #           type = "disk";
+  #         };
+  #       };
+  #     }
+  #   ];
+  # };
+
   specialisation = {
     alt = {
       inheritParentConfig = false;
@@ -38,6 +70,7 @@
       "wheel"
       "networkmanager"
       "video"
+      "incus-admin"
     ];
     hashedPassword = "$y$j9T$uxCqrhaofIQdeJERyH4ZB/$d7LgPgp3CLQNSKnkLYKLZqrXS/F3gqfMDKglePFWmWB";
   };

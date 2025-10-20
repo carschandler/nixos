@@ -70,7 +70,7 @@ return {
       },
     }
 
-    vim.keymap.set("n", "<Leader>lf", function()
+    vim.keymap.set("", "<Leader>lf", function()
       conform.format({ async = true })
     end, { desc = "Format buffer" })
     vim.keymap.set("n", "<M-F>", function()

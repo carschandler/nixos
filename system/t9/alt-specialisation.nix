@@ -47,7 +47,9 @@
   programs.i3lock.enable = true; # default i3 screen locker
   ###
 
-  programs.niri.enable = true;
+  services.displayManager.cosmic-greeter.enable = true;
+  services.desktopManager.cosmic.enable = true;
+
   programs.sway.enable = true;
   programs.sway.wrapperFeatures.gtk = true;
 
