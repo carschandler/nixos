@@ -15,14 +15,14 @@
   ];
 
   services = {
-    tailscale.enable = true;
-    openssh.enable = true;
-    hardware.openrgb.enable = true;
+    tailscale.enable = true; # done
+    openssh.enable = true; # done
+    hardware.openrgb.enable = true; # done
   };
 
-  networking.nftables.enable = true;
-  virtualisation.incus.enable = true;
-  # virtualisation.incus.preseed = {
+  networking.nftables.enable = true; # done
+  virtualisation.incus.enable = true; # done
+  # virtualisation.incus.preseed = { # done
   #   networks = [
   #     {
   #       config = {
@@ -61,6 +61,7 @@
     };
   };
 
+  # done
   users.mutableUsers = false;
   users.users.chan = {
     isNormalUser = true;
