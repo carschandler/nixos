@@ -29,6 +29,7 @@
       else
         (pkgs.callPackage ./livekit-cli/package.nix { })
     )
+    pkgs.github-copilot-cli
   ];
 
   programs = {
@@ -38,5 +39,7 @@
     codex = {
       enable = true;
     };
+    gemini-cli.enable = true;
+    opencode.enable = true;
   };
 }

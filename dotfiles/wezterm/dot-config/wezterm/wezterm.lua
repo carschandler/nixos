@@ -21,7 +21,7 @@ config = {
 		top = 2,
 		bottom = 2,
 	},
-	window_background_opacity = 0.90,
+	window_background_opacity = 0.85,
 	macos_window_background_blur = 50,
 	xcursor_theme = "Adwaita",
 	xcursor_size = 24,
@@ -32,7 +32,8 @@ if wezterm.hostname() == "desktop" then
 	config.enable_wayland = true
 elseif wezterm.hostname() == "desktop-t9" then
 	-- config.front_end = "WebGpu"
-	config.enable_wayland = true
+	-- config.enable_wayland = false
+	config.font_size = 11
 elseif wezterm.hostname() == "laptop" then
 	config.enable_wayland = false
 	-- config.front_end = "Software"

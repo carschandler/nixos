@@ -29,6 +29,11 @@
     };
 
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
+
+    wezterm = {
+      url = "github:wezterm/wezterm?dir=nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =

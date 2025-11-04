@@ -16,7 +16,7 @@ return {
       },
       highlight = {
         enable = true,
-        disable = { "latex" },
+        disable = { "latex", "csv" },
       },
       indent = {
         enable = true,

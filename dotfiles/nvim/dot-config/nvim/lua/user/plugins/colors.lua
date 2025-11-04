@@ -18,7 +18,8 @@ return {
     vim.api.nvim_set_hl(0, "LspInfoBorder", { link = "FloatBorder" })
     vim.api.nvim_set_hl(0, "debugPC", { link = "CursorLine" })
     vim.api.nvim_set_hl(0, "OilDir", { link = "GruvboxBlueBold" })
-    vim.api.nvim_set_hl(0, "FlashMatch", { link = "GruvboxPurpleBold" })
+    vim.api.nvim_set_hl(0, "FlashMatch", { link = "GruvboxYellowBold" })
+    vim.api.nvim_set_hl(0, "FlashLabel", { link = "GruvboxYellowBold" })
     vim.api.nvim_set_hl(0, "TreesitterContextSeparator", { link = "GruvboxBg1" })
     vim.api.nvim_set_hl(0, "TreesitterContext", { link = "Normal" })
 
