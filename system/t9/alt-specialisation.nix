@@ -73,7 +73,7 @@
     pkgs.firefox
     pkgs.pavucontrol
     pkgs.vscode-fhs
-    pkgs.glxinfo
+    pkgs.mesa-demos
     pkgs.overskride
     pkgs.wezterm
     pkgs.alacritty

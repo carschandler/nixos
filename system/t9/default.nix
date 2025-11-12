@@ -81,7 +81,7 @@
     pkgs.postman
     pkgs.slack
     pkgs.thunderbird
-    pkgs.glxinfo
+    pkgs.mesa-demos
     pkgs.overskride
     inputs.wezterm.packages.x86_64-linux.default
   ];

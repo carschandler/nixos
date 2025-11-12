@@ -3,7 +3,8 @@
   home.packages = [
     pkgs.prismlauncher
     pkgs.clonehero
-    pkgs.nvtopPackages.full
+    # pkgs.nvtopPackages.nvidia
+    pkgs.slack
   ];
   programs.obs-studio = {
     enable = true;

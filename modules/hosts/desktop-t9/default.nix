@@ -30,7 +30,7 @@
     pkgs.postman
     pkgs.slack
     pkgs.thunderbird
-    pkgs.glxinfo
+    pkgs.mesa-demos
   ];
 
   networking = {

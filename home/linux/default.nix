@@ -104,13 +104,12 @@ in
     spotify
     thunderbird
     vlc
-    vscode-fhs
     xfce.thunar
     zathura
     zotero
 
     # hardware utils
-    glxinfo
+    mesa-demos
     playerctl
     usbutils
     usb-reset
@@ -164,6 +163,11 @@ in
 
     ghostty = {
       enable = true;
+    };
+
+    vscode = {
+      enable = true;
+      package = pkgs.vscode.fhs;
     };
 
     firefox = {
