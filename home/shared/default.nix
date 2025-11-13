@@ -54,6 +54,7 @@ in
     libnotify
     lsd
     gnumake
+    jq
     mc
     neofetch
     nh

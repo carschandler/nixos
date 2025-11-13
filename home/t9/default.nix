@@ -40,6 +40,26 @@
       enable = true;
     };
     gemini-cli.enable = true;
-    opencode.enable = true;
+    opencode = {
+      enable = true;
+      settings = {
+        permission = {
+          edit = "ask";
+          webfetch = "ask";
+          bash = {
+            "*" = "ask";
+            "terraform *" = "deny";
+            "rg *" = "allow";
+            "grep *" = "allow";
+            "jq *" = "allow";
+            "git diff *" = "allow";
+            "git status *" = "allow";
+            "git log *" = "allow";
+            "ls *" = "allow";
+            "pwd" = "allow";
+          };
+        };
+      };
+    };
   };
 }
