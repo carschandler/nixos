@@ -13,8 +13,8 @@
   services.nfs.server = {
     enable = true;
     exports = ''
-      /nfs       10.12.23.3(rw,fsid=0,no_subtree_check,sync)
-      /nfs/flash 10.12.23.3(rw,insecure,no_subtree_check,sync,nohide)
+      /nfs       10.12.23.3(rw,fsid=0,no_subtree_check,sync) 10.12.23.10(rw,fsid=0,no_subtree_check,sync)
+      /nfs/flash 10.12.23.3(rw,insecure,no_subtree_check,sync,nohide) 10.12.23.10(rw,insecure,no_subtree_check,sync,nohide) 
     '';
     lockdPort = 4001;
     mountdPort = 4002;

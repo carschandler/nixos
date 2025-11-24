@@ -33,8 +33,12 @@
   };
 
   users = {
-    groups = {
-      smb = { };
+    groups.fileshare = {
+      gid = 1111;
+      members = [
+        "root"
+        "immich"
+      ];
     };
     users = {
       chan = {
@@ -45,7 +49,7 @@
           "wheel"
           "video"
           "docker"
-          "smb"
+          "fileshare"
         ];
         packages = [ ];
         initialHashedPassword = "$y$j9T$mKGUGgyfGw.85QRIZ20gG0$SkKYGrxS79JHmk4fvRgIdElUHkQrglZbI4GcfivOkq8";
