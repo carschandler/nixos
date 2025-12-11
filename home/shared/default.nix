@@ -88,6 +88,9 @@ in
     bash-language-server
     yaml-language-server
 
+    # debuggers (prefer to install as a language dev dependency)
+    vscode-js-debug
+
     # formatters/linters
     black
     isort
@@ -155,6 +158,7 @@ in
           lgg = "log --oneline --graph --color=always --decorate";
         };
         pull.rebase = true;
+        push.autoSetupRemote = true;
       };
       ignores = [
         "*.DS_Store"
