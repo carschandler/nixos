@@ -1,6 +1,6 @@
-@define-color cc-bg rgba(46, 46, 46, 0.7);
-@define-color noti-border-color rgba(255, 255, 255, 0.15);
-@define-color noti-bg rgba(48, 48, 48, 0.8);
+@define-color cc-bg rgba(46, 46, 46, 0.5);
+@define-color noti-border-color rgba(125, 125, 125, 0.5);
+@define-color noti-bg rgba(48, 48, 48, 0.5);
 @define-color noti-bg-opaque rgb(48, 48, 48);
 @define-color noti-bg-darker rgb(38, 38, 38);
 @define-color noti-bg-hover rgb(56, 56, 56);
@@ -48,7 +48,7 @@
 .notification-row .notification-background .notification {
   /* The actual notification */
   border-radius: 10px;
-  border: 2px solid #bbbbbb;
+  border: 1px solid @noti-border-color;
   padding: 0;
   transition: background 0.15s ease-in-out;
   background: @noti-bg;
