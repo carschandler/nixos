@@ -88,12 +88,20 @@ return {
         wk.add({ "<Leader>r", group = "run/debug" })
       end
 
-      vim.keymap.set("n", "<F3>", function()
+      -- Shift+F5
+      vim.keymap.set("n", "<F17>", function()
         dap.terminate()
       end, { desc = "Terminate Debug Session" })
-      vim.keymap.set("n", "<F4>", function()
-        dap.restart()
+
+      -- Ctrl+Shift+F5
+      vim.keymap.set("n", "<F41>", function()
+        if dap.session() == nil then
+          dap.run_last()
+        else
+          dap.restart()
+        end
       end, { desc = "Restart Debug Session" })
+
       vim.keymap.set("n", "<F5>", function()
         if dap.session() == nil then
           local filesep = package.config:sub(1, 1)
@@ -142,27 +150,38 @@ return {
         end
       end, { desc = "Debug/Continue" })
 
-      vim.keymap.set("n", "<F6>", function()
+      -- Alt+F5
+      vim.keymap.set("n", "<F53>", function()
         dap.run_last()
       end, { desc = "Run previous configuration" })
-      vim.keymap.set("n", "<F7>", function()
+
+      vim.keymap.set("n", "<Leader>rgc", function()
         dap.goto_()
       end, { desc = "Go to cursor" })
-      vim.keymap.set("n", "<F9>", function()
+
+      vim.keymap.set("n", "<Leader>rtc", function()
         dap.run_to_cursor()
       end, { desc = "Run to cursor" })
+
       vim.keymap.set("n", "<F10>", function()
         dap.step_over()
       end, { desc = "Step over" })
+
       vim.keymap.set("n", "<F11>", function()
         dap.step_into()
       end, { desc = "Step into" })
+
       vim.keymap.set("n", "<F12>", function()
         dap.step_out()
       end, { desc = "Step out" })
+
+      vim.keymap.set("n", "<F9>", function()
+        dap.toggle_breakpoint()
+      end, { desc = "Toggle breakpoint" })
       vim.keymap.set("n", "<Leader>rb", function()
         dap.toggle_breakpoint()
       end, { desc = "Toggle breakpoint" })
+
       vim.keymap.set("n", "<Leader>rB", function()
         dap.set_breakpoint()
       end, { desc = "Set breakpoint" })
@@ -187,12 +206,19 @@ return {
         dap.clear_breakpoints()
       end, { desc = "Clear breakpoints" })
 
+      vim.keymap.set("n", "<C-S-Y>", function()
+        if not dap.repl.close({ mode = "toggle" }) then
+          local _, win = dap.repl.open({}, "vsplit")
+          vim.api.nvim_set_current_win(win)
+        end
+      end, { desc = "Open REPL" })
       vim.keymap.set("n", "<Leader>rr", function()
         if not dap.repl.close({ mode = "toggle" }) then
           local _, win = dap.repl.open({}, "vsplit")
           vim.api.nvim_set_current_win(win)
         end
       end, { desc = "Open REPL" })
+
       vim.keymap.set("n", "<Leader>rR", function()
         if not dap.repl.close({ mode = "toggle" }) then
           local _, win = dap.repl.open({ height = 15 })
@@ -260,6 +286,32 @@ return {
       --     ['.clear'] = repl.clear()
       --   },
       -- })
+
+      dap.adapters["pwa-node"] = {
+        type = "server",
+        host = "localhost",
+        port = "${port}",
+        executable = {
+          command = "js-debug",
+          args = { "${port}" },
+        },
+      }
+
+      dap.set_log_level("TRACE")
+
+      dap.configurations.javascript = {
+        {
+          type = "pwa-node",
+          request = "launch",
+          name = "Launch file",
+          program = "${file}",
+          cwd = "${workspaceFolder}",
+          resolveSourceMapLocations = {
+            "${workspaceFolder}/**",
+            "!**/node_modules/**",
+          },
+        },
+      }
 
       dap.adapters.debugpy = {
         type = "executable",
