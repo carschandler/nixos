@@ -17,8 +17,9 @@
   # '';
 
   home.packages = [
+    # (pkgs.callPackage ./awscli2/package.nix { })
     pkgs.awscli2
-    pkgs.aws-sam-cli
+    # pkgs.aws-sam-cli
     pkgs.terraform
     pkgs.nodejs_22
     pkgs.pnpm
