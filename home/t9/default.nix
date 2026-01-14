@@ -30,7 +30,6 @@
       else
         (pkgs.callPackage ./livekit-cli/package.nix { })
     )
-    pkgs.github-copilot-cli
   ];
 
   programs = {
