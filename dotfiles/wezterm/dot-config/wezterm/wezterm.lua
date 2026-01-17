@@ -25,6 +25,10 @@ config = {
 	macos_window_background_blur = 50,
 	xcursor_theme = "Adwaita",
 	xcursor_size = 24,
+	-- For claude code
+	keys = {
+		{ key = "Enter", mods = "SHIFT", action = wezterm.action({ SendString = "\x1b\r" }) },
+	},
 }
 
 if wezterm.hostname() == "desktop" then
