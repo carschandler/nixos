@@ -333,6 +333,7 @@ in
         "lt" = ''lsd --group-dirs=first --tree --color=always --icon=always "$@" | less -rF'';
         "lla" = ''lsd --group-dirs=first --color=always --icon=always -la "$@" | less -rF'';
         "llt" = ''lsd --group-dirs=first --color=always --icon=always -l --tree "$@" | less -rF;'';
+        "ta" = ''tmux attach -E'';
       };
     in
     lib.attrsets.concatMapAttrs (name: value: {
