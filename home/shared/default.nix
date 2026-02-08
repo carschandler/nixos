@@ -58,7 +58,6 @@ in
     mc
     neofetch
     nh
-    pnpm
     pandoc
     pdfgrep
     pixi
@@ -70,7 +69,6 @@ in
     typos
     typst
     unzip
-    uv
     wget
     xdg-utils
     xh
@@ -78,6 +76,9 @@ in
     zellij
     zk
     zsh
+
+    # language tools
+    pnpm
 
     # language servers
     efm-langserver
@@ -87,6 +88,7 @@ in
     pyright
     bash-language-server
     yaml-language-server
+    typescript-language-server
 
     # debuggers (prefer to install as a language dev dependency)
     vscode-js-debug
@@ -163,6 +165,16 @@ in
       ignores = [
         "*.DS_Store"
       ];
+    };
+
+    jujutsu = {
+      enable = true;
+      settings = {
+        user = {
+          name = "carschandler";
+          email = "92899389+carschandler@users.noreply.github.com";
+        };
+      };
     };
 
     helix = {
@@ -285,7 +297,7 @@ in
       enable = true;
       shellAliases = {
         ls = "lsd --group-dirs=first";
-        rt = ''cd $(git rev-parse --show-toplevel)'';
+        rt = "cd $(git rev-parse --show-toplevel)";
       };
       bashrcExtra = ''
         if ! [[ $PATH =~ ${homedir}/.local/bin ]]; then
@@ -314,6 +326,9 @@ in
         '';
 
     };
+
+    uv.enable = true;
+    bun.enable = true;
   };
 
   home.file =
@@ -324,7 +339,7 @@ in
         "nrs" = ''nh os switch $HOME/nixos/ "$@"'';
         "nfu" = ''nix flake update --commit-lock-file --flake $HOME/nixos/ "$@"'';
         "drs" = ''darwin-rebuild switch --flake $HOME/nixos/ "$@"'';
-        "battery" = ''cat /sys/class/power_supply/BAT0/capacity'';
+        "battery" = "cat /sys/class/power_supply/BAT0/capacity";
         "py" = ''nix develop ~/nixos/devshells/python/ "$@"'';
         "l" = ''lsd --group-dirs=first "$@"'';
         "ll" = ''lsd --group-dirs=first --color=always --icon=always -l "$@" | less -rF'';
@@ -333,7 +348,7 @@ in
         "lt" = ''lsd --group-dirs=first --tree --color=always --icon=always "$@" | less -rF'';
         "lla" = ''lsd --group-dirs=first --color=always --icon=always -la "$@" | less -rF'';
         "llt" = ''lsd --group-dirs=first --color=always --icon=always -l --tree "$@" | less -rF;'';
-        "ta" = ''tmux attach -E'';
+        "ta" = "tmux attach -E";
       };
     in
     lib.attrsets.concatMapAttrs (name: value: {

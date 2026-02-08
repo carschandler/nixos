@@ -15,6 +15,8 @@ in
   config = lib.mkIf cfg.enable {
     nixpkgs.hostPlatform = "aarch64-darwin";
 
+    system.primaryUser = "chan";
+
     nix-homebrew = {
       enable = true;
       enableRosetta = true;
@@ -27,7 +29,10 @@ in
 
     homebrew = {
       enable = true;
-      brews = [ ];
+      brews = [
+        "node"
+        "livekit-cli"
+      ];
       casks = [
         "1password"
         "arc"
@@ -95,10 +100,10 @@ in
     };
 
     system.activationScripts = {
-      postUserActivation = {
+      createScreenshotsDir = {
         enable = true;
         text = ''
-          mkdir -p "$HOME/Pictures/screenshots"
+          sudo -u chan mkdir -p "$HOME/Pictures/screenshots"
         '';
       };
     };
