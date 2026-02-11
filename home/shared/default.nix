@@ -215,14 +215,19 @@ in
             name: insert_last_token
             modifier: alt
             keycode: char_.
-            mode: [ vi_normal vi_insert ]
+            mode: [ vi_normal vi_insert emacs ]
             event: [
-              { edit: InsertString, value: " !$" }
+              { edit: InsertString, value: "!$" }
               { send: Enter }
             ]
           }
         ]
       '';
+    };
+
+    carapace = {
+      enable = true;
+      enableNushellIntegration = true;
     };
 
     readline = {

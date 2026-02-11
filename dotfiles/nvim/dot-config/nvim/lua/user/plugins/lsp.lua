@@ -132,7 +132,8 @@ return {
           vim.keymap.set("n", "<Leader>lr", vim.lsp.buf.rename, opts_desc("Rename symbol"))
           vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, opts_desc("Rename symbol"))
           vim.keymap.set({ "n", "v" }, "<Leader>la", vim.lsp.buf.code_action, opts_desc("Code actions"))
-          vim.keymap.set("n", "gr", vim.lsp.buf.references, opts_desc("Go to references"))
+          -- Unmapping in favor of the gr* mappings created by nvim (:h grn)
+          -- vim.keymap.set("n", "gr", vim.lsp.buf.references, opts_desc("Go to references"))
         end,
       })
     end,

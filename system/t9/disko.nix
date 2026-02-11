@@ -114,6 +114,12 @@ in
             # Used by services.zfs.autoSnapshot options.
             options."com.sun:auto-snapshot" = "true";
           };
+          "keep/incus" = {
+            type = "zfs_fs";
+            options.mountpoint = "none";
+            # Used by services.zfs.autoSnapshot options.
+            options."com.sun:auto-snapshot" = "true";
+          };
         };
       };
     };

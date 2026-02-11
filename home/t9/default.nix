@@ -57,6 +57,7 @@
             "git diff *" = "allow";
             "git status *" = "allow";
             "git log *" = "allow";
+            "git show *" = "allow";
             "ls *" = "allow";
             "pwd" = "allow";
           };
