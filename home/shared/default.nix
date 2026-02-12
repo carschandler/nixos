@@ -50,11 +50,11 @@ in
     cbonsai
     fd
     file
+    gnumake
     htop
+    jq
     libnotify
     lsd
-    gnumake
-    jq
     mc
     neofetch
     nh
@@ -82,14 +82,14 @@ in
     pnpm
 
     # language servers
+    basedpyright
+    bash-language-server
     efm-langserver
     lua-language-server
     nil
-    basedpyright
     pyright
-    bash-language-server
-    yaml-language-server
     typescript-language-server
+    yaml-language-server
 
     # debuggers (prefer to install as a language dev dependency)
     vscode-js-debug
@@ -98,8 +98,8 @@ in
     black
     isort
     nixfmt-rfc-style
-    stylua
     nodePackages.prettier
+    stylua
   ];
 
   programs = {
