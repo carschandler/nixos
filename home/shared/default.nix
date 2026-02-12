@@ -74,6 +74,7 @@ in
     xh
     xplr
     zellij
+    zip
     zk
     zsh
 
