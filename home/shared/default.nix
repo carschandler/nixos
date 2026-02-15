@@ -231,6 +231,105 @@ in
       enableNushellIntegration = true;
     };
 
+    opencode = {
+      enable = true;
+      settings = {
+        permission = {
+          edit = "ask";
+          webfetch = "ask";
+          bash = {
+            "*" = "ask";
+            "terraform *" = "deny";
+            "rg *" = "allow";
+            "fd *" = "allow";
+            "fd *-x" = "ask";
+            "fd *-exec" = "ask";
+            "find *" = "allow";
+            "find -exec" = "ask";
+            "find --exec" = "ask";
+            "find -execdir" = "ask";
+            "find --execdir" = "ask";
+            "grep *" = "allow";
+            "jq *" = "allow";
+            "git diff *" = "allow";
+            "git status *" = "allow";
+            "git log *" = "allow";
+            "git show *" = "allow";
+            "git branch" = "allow";
+            "git blame" = "allow";
+            "date *" = "allow";
+            "ls *" = "allow";
+            "echo *" = "allow";
+            "cat *" = "allow";
+            "head *" = "allow";
+            "tail *" = "allow";
+            "stat *" = "allow";
+            "sort *" = "allow";
+            "file *" = "allow";
+            "du *" = "allow";
+            "wc *" = "allow";
+            "diff *" = "allow";
+            "pwd" = "allow";
+            "npm test" = "allow";
+            "npm run test" = "allow";
+            "npx eslint *" = "allow";
+            "npm run lint" = "allow";
+            "npm run build" = "allow";
+          };
+        };
+        agent = {
+          chat = {
+            mode = "primary";
+            description = "For chats not directly related to current files";
+            prompt = ''
+              You are a chat-based assistant. You should not use the context of
+              the current system's files unless explicitly asked to.
+            '';
+            tools = {
+              edit = false;
+            };
+          };
+          auto = {
+            mode = "primary";
+            tools = {
+              edit = true;
+            };
+            color = "#fe8019";
+          };
+        };
+        provider = {
+          openai = {
+            models =
+              lib.genAttrs
+                [
+                  "gpt-5"
+                  "gpt-5-mini"
+                  "gpt-5-nano"
+                  "gpt-5-codex"
+                  "gpt-5.1"
+                  "gpt-5.1-codex"
+                  "gpt-5.1-codex-mini"
+                  "gpt-5.1-codex-max"
+                  "gpt-5.2"
+                  "gpt-5.2-codex"
+                  "gpt-5.2-pro"
+                ]
+                (_: {
+                  options = {
+                    store = false;
+                  };
+                });
+          };
+          amazon-bedrock = {
+            options = {
+              profile = "default";
+              region = "us-east-1";
+            };
+          };
+        };
+      };
+    };
+
     readline = {
       enable = true;
       extraConfig = ''

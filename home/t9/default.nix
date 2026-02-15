@@ -42,57 +42,5 @@
       enable = true;
     };
     gemini-cli.enable = true;
-    opencode = {
-      enable = true;
-      settings = {
-        permission = {
-          edit = "ask";
-          webfetch = "ask";
-          bash = {
-            "*" = "ask";
-            "terraform *" = "deny";
-            "rg *" = "allow";
-            "grep *" = "allow";
-            "jq *" = "allow";
-            "git diff *" = "allow";
-            "git status *" = "allow";
-            "git log *" = "allow";
-            "git show *" = "allow";
-            "ls *" = "allow";
-            "pwd" = "allow";
-          };
-        };
-        provider = {
-          openai = {
-            models =
-              lib.genAttrs
-                [
-                  "gpt-5"
-                  "gpt-5-mini"
-                  "gpt-5-nano"
-                  "gpt-5-codex"
-                  "gpt-5.1"
-                  "gpt-5.1-codex"
-                  "gpt-5.1-codex-mini"
-                  "gpt-5.1-codex-max"
-                  "gpt-5.2"
-                  "gpt-5.2-codex"
-                  "gpt-5.2-pro"
-                ]
-                (_: {
-                  options = {
-                    store = false;
-                  };
-                });
-          };
-          amazon-bedrock = {
-            options = {
-              profile = "default";
-              region = "us-east-1";
-            };
-          };
-        };
-      };
-    };
   };
 }
