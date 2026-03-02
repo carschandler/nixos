@@ -78,6 +78,7 @@ in
         default = [
           "org.wezfurlong.wezterm.desktop"
           "foot.desktop"
+          "Alacritty.desktop"
         ];
       };
     };
