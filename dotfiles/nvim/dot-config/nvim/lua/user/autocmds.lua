@@ -27,6 +27,42 @@ autocmd("WinEnter", {
   desc = "Enter insert mode whenever entering a dap window",
 })
 
+-- NOTE: neither of the following trigger notifications... something in the
+-- source code prevents them from being sent. There's a related GitHub
+-- issue/discussion somewhere.
+
+-- vim.opt.shortmess:append("A")
+-- autocmd("SwapExists", {
+--   callback = function()
+--     vim.notify("Swapfile detected", vim.log.levels.WARN)
+--   end,
+-- })
+
+-- vim.api.nvim_create_autocmd("SwapExists", {
+--   pattern = "*",
+--   desc = "Skip the swapfile prompt when the swapfile is owned by a running Nvim process",
+--   group = vim.api.nvim_create_augroup("nvim.swapfile", {}),
+--   callback = function()
+--     local info = vim.fn.swapinfo(vim.v.swapname)
+--     vim.notify("swapinfo" .. vim.inspect(info))
+--     local user = vim.uv.os_get_passwd().username
+--     local iswin = 1 == vim.fn.has("win32")
+--
+--     vim.notify("user" .. vim.inspect(user))
+--     vim.notify("info.user" .. vim.inspect(info.user))
+--     vim.notify("info.error" .. vim.inspect(info.error))
+--     vim.notify("info.pid" .. vim.inspect(info.pid))
+--     vim.notify("iswin" .. vim.inspect(info.pid))
+--
+--     if info.error or info.pid <= 0 or (not iswin and info.user ~= user) then
+--       vim.v.swapchoice = "" -- Show the prompt.
+--       return
+--     end
+--     vim.v.swapchoice = "e" -- Choose "(E)dit".
+--     vim.notify(("W325: Ignoring swapfile from Nvim process %d"):format(info.pid), vim.log.levels.WARN)
+--   end,
+-- })
+
 if vim.g.vscode then
   autocmd({ "VimEnter", "ModeChanged" }, {
     callback = function()

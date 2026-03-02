@@ -54,6 +54,31 @@ in
         "application/x-extension-xht" = [ "firefox.desktop" ];
         "image/png" = [ "imv.desktop" ];
         "image/jpeg" = [ "imv.desktop" ];
+      }
+      //
+        pkgs.lib.genAttrs
+          [
+            "text/plain"
+            "text/javascript"
+            "application/javascript"
+            "text/markdown"
+            "text/x-script.python"
+            "text/rust"
+          ]
+          (_: [
+            "nvim.desktop"
+            "Helix.desktop"
+            "code.desktop"
+          ]);
+    };
+
+    terminal-exec = {
+      enable = true;
+      settings = {
+        default = [
+          "org.wezfurlong.wezterm.desktop"
+          "foot.desktop"
+        ];
       };
     };
 

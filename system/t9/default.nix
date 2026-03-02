@@ -21,37 +21,73 @@
     hardware.openrgb.enable = true; # done
   };
 
+  networking.firewall.allowedTCPPortRanges = [
+    {
+      from = 3000;
+      to = 3030;
+    }
+  ];
+
   networking.nftables.enable = true; # done
   virtualisation.incus.enable = true; # done
-  # virtualisation.incus.preseed = { # done
-  #   networks = [
-  #     {
-  #       config = {
-  #         "ipv4.address" = "10.0.0.1/24";
-  #         "ipv4.nat" = "true";
-  #       };
-  #       name = "docker0";
-  #       type = "bridge";
-  #     }
-  #   ];
-  #   profiles = [
-  #     {
-  #       devices = {
-  #         eth0 = {
-  #           name = "eth0";
-  #           network = "docker0";
-  #           type = "nic";
-  #         };
-  #         root = {
-  #           path = "/";
-  #           pool = "default";
-  #           size = "20GiB";
-  #           type = "disk";
-  #         };
-  #       };
-  #     }
-  #   ];
-  # };
+  virtualisation.incus.preseed = {
+    storage_pools = [
+      {
+        config = {
+          source = "rootpool/keep/incus";
+        };
+        driver = "zfs";
+        name = "default";
+      }
+    ];
+    networks = [
+      {
+        config = {
+          "ipv4.address" = "10.0.0.1/24";
+          "ipv4.nat" = "true";
+        };
+        name = "incusbr0";
+        type = "bridge";
+      }
+    ];
+    profiles = [
+      {
+        name = "default";
+        devices = {
+          eth0 = {
+            name = "eth0";
+            network = "docker0";
+            type = "nic";
+          };
+          root = {
+            path = "/";
+            pool = "default";
+            size = "50GiB";
+            type = "disk";
+          };
+        };
+      }
+    ];
+    # Not working
+    # instances = [
+    #   {
+    #     name = "arch";
+    #     project = "docker";
+    #     type = "virtual-machine";
+    #     image = "images:archlinux/current";
+    #     "limits.cpu" = "4";
+    #     "limits.memory" = "16GiB";
+    #     "security.secureboot" = "false";
+    #     profiles = [ "default" ];
+    #   }
+    # ];
+  };
+
+  virtualisation.docker = {
+    enable = true;
+  };
+
+  networking.firewall.trustedInterfaces = [ "incusbr0" ];
 
   specialisation = {
     alt = {
@@ -73,6 +109,7 @@
       "networkmanager"
       "video"
       "incus-admin"
+      "docker"
     ];
     hashedPassword = "$y$j9T$uxCqrhaofIQdeJERyH4ZB/$d7LgPgp3CLQNSKnkLYKLZqrXS/F3gqfMDKglePFWmWB";
   };
@@ -83,12 +120,13 @@
     pkgs.thunderbird
     pkgs.mesa-demos
     pkgs.overskride
-    inputs.wezterm.packages.x86_64-linux.default
+    # inputs.wezterm.packages.x86_64-linux.default
   ];
 
   networking = {
     hostName = "desktop-t9";
     hostId = "bd4e6365";
+    networkmanager.enable = true;
   };
 
   hardware.graphics = {

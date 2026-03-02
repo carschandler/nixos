@@ -229,6 +229,16 @@ in
     carapace = {
       enable = true;
       enableNushellIntegration = true;
+      package = pkgs.symlinkJoin {
+        name = "carapace-wrapped";
+        meta.mainProgram = "carapace";
+        paths = [ pkgs.carapace ];
+        nativeBuildInputs = [ pkgs.makeWrapper ];
+        postBuild = ''
+          wrapProgram $out/bin/carapace \
+            --set CARAPACE_MATCH 1
+        '';
+      };
     };
 
     opencode = {
@@ -256,7 +266,10 @@ in
             "git log *" = "allow";
             "git show *" = "allow";
             "git branch" = "allow";
+            "git branch --show-current" = "allow";
+            "git merge-base *" = "allow";
             "git blame" = "allow";
+            "gh pr view *" = "allow";
             "date *" = "allow";
             "ls *" = "allow";
             "echo *" = "allow";
@@ -266,11 +279,13 @@ in
             "stat *" = "allow";
             "sort *" = "allow";
             "file *" = "allow";
+            "realpath *" = "allow";
+            "readlink *" = "allow";
             "du *" = "allow";
             "wc *" = "allow";
             "diff *" = "allow";
             "pwd" = "allow";
-            "npm test" = "allow";
+            "npm test *" = "allow";
             "npm run test" = "allow";
             "npx eslint *" = "allow";
             "npm run lint" = "allow";
