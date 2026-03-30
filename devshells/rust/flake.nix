@@ -48,7 +48,7 @@
             RUST_SRC_PATH = pkgs.rustPlatform.rustLibSrc;
           };
 
-          formatter = pkgs.nixfmt-rfc-style;
+          formatter = pkgs.nixfmt;
         };
 
       flake = {

@@ -48,6 +48,7 @@ return {
         r_language_server = {},
         ts_ls = {},
         gopls = {},
+        nickel_ls = {},
         -- rust_analyzer = {},
       },
     },

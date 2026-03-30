@@ -53,7 +53,9 @@ in
     file
     gnumake
     htop
+    jj-starship
     jq
+    just
     libnotify
     lsd
     mc
@@ -97,7 +99,7 @@ in
     # formatters/linters
     black
     isort
-    nixfmt-rfc-style
+    nixfmt
     prettier
     stylua
   ];
@@ -143,6 +145,7 @@ in
         "-m"
         "--bind ctrl-a:toggle-all"
       ];
+      defaultCommand = "fd --type f";
     };
 
     gh = {
@@ -168,6 +171,10 @@ in
       ];
     };
 
+    helix = {
+      enable = true;
+    };
+
     jujutsu = {
       enable = true;
       settings = {
@@ -180,10 +187,6 @@ in
           "format_short_signature(signature)" = "signature.name()";
         };
       };
-    };
-
-    helix = {
-      enable = true;
     };
 
     neovim = {
@@ -225,6 +228,48 @@ in
               { edit: InsertString, value: "!$" }
               { send: Enter }
             ]
+          },
+          {
+            name: fzf_insert_files
+            modifier: control
+            keycode: char_t
+            mode: [emacs, vi_normal, vi_insert]
+            event: {
+              send: executehostcommand
+              cmd: "commandline edit --insert (fzf --multi | lines | each { |it| $'($it)' } | str join ' ')"
+            }
+          },
+          {
+            name: carapace_fzf
+            modifier: shift
+            keycode: backtab # Shift+Tab
+            mode: [emacs, vi_normal, vi_insert]
+            event: {
+              send: executehostcommand
+              cmd: "
+                # 1. Get the current command line buffer
+                let cmd = (commandline)
+                let spans = ($cmd | split row ' ')
+                
+                # 2. Get completions from carapace
+                let carapace_out = (carapace $spans.0 nushell ...$spans | from json)
+                if ($carapace_out | is-empty) { return }
+                
+                # 3. Extract just the values and pipe to fzf
+                let selected = (
+                    $carapace_out 
+                    | get value 
+                    | str join (char nl) 
+                    | fzf --height 40% --layout=reverse
+                )
+                
+                if ($selected | is-empty) { return }
+                
+                # 4. Drop the partially typed word, append the fzf selection, and replace the buffer
+                let new_cmd = ($spans | drop 1 | append $selected | str join ' ')
+                commandline edit --replace $new_cmd
+              "
+            }
           }
         ]
       '';
@@ -254,6 +299,7 @@ in
           bash = {
             "*" = "ask";
             "terraform *" = "deny";
+            "terraform fmt *" = "allow";
             "rg *" = "allow";
             "fd *" = "allow";
             "fd *-x" = "ask";
@@ -274,6 +320,9 @@ in
             "git merge-base *" = "allow";
             "git blame" = "allow";
             "gh pr view *" = "allow";
+            "gh pr diff *" = "allow";
+            "jj log *" = "allow";
+            "jj diff *" = "allow";
             "date *" = "allow";
             "ls *" = "allow";
             "echo *" = "allow";
@@ -307,6 +356,7 @@ in
             tools = {
               edit = false;
             };
+            color = "#b8bb26";
           };
           auto = {
             mode = "primary";

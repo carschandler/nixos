@@ -17,14 +17,27 @@
 
   services = {
     tailscale.enable = true; # done
-    openssh.enable = true; # done
     hardware.openrgb.enable = true; # done
+    crossmacro = {
+      enable = true;
+      users = [ "chan" ];
+    };
+    outline = {
+      enable = true;
+      port = 3042;
+    };
+    wiki-js = {
+      enable = true;
+      settings.port = 3043;
+    };
   };
+
+  security.polkit.enable = true;
 
   networking.firewall.allowedTCPPortRanges = [
     {
       from = 3000;
-      to = 3030;
+      to = 3100;
     }
   ];
 
@@ -43,7 +56,7 @@
     networks = [
       {
         config = {
-          "ipv4.address" = "10.0.0.1/24";
+          "ipv4.address" = "10.0.1.1/24";
           "ipv4.nat" = "true";
         };
         name = "incusbr0";

@@ -130,7 +130,7 @@ in
     spotify
     thunderbird
     vlc
-    xfce.thunar
+    thunar
     zathura
     zotero
 

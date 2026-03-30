@@ -12,6 +12,15 @@
 
 format = "$all$os "#$character"
 
+palette = "bright-only"
+[palettes.bright-only]
+red = "9"
+green = "10"
+yellow = "11"
+blue = "12"
+purple = "13"
+cyan = "14"
+
 [os]
 disabled = false
 # format = "[$name](bold blue)"
@@ -59,7 +68,16 @@ symbol = " "
 symbol = " "
 
 [git_branch]
-symbol = " "
+disabled=true
+# symbol = " "
+
+[git_status]
+disabled=true
+
+[custom.jj]
+when = "jj-starship detect"
+shell = ["jj-starship", "--jj-symbol", "󱗆 ", "--git-symbol", " "]
+format = "$output "
 
 [golang]
 symbol = " "
@@ -78,6 +96,7 @@ symbol = " "
 
 [hostname]
 ssh_symbol = " "
+style = "bold green"
 
 [java]
 symbol = " "

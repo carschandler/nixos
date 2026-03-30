@@ -37,7 +37,7 @@
           };
 
           JAVA_DEBUG_PATH = pkgs.vscode-extensions.vscjava.vscode-java-debug;
-          formatter = pkgs.nixfmt-rfc-style;
+          formatter = pkgs.nixfmt;
         };
 
       flake = {
