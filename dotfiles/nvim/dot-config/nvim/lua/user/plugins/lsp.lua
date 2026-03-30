@@ -120,7 +120,33 @@ return {
           end
 
           vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts_desc("Go to declaration"))
-          vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts_desc("Go to definition"))
+
+          -- NOTE: in order to get the same behavior as VS Code's
+          -- preferGoToSourceDefinition in TypeScript, we can't use the regular
+          -- LSP goto definition command; we need a specific
+          -- goToSourceDefinition command
+
+          -- vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts_desc("Go to definition"))
+          vim.keymap.set("n", "gd", function()
+            local clients = vim.lsp.get_clients({ bufnr = 0, name = "ts_ls" })
+            if #clients == 0 then
+              vim.lsp.buf.definition()
+              return
+            end
+            local position_encoding = clients[1].offset_encoding or "utf-16"
+            local params = vim.lsp.util.make_position_params(0, position_encoding)
+            vim.lsp.buf_request(0, "workspace/executeCommand", {
+              command = "_typescript.goToSourceDefinition",
+              arguments = { params.textDocument.uri, params.position },
+            }, function(_, result)
+              if result and #result > 0 then
+                vim.lsp.util.show_document(result[1], "utf-8", { focus = true })
+              else
+                vim.lsp.buf.definition()
+              end
+            end)
+          end, { desc = "Go to definition" })
+
           vim.keymap.set("n", "g<C-D>", vim.lsp.buf.type_definition, opts_desc("Go to definiton of this type"))
           vim.keymap.set("n", "K", vim.lsp.buf.hover, opts_desc("Show hover pane"))
           vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts_desc("Go to implementation"))

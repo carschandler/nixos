@@ -25,10 +25,9 @@
     outline = {
       enable = true;
       port = 3042;
-    };
-    wiki-js = {
-      enable = true;
-      settings.port = 3043;
+      storage = {
+        storageType = "local";
+      };
     };
   };
 

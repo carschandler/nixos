@@ -247,6 +247,9 @@ in
     # gtk4.extraConfig = {
     #   gtk-application-prefer-dark-theme = 1;
     # };
+
+    # New default behavior as of 26.05
+    gtk4.theme = null;
   };
 
   dconf.settings = {
