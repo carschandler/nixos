@@ -23,14 +23,16 @@ in
       brews = [
         "aws-amplify"
       ];
-      casks =
-        [ "jordanbaird-ice" ]
-        ++ lib.optionals cfg.apps.communication.enable [
-          "slack"
-        ]
-        ++ lib.optionals cfg.apps.development.enable [
-          "postman"
-        ];
+      casks = [
+        "jordanbaird-ice"
+        "hammerspoon"
+      ]
+      ++ lib.optionals cfg.apps.communication.enable [
+        "slack"
+      ]
+      ++ lib.optionals cfg.apps.development.enable [
+        "postman"
+      ];
     };
 
   };
