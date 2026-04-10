@@ -38,6 +38,7 @@
     conview = {
       url = "git+ssh://git@github.com/Transform9/conview.git";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
     };
   };
 

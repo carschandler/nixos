@@ -13,13 +13,13 @@ return {
           return (name == "..")
         end,
       },
-      float = {
-        border = "rounded",
-        padding = 5,
-        win_options = {
-          winblend = 0,
-        },
-      },
+      -- float = {
+      --   border = "rounded",
+      --   padding = 5,
+      --   win_options = {
+      --     winblend = 0,
+      --   },
+      -- },
       keymaps = {
         ["gp"] = {
           callback = function()

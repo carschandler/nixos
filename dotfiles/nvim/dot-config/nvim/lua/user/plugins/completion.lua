@@ -1,3 +1,9 @@
+local keyword_length_or_manual = function(len)
+  return function(ctx)
+    return ctx.trigger.initial_kind == "manual" and 0 or len
+  end
+end
+
 return {
   "Saghen/blink.cmp",
   cond = not vim.g.vscode,
@@ -57,7 +63,12 @@ return {
             end,
           },
         },
+        lsp = {
+          min_keyword_length = keyword_length_or_manual(2),
+        },
       },
+      min_keyword_length = keyword_length_or_manual(4),
+
       -- optionally disable cmdline completions
       -- cmdline = {},
     },

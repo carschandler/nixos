@@ -6,11 +6,11 @@ return {
   ft = { "rust" },
   config = function()
     vim.g.rustaceanvim = {
-      tools = {
-        float_win_config = {
-          border = "rounded",
-        },
-      },
+      -- tools = {
+      --   float_win_config = {
+      --     border = "rounded",
+      --   },
+      -- },
       server = {
         default_settings = {
           -- rust-analyzer language server configuration

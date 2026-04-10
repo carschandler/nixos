@@ -337,6 +337,7 @@ in
             "du *" = "allow";
             "wc *" = "allow";
             "diff *" = "allow";
+            "mkdir *" = "allow";
             "pwd" = "allow";
             "npm test *" = "allow";
             "npm run test" = "allow";
@@ -364,6 +365,9 @@ in
               edit = true;
             };
             color = "#fe8019";
+          };
+          plan = {
+            color = "#8ec07c";
           };
         };
         provider = {

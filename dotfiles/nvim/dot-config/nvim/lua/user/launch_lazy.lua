@@ -15,7 +15,7 @@ require("lazy").setup("user/plugins", {
   change_detection = {
     notify = false,
   },
-  ui = {
-    border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-  },
+  -- ui = {
+  --   border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+  -- },
 })

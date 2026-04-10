@@ -55,7 +55,7 @@ return {
     config = function(_, opts)
       -- vim.lsp.set_log_level("debug")
 
-      require("lspconfig.ui.windows").default_options.border = "rounded"
+      -- require("lspconfig.ui.windows").default_options.border = "rounded"
 
       for server, config in pairs(opts.servers) do
         vim.lsp.config(server, config)
@@ -89,22 +89,14 @@ return {
       vim.keymap.set("n", "]e", vim.diagnostic.goto_next, { desc = "Next diagnostic" })
       vim.keymap.set("n", "<Leader>lE", vim.diagnostic.setloclist, { desc = "Send diagnostics to location list" })
 
-      -- Set lsp windows to be bordered
-      local lsp_border = "rounded"
-
-      vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-        border = lsp_border,
-      })
-
-      vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-        border = lsp_border,
-      })
-
-      vim.diagnostic.config({
-        float = {
-          border = lsp_border,
-        },
-      })
+      -- -- Set lsp windows to be bordered
+      -- local lsp_border = "rounded"
+      --
+      -- vim.diagnostic.config({
+      --   float = {
+      --     border = lsp_border,
+      --   },
+      -- })
 
       -- Set up lspconfig.
       vim.api.nvim_create_autocmd("LspAttach", {
