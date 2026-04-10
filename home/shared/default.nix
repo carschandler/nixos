@@ -48,6 +48,7 @@ in
     # cli programs
     _1password-cli
     cbonsai
+    fastfetch
     fd
     file
     gnumake
@@ -56,7 +57,6 @@ in
     libnotify
     lsd
     mc
-    neofetch
     nh
     pandoc
     pdfgrep
@@ -98,7 +98,7 @@ in
     black
     isort
     nixfmt-rfc-style
-    nodePackages.prettier
+    prettier
     stylua
   ];
 
