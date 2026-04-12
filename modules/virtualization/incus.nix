@@ -8,7 +8,7 @@
   flake.modules.nixos.incus = {
     virtualisation.incus.enable = true;
     networking.nftables.enable = true;
-    users.groups.incus-admin.members = config.flake.users.admins
+    users.groups.incus-admin.members = config.flake.users.admins;
     # virtualisation.incus.preseed = {
     #   networks = [
     #     {

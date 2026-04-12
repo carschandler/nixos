@@ -175,6 +175,10 @@ in
           name = "carschandler";
           email = "92899389+carschandler@users.noreply.github.com";
         };
+        ui.default-command = "log";
+        template-aliases = {
+          "format_short_signature(signature)" = "signature.name()";
+        };
       };
     };
 
@@ -344,6 +348,8 @@ in
         };
       };
     };
+
+    gemini-cli.enable = true;
 
     readline = {
       enable = true;

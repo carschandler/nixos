@@ -30,8 +30,10 @@ in
     homebrew = {
       enable = true;
       brews = [
-        "node"
+        "colima"
+        "docker"
         "livekit-cli"
+        "node"
       ];
       casks = [
         "1password"
@@ -45,14 +47,14 @@ in
         "obsidian"
         "raycast"
         "spotify"
-        "tailscale"
+        "tailscale-app"
         "thunderbird"
         "visual-studio-code"
         "vlc"
         "warp"
         "wezterm"
         "zed"
-        "zen-browser"
+        "zen"
         "zotero"
       ];
       masApps = { };
