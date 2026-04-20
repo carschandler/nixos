@@ -32,6 +32,7 @@ in
       brews = [
         "colima"
         "docker"
+        "docker-compose"
         "livekit-cli"
         "node"
       ];
