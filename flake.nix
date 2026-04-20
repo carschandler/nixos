@@ -16,7 +16,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    import-tree.url = "github:vic/import-tree";
+    # import-tree.url = "github:vic/import-tree";
 
     lanzaboote = {
       url = "github:nix-community/lanzaboote";

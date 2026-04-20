@@ -6,7 +6,7 @@
   ...
 }:
 let
-  homedir = "${config.home.homeDirectory}";
+  homedir = config.home.homeDirectory;
   dotfiles = "${homedir}/nixos/dotfiles";
 in
 {
@@ -222,6 +222,10 @@ in
       vimdiffAlias = true;
       withRuby = false;
       withPython3 = true;
+
+      # Prevent home-manager from writing .config/nvim/init.lua, which
+      # collides with the mkOutOfStoreSymlink of .config/nvim below.
+      sideloadInitLua = true;
     };
 
     nushell = {
