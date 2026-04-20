@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   config,
   inputs,
   ...
@@ -19,8 +20,15 @@
     package = pkgs.hyprwhspr-rs.override {
       # to optimize build time you can skip enabling cudaSupport for one of these two
       # for whisper do whisper-cpp, for NVIDIA Parakeet do onnxruntime
-      whisper-cpp = pkgs.whisper-cpp.override { cudaSupport = true; };
-      # onnxruntime = pkgs.onnxruntime.override { cudaSupport = true; };
+      whisper-cpp = pkgs.whisper-cpp.override {
+        cudaSupport = true;
+        cudaPackages = pkgs.cudaPackages // {
+          flags = pkgs.cudaPackages.flags // {
+            cmakeCudaArchitecturesString = "61";
+          };
+        };
+      };
+      onnxruntime = pkgs.onnxruntime.override { cudaSupport = true; };
     };
   };
 }

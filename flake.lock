@@ -28,11 +28,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1773069971,
-        "narHash": "sha256-4h+8nui2EeGgFh8qAwBr7LYbNmeTSZYP73veEz+nYNk=",
+        "lastModified": 1776379073,
+        "narHash": "sha256-JBB9TIXqCIHuqHaJrXtoo4///RfUzVAnAaczqUVM264=",
         "ref": "refs/heads/main",
-        "rev": "a7302a10abf0e69e873ef2c5178fecb6e6084cae",
-        "revCount": 6,
+        "rev": "ec2b1b7cd319ab837fa176c3a0f3f29f102a205f",
+        "revCount": 11,
         "type": "git",
         "url": "ssh://git@github.com/Transform9/conview.git"
       },

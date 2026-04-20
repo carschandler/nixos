@@ -13,6 +13,7 @@
     ./hyprland-shared.nix
     ./ssh.nix
     ./lanzaboote.nix
+    ./hyprwhspr.nix
   ];
 
   services = {
@@ -21,13 +22,6 @@
     crossmacro = {
       enable = true;
       users = [ "chan" ];
-    };
-    outline = {
-      enable = true;
-      port = 3042;
-      storage = {
-        storageType = "local";
-      };
     };
   };
 
@@ -41,59 +35,59 @@
   ];
 
   networking.nftables.enable = true; # done
-  virtualisation.incus.enable = true; # done
-  virtualisation.incus.preseed = {
-    storage_pools = [
-      {
-        config = {
-          source = "rootpool/keep/incus";
-        };
-        driver = "zfs";
-        name = "default";
-      }
-    ];
-    networks = [
-      {
-        config = {
-          "ipv4.address" = "10.0.1.1/24";
-          "ipv4.nat" = "true";
-        };
-        name = "incusbr0";
-        type = "bridge";
-      }
-    ];
-    profiles = [
-      {
-        name = "default";
-        devices = {
-          eth0 = {
-            name = "eth0";
-            network = "docker0";
-            type = "nic";
-          };
-          root = {
-            path = "/";
-            pool = "default";
-            size = "50GiB";
-            type = "disk";
-          };
-        };
-      }
-    ];
-    # Not working
-    # instances = [
-    #   {
-    #     name = "arch";
-    #     project = "docker";
-    #     type = "virtual-machine";
-    #     image = "images:archlinux/current";
-    #     "limits.cpu" = "4";
-    #     "limits.memory" = "16GiB";
-    #     "security.secureboot" = "false";
-    #     profiles = [ "default" ];
-    #   }
-    # ];
-  };
+  # virtualisation.incus.enable = true; # done
+  # virtualisation.incus.preseed = {
+  #   storage_pools = [
+  #     {
+  #       config = {
+  #         source = "rootpool/keep/incus";
+  #       };
+  #       driver = "zfs";
+  #       name = "default";
+  #     }
+  #   ];
+  #   networks = [
+  #     {
+  #       config = {
+  #         "ipv4.address" = "10.0.1.1/24";
+  #         "ipv4.nat" = "true";
+  #       };
+  #       name = "incusbr0";
+  #       type = "bridge";
+  #     }
+  #   ];
+  #   profiles = [
+  #     {
+  #       name = "default";
+  #       devices = {
+  #         eth0 = {
+  #           name = "eth0";
+  #           network = "docker0";
+  #           type = "nic";
+  #         };
+  #         root = {
+  #           path = "/";
+  #           pool = "default";
+  #           size = "50GiB";
+  #           type = "disk";
+  #         };
+  #       };
+  #     }
+  #   ];
+  #   # Not working
+  #   # instances = [
+  #   #   {
+  #   #     name = "arch";
+  #   #     project = "docker";
+  #   #     type = "virtual-machine";
+  #   #     image = "images:archlinux/current";
+  #   #     "limits.cpu" = "4";
+  #   #     "limits.memory" = "16GiB";
+  #   #     "security.secureboot" = "false";
+  #   #     profiles = [ "default" ];
+  #   #   }
+  #   # ];
+  # };
 
   virtualisation.docker = {
     enable = true;
@@ -132,6 +126,7 @@
     pkgs.thunderbird
     pkgs.mesa-demos
     pkgs.overskride
+    pkgs.nvtopPackages.nvidia
     # inputs.wezterm.packages.x86_64-linux.default
   ];
 
@@ -143,6 +138,9 @@
 
   hardware.graphics = {
     enable = true;
+    extraPackages = [
+      pkgs.libvdpau-va-gl
+    ];
   };
 
   services.xserver.videoDrivers = [ "nvidia" ];
@@ -159,7 +157,7 @@
     nvidiaSettings = true;
 
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
 
     powerManagement.enable = true;
   };

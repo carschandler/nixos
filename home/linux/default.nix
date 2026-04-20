@@ -19,6 +19,8 @@ in
       publicShare = "${xdgUserDir}/Public";
       templates = "${xdgUserDir}/Templates";
       videos = "${xdgUserDir}/Videos";
+
+      setSessionVariables = true;
     };
 
     mimeApps = {

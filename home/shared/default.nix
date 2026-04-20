@@ -42,6 +42,9 @@ in
   home = {
     username = "chan";
     homeDirectory = "/home/${config.home.username}";
+    sessionPath = [
+      "$HOME/.local/bin"
+    ];
   };
 
   home.packages = with pkgs; [
@@ -169,6 +172,8 @@ in
       ignores = [
         "*.DS_Store"
       ];
+
+      signing.format = null;
     };
 
     helix = {
@@ -201,6 +206,10 @@ in
         "${lib.makeBinPath [ pkgs.gcc ]}"
       ];
 
+      extraPackages = [
+        pkgs.luajitPackages.tree-sitter-cli
+      ];
+
       # Trying out this version now that we don't have gcc installed by default
       # so that we don't have to rebuild neovim every time. NOTE: works on some
       # systems but on others there is a different gcc that is further up in the
@@ -211,6 +220,8 @@ in
       viAlias = true;
       vimAlias = true;
       vimdiffAlias = true;
+      withRuby = false;
+      withPython3 = true;
     };
 
     nushell = {
@@ -246,7 +257,7 @@ in
             mode: [emacs, vi_normal, vi_insert]
             event: {
               send: executehostcommand
-              cmd: "
+              cmd: "do {
                 # 1. Get the current command line buffer
                 let cmd = (commandline)
                 let spans = ($cmd | split row ' ')
@@ -268,7 +279,7 @@ in
                 # 4. Drop the partially typed word, append the fzf selection, and replace the buffer
                 let new_cmd = ($spans | drop 1 | append $selected | str join ' ')
                 commandline edit --replace $new_cmd
-              "
+              }"
             }
           }
         ]
@@ -302,21 +313,26 @@ in
             "terraform fmt *" = "allow";
             "rg *" = "allow";
             "fd *" = "allow";
-            "fd *-x" = "ask";
-            "fd *-exec" = "ask";
+            "fd *-x*" = "ask";
+            "fd *--exec*" = "ask";
+            "fd *-X*" = "ask";
+            "fd *--exec-batch*" = "ask";
             "find *" = "allow";
-            "find -exec" = "ask";
-            "find --exec" = "ask";
-            "find -execdir" = "ask";
-            "find --execdir" = "ask";
+            "find *-exec*" = "ask";
+            "find *--exec*" = "ask";
+            "find *-execdir*" = "ask";
+            "find *--execdir*" = "ask";
+            "sed *" = "allow";
             "grep *" = "allow";
             "jq *" = "allow";
             "git diff *" = "allow";
             "git status *" = "allow";
             "git log *" = "allow";
+            "git grep *" = "allow";
             "git show *" = "allow";
             "git branch" = "allow";
             "git branch --show-current" = "allow";
+            "git branch -a" = "allow";
             "git merge-base *" = "allow";
             "git blame" = "allow";
             "gh pr view *" = "allow";
@@ -344,6 +360,7 @@ in
             "npx eslint *" = "allow";
             "npm run lint" = "allow";
             "npm run build" = "allow";
+            "lk docs *" = "allow";
           };
         };
         agent = {
@@ -357,6 +374,10 @@ in
             tools = {
               edit = false;
             };
+            permission = {
+              "sed *--in-place*" = "deny";
+              "sed *-i*" = "deny";
+            };
             color = "#b8bb26";
           };
           auto = {
@@ -367,7 +388,15 @@ in
             color = "#fe8019";
           };
           plan = {
+            mode = "primary";
+            tools = {
+              edit = false;
+            };
             color = "#8ec07c";
+            permission = {
+              "sed *--in-place*" = "deny";
+              "sed *-i*" = "deny";
+            };
           };
         };
         provider = {
@@ -480,10 +509,6 @@ in
         rt = "cd $(git rev-parse --show-toplevel)";
       };
       bashrcExtra = ''
-        if ! [[ $PATH =~ ${homedir}/.local/bin ]]; then
-          PATH="$PATH:${homedir}/.local/bin"
-        fi
-
         shopt -s direxpand
         shopt -s cdable_vars
 

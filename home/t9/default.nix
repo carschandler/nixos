@@ -20,6 +20,7 @@
     inputs.conview.packages.${pkgs.stdenv.hostPlatform.system}.default
 
     # (pkgs.callPackage ./awscli2/package.nix { })
+    pkgs.act
     pkgs.awscli2
     pkgs.ssm-session-manager-plugin
     # pkgs.aws-sam-cli
@@ -30,18 +31,14 @@
     pkgs.twilio-cli
     pkgs.crush
     pkgs.ffmpeg
-    (
-      if (lib.versionAtLeast pkgs.livekit-cli.version "2.4.1") then
-        (lib.warn "pkgs.livekit-cli has updated to 2.4.1; remove manual build" pkgs.livekit-cli)
-      else
-        (pkgs.callPackage ./livekit-cli/package.nix { })
-    )
+    pkgs.vite
+    pkgs.livekit-cli
   ];
 
   programs = {
-    claude-code = {
-      enable = true;
-    };
+    # claude-code = {
+    #   enable = true;
+    # };
     codex = {
       enable = true;
     };
