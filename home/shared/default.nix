@@ -191,6 +191,27 @@ in
         template-aliases = {
           "format_short_signature(signature)" = "signature.name()";
         };
+        aliases = {
+          la = [
+            "log"
+            "-r"
+            "all()"
+          ];
+          lb = [
+            "log"
+            "-r"
+            "(main..@)::"
+          ];
+          db = [
+            "diff"
+            "-r"
+            "(main..@)::"
+          ];
+          newleaf = [
+            "new"
+            "heads(@::)"
+          ];
+        };
       };
     };
 
@@ -364,6 +385,9 @@ in
             "npx eslint *" = "allow";
             "npm run lint" = "allow";
             "npm run build" = "allow";
+            "uv run test" = "allow";
+            "uv run pytest *" = "allow";
+            "lk --version" = "allow";
             "lk docs *" = "allow";
           };
         };

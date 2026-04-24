@@ -29,6 +29,7 @@ config = {
 	keys = {
 		{ key = "Enter", mods = "SHIFT", action = wezterm.action({ SendString = "\x1b\r" }) },
 	},
+	term = "wezterm",
 }
 
 if wezterm.hostname() == "desktop" then
