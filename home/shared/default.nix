@@ -602,6 +602,7 @@ in
     PLUGDIR = "${dotfiles}/nvim/dot-config/nvim/lua/user/plugins";
     # Gruvbox color palette
     NNN_FCOLORS = "020b0c0a00060e0701d60d09";
+    LESS = "-i -F";
   };
 
   xdg = {
