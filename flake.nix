@@ -30,10 +30,10 @@
 
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
 
-    wezterm = {
-      url = "github:wezterm/wezterm?dir=nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # wezterm = {
+    #   url = "github:wezterm/wezterm?dir=nix";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
 
     conview = {
       url = "git+ssh://git@github.com/Transform9/conview.git";
