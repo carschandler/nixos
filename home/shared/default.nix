@@ -336,6 +336,7 @@ in
             "*" = "ask";
             "terraform *" = "deny";
             "terraform fmt *" = "allow";
+            "terraform plan *" = "allow";
             "rg *" = "allow";
             "fd *" = "allow";
             "fd *-x*" = "ask";
@@ -364,6 +365,8 @@ in
             "gh pr diff *" = "allow";
             "jj log *" = "allow";
             "jj diff *" = "allow";
+            "jj st *" = "allow";
+            "jj show *" = "allow";
             "date *" = "allow";
             "ls *" = "allow";
             "echo *" = "allow";
@@ -387,6 +390,8 @@ in
             "npm run build" = "allow";
             "uv run test" = "allow";
             "uv run pytest *" = "allow";
+            "uv run ruff format *" = "allow";
+            "uv run ruff check *" = "allow";
             "lk --version" = "allow";
             "lk docs *" = "allow";
           };
