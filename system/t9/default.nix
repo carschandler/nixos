@@ -14,6 +14,7 @@
     ./ssh.nix
     ./lanzaboote.nix
     ./hyprwhspr.nix
+    ./zfs.nix
   ];
 
   services = {
