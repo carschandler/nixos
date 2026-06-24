@@ -4,20 +4,30 @@
   fetchFromGitHub,
   nix-update-script,
   testers,
+  pkg-config,
+  portaudio,
 }:
 
 buildGoModule (finalAttrs: {
   pname = "livekit-cli";
-  version = "2.16.0";
+  version = "2.16.6";
 
   src = fetchFromGitHub {
     owner = "livekit";
     repo = "livekit-cli";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-qGxRNsVnrDl8N0hAh8WjumDvaL7Zs90HaRmXORvUWZs=";
+    hash = "sha256-lsvbnc2YGPX2OYmdH6ZW0a6eNF+o3S8Y0eLuYsb4dUs=";
   };
 
-  vendorHash = "sha256-6posDd3z2seRvGuWLsmPD5wOz4RVF4ulvmfTqWN29hE=";
+  vendorHash = "sha256-BzEv2wpcXX7at6jJdgy9DtErbIU8ZPL+ollK1rlUWSA=";
+
+  nativeBuildInputs = [ pkg-config ];
+  buildInputs = [ portaudio ];
+
+  # Link against the system libportaudio instead of compiling the vendored
+  # PortAudio sources, which live in a git submodule that fetchFromGitHub does
+  # not fetch.
+  tags = [ "portaudio_system" ];
 
   subPackages = [ "cmd/lk" ];
 
