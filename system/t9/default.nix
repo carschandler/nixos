@@ -18,6 +18,10 @@
 
   services = {
     tailscale.enable = true; # done
+    # This node advertises an exit node (0.0.0.0/0 + ::/0). "both" enables
+    # IPv4 and IPv6 forwarding so subnet routing / exit-node actually works
+    # and clears the "IP forwarding is disabled" health warning.
+    tailscale.useRoutingFeatures = "both";
     hardware.openrgb.enable = true; # done
     crossmacro = {
       enable = true;
@@ -34,7 +38,13 @@
     }
   ];
 
-  networking.nftables.enable = true; # done
+  # NOTE: networking.nftables.enable was previously true (for incus). It is now
+  # removed: incus is disabled, and native-nftables mode conflicts with Docker,
+  # which still manages its rules via iptables-nft. Running both produced two
+  # independent rule sets over the same packets and silently dropped Tailscale's
+  # inbound STUN replies (UDP: false). The default NixOS firewall (iptables-nft)
+  # coexists cleanly with Docker. Re-enabling incus does not require flipping
+  # this back on.
   # virtualisation.incus.enable = true; # done
   # virtualisation.incus.preseed = {
   #   storage_pools = [
@@ -93,7 +103,15 @@
     enable = true;
   };
 
-  networking.firewall.trustedInterfaces = [ "incusbr0" ];
+  # Tailscale + firewall: open the WireGuard UDP port, trust the tailscale0
+  # interface, and loosen reverse-path filtering so Tailscale's asymmetric
+  # (encrypted-in / decrypted-out) traffic is not dropped.
+  services.tailscale.openFirewall = true;
+  networking.firewall.checkReversePath = "loose";
+  networking.firewall.trustedInterfaces = [
+    "incusbr0"
+    "tailscale0"
+  ];
 
   specialisation = {
     alt = {
