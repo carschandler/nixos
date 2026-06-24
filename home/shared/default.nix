@@ -51,6 +51,8 @@ in
     # cli programs
     _1password-cli
     cbonsai
+    difftastic
+    elvish
     fastfetch
     fd
     file
@@ -77,11 +79,11 @@ in
     wget
     xdg-utils
     xh
+    xonsh
     xplr
     zellij
     zip
     zk
-    zsh
 
     # language tools
     pnpm
@@ -328,6 +330,7 @@ in
 
     opencode = {
       enable = true;
+      # package = inputs.opencode.packages.${pkgs.stdenv.hostPlatform.system}.default;
       settings = {
         permission = {
           edit = "ask";
@@ -337,6 +340,7 @@ in
             "terraform *" = "deny";
             "terraform fmt *" = "allow";
             "terraform plan *" = "allow";
+            "terraform validate" = "allow";
             "rg *" = "allow";
             "fd *" = "allow";
             "fd *-x*" = "ask";
@@ -359,6 +363,7 @@ in
             "git branch" = "allow";
             "git branch --show-current" = "allow";
             "git branch -a" = "allow";
+            "git branch --all" = "allow";
             "git merge-base *" = "allow";
             "git blame" = "allow";
             "gh pr view *" = "allow";
@@ -366,6 +371,7 @@ in
             "jj log *" = "allow";
             "jj diff *" = "allow";
             "jj st *" = "allow";
+            "jj status *" = "allow";
             "jj show *" = "allow";
             "date *" = "allow";
             "ls *" = "allow";
@@ -384,15 +390,27 @@ in
             "mkdir *" = "allow";
             "pwd" = "allow";
             "npm test *" = "allow";
-            "npm run test" = "allow";
+            "npm run test *" = "allow";
             "npx eslint *" = "allow";
-            "npm run lint" = "allow";
-            "npm run build" = "allow";
+            "npm run lint *" = "allow";
+            "npm run build *" = "allow";
+            "npm run check *" = "allow";
+            "just check *" = "allow";
+            "just test *" = "allow";
+            "just test-deterministic *" = "allow";
+            "just lint *" = "allow";
+            "just format *" = "allow";
+            "just typecheck" = "allow";
+            "pnpm check *" = "allow";
+            "pnpm test *" = "allow";
+            "pnpm lint *" = "allow";
+            "pnpm format *" = "allow";
             "uv run test" = "allow";
             "uv run pytest *" = "allow";
             "uv run ruff format *" = "allow";
             "uv run ruff check *" = "allow";
             "lk --version" = "allow";
+            "lk --help" = "allow";
             "lk docs *" = "allow";
           };
         };
@@ -465,7 +483,7 @@ in
       };
     };
 
-    gemini-cli.enable = true;
+    antigravity-cli.enable = true;
 
     readline = {
       enable = true;
@@ -565,6 +583,14 @@ in
 
     };
 
+    zsh = {
+      enable = true;
+    };
+
+    fish = {
+      enable = true;
+    };
+
     uv.enable = true;
     bun.enable = true;
   };
@@ -585,14 +611,13 @@ in
         "la" = ''lsd --group-dirs=first --color=always --icon=always -A "$@" | less -rF'';
         "lt" = ''lsd --group-dirs=first --tree --color=always --icon=always "$@" | less -rF'';
         "lla" = ''lsd --group-dirs=first --color=always --icon=always -la "$@" | less -rF'';
-        "llt" = ''lsd --group-dirs=first --color=always --icon=always -l --tree "$@" | less -rF;'';
+        "llt" = ''lsd --group-dirs=first --color=always --icon=always -l --tree "$@" | less -rF'';
         "ta" = "tmux attach -E";
       };
     in
     lib.attrsets.concatMapAttrs (name: value: {
       ".local/bin/${name}" = {
-        text = value;
-        executable = true;
+        source = pkgs.writeShellScript name value;
       };
     }) localBin;
 
@@ -607,7 +632,6 @@ in
     PLUGDIR = "${dotfiles}/nvim/dot-config/nvim/lua/user/plugins";
     # Gruvbox color palette
     NNN_FCOLORS = "020b0c0a00060e0701d60d09";
-    LESS = "-i -F";
   };
 
   xdg = {

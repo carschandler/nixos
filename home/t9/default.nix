@@ -26,13 +26,15 @@
     # pkgs.aws-sam-cli
     pkgs.terraform
     pkgs.nodejs_22
+    pkgs.ngrok
     pkgs.pnpm
     pkgs.typescript-language-server
     pkgs.twilio-cli
     pkgs.crush
     pkgs.ffmpeg
     pkgs.vite
-    pkgs.livekit-cli
+    # pkgs.livekit-cli
+    (pkgs.callPackage ./livekit-cli/package.nix { })
   ];
 
   programs = {
@@ -42,6 +44,5 @@
     codex = {
       enable = true;
     };
-    gemini-cli.enable = true;
   };
 }

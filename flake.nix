@@ -35,6 +35,11 @@
     #   inputs.nixpkgs.follows = "nixpkgs";
     # };
 
+    # opencode = {
+    #   url = "github:anomalyco/opencode";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
+
     conview = {
       url = "git+ssh://git@github.com/Transform9/conview.git";
       inputs.nixpkgs.follows = "nixpkgs";

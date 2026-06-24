@@ -23,6 +23,7 @@ set formatoptions=cqjnr
 set formatlistpat=^\\s*\\%(\\d\\|[-*+]\\)\\+[\\]:.)}\\t\ ]\\s*
 set number
 set linebreak
+set smoothscroll
 ]])
 
 vim.filetype.add({

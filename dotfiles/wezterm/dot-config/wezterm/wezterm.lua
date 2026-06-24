@@ -38,6 +38,7 @@ if wezterm.hostname() == "desktop" then
 elseif wezterm.hostname() == "desktop-t9" then
 	-- config.front_end = "WebGpu"
 	-- config.enable_wayland = false
+	-- config.default_prog = { "/home/chan/.nix-profile/bin/nu", "-l" }
 	config.font_size = 11
 elseif wezterm.hostname() == "laptop" then
 	config.enable_wayland = false

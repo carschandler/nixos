@@ -206,7 +206,7 @@ in
           speechSynthesisSupport = true;
         };
       };
-
+      configPath = "${config.xdg.configHome}/mozilla/firefox";
       # profiles.chan = {
       #   isDefault = true;
       #   userChrome = ''
@@ -264,7 +264,7 @@ in
 
   qt = {
     enable = true;
-    platformTheme.name = "gtk";
+    platformTheme.name = "gtk3";
     style.name = "adwaita-dark";
     style.package = pkgs.adwaita-qt;
   };

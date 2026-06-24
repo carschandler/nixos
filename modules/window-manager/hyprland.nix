@@ -48,7 +48,7 @@
 
         # qt stuff / authentication agent
         qt6.qtwayland
-        libsForQt5.qt5.qtwayland
+        qt5.qtwayland
 
         hyprpolkitagent
 
