@@ -33,9 +33,16 @@
       pkgs.twilio-cli
       pkgs.crush
       pkgs.ffmpeg
-      pkgs.livekit-cli
     ]
-    ++ (if lib.strings.hasSuffix "linux" pkgs.stdenv.hostPlatform.system then [ pkgs.vite ] else [ ])
+    ++ (
+      if lib.strings.hasSuffix "linux" pkgs.stdenv.hostPlatform.system then
+        [
+          pkgs.vite
+          pkgs.livekit-cli
+        ]
+      else
+        [ ]
+    )
   );
 
   programs = {
