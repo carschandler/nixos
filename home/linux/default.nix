@@ -129,7 +129,20 @@ in
     meld
     nautilus
     obsidian
-    spotify
+    # Some time around Spotify v1.2.86.502.g8cd7fb22, the runtime flags which
+    # used to make the app run in Wayland mode stopped working and it reverted
+    # back to X... as a temporary fix we just unset the DISPLAY variable when
+    # running it to force it to Wayland.
+    (pkgs.symlinkJoin {
+      name = "${pkgs.spotify.name}-wrapped";
+      paths = [ pkgs.spotify ];
+      nativeBuildInputs = [ pkgs.makeWrapper ];
+      postBuild = ''
+        wrapProgram $out/bin/spotify \
+          --unset DISPLAY
+      '';
+    })
+
     thunderbird
     vlc
     thunar
