@@ -9,8 +9,8 @@ let
 in
 {
   xdg.configFile = {
-    "hypr/source.conf".source =
-      config.lib.file.mkOutOfStoreSymlink "${dotfiles}/hyprland/dot-config/hypr/hyprland-source.conf";
+    "hypr/hyprland-source.lua".source =
+      config.lib.file.mkOutOfStoreSymlink "${dotfiles}/hyprland/dot-config/hypr/hyprland-source.lua";
     "hypr/noanims.sh".source =
       config.lib.file.mkOutOfStoreSymlink "${dotfiles}/hyprland/dot-config/hypr/noanims.sh";
   };
@@ -21,7 +21,11 @@ in
   wayland.windowManager.hyprland = {
     enable = true;
     systemd.enable = false; # Default true; conflicts with UWSM
-    extraConfig = "source=./source.conf";
+    configType = "lua";
+    # HM always writes the entry hyprland.lua; have it just require our
+    # out-of-store-symlinked hyprland-source.lua so Hyprland still
+    # hot-reloads on save (Lua equivalent of the old source= approach).
+    extraConfig = ''require("hyprland-source")'';
   };
 
   home.packages = with pkgs; [
