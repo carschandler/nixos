@@ -114,6 +114,12 @@
     "tailscale0"
   ];
 
+  # Tailscale MagicDNS (100.100.100.100) has been intermittently taking 6-9s
+  # to resolve, occasionally exceeding the 5s timeout AWS SDK clients use for
+  # credential/identity resolution. 1.1.1.1 is also blocked on this network.
+  # Disable accept-dns and use Google's resolver instead (see networking.nameservers below).
+  services.tailscale.extraSetFlags = [ "--accept-dns=false" ];
+
   specialisation = {
     alt = {
       inheritParentConfig = false;
@@ -153,6 +159,12 @@
     hostName = "desktop-t9";
     hostId = "bd4e6365";
     networkmanager.enable = true;
+    networkmanager.dns = "default";
+    nameservers = [
+      "8.8.8.8"
+      "8.8.4.4"
+      "1.1.1.1"
+    ];
   };
 
   hardware.graphics = {

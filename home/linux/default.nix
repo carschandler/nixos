@@ -120,6 +120,7 @@ in
     _1password-gui
     ungoogled-chromium
     discord
+    dig
     emacs-pgtk
     evince
     feh
