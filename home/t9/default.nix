@@ -33,6 +33,7 @@
       pkgs.twilio-cli
       pkgs.crush
       pkgs.ffmpeg
+      pkgs.hunk
     ]
     ++ (
       if lib.strings.hasSuffix "linux" pkgs.stdenv.hostPlatform.system then

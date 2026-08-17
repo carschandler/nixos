@@ -365,6 +365,7 @@ hl.bind(mainMod .. " + CTRL + ALT + O", hl.dsp.exec_cmd("sleep 1 && hyprctl disp
 hl.bind(mainMod .. " + CTRL + A", hl.dsp.exec_cmd("~/.config/hypr/noanims.sh"))
 hl.bind(mainMod .. " + CTRL + P", hl.dsp.window.pin())
 hl.bind(mainMod .. " + CTRL + N", hl.dsp.exec_cmd("swaync-client -t -sw"))
+hl.bind(mainMod .. " + CTRL + D", hl.dsp.exec_cmd("swaync-client -d && swaync-client --hide-all"))
 hl.bind(mainMod .. " + G", hl.dsp.group.toggle())
 hl.bind(mainMod .. " + CTRL + G", hl.dsp.window.move({ out_of_group = true }))
 hl.bind(mainMod .. " + T", hl.dsp.group.next())
@@ -468,3 +469,8 @@ hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true })
 hl.bind("Print", hl.dsp.exec_cmd("hyprshot -zm region -o $XDG_PICTURES_DIR/screenshots"))
 hl.bind("SHIFT + Print", hl.dsp.exec_cmd("hyprshot -zm output -o $XDG_PICTURES_DIR/screenshots"))
 hl.bind("CTRL + Print", hl.dsp.exec_cmd("hyprshot -zm window -o $XDG_PICTURES_DIR/screenshots"))
+
+hl.bind(
+	mainMod .. " + CTRL + C",
+	hl.dsp.exec_cmd("cliphist list | rofi -dmenu -display-columns 2 -p Clipboard -img | cliphist decode | wl-copy")
+)

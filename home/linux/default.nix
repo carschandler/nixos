@@ -160,6 +160,8 @@ in
 
   services.cliphist.enable = true;
 
+  xdg.configFile."rofi/rounded-template.rasi".source = ./rofi/rounded-template.rasi;
+
   # programs.thunderbird = {
   #   enable = true;
   #   profiles.chan = {
@@ -207,6 +209,11 @@ in
       enable = true;
     };
 
+    rofi = {
+      enable = true;
+      theme = ./rofi/rounded-blue-dark.rasi;
+    };
+
     vscode = {
       enable = true;
       package = pkgs.vscode.fhs;
@@ -236,6 +243,10 @@ in
       #     }
       #   '';
       # };
+    };
+
+    obs-studio = {
+      enable = true;
     };
   };
 

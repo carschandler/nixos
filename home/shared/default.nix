@@ -81,6 +81,7 @@ in
     xh
     xonsh
     xplr
+    yq
     zellij
     zip
     zk
@@ -613,6 +614,18 @@ in
         "lla" = ''lsd --group-dirs=first --color=always --icon=always -la "$@" | less -rF'';
         "llt" = ''lsd --group-dirs=first --color=always --icon=always -l --tree "$@" | less -rF'';
         "ta" = "tmux attach -E";
+        "ti" = ''
+          tmux move-window -t 99
+
+          tmux new-window -n backend -c ~/projects/t9-ai-backend
+          tmux new-window -n t9lib -c ~/projects/t9lib
+          tmux new-window -n core -c ~/projects/agent-core
+          tmux new-window -n console -c ~/projects/console
+          tmux new-window -n nix -c ~/nixos -t 9
+
+          tmux kill-window -t 99
+          tmux select-window -t 0
+        '';
       };
     in
     lib.attrsets.concatMapAttrs (name: value: {
