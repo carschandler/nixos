@@ -16,5 +16,8 @@ return {
       ["<Right>"] = { "n", "x" },
     },
     disable_mouse = false,
+    disabled_filetypes = {
+      ["neojj*"] = true,
+    },
   },
 }

@@ -46,6 +46,19 @@
     )
   );
 
+  # Terraform keeps a private copy of every provider in each root's
+  # .terraform/ dir (~300MB per aws provider, and this monorepo has 14 roots).
+  # Point it at a shared cache so each root symlinks into a single copy
+  # instead. Note that Terraform never prunes this directory, so stale
+  # versions must be deleted by hand after a `terraform init -upgrade`.
+  home.file.".terraformrc".text = ''
+    plugin_cache_dir = "$HOME/.terraform.d/plugin-cache"
+  '';
+
+  # Load-bearing: Terraform will not create the cache directory itself, and
+  # silently falls back to per-root copies if it is missing.
+  home.file.".terraform.d/plugin-cache/.keep".text = "";
+
   programs = {
     claude-code = {
       enable = true;

@@ -148,7 +148,7 @@ in
     vlc
     thunar
     zathura
-    zotero
+    # zotero
 
     # hardware utils
     mesa-demos
