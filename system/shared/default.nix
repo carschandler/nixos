@@ -8,6 +8,10 @@
     ];
   };
 
+  # OpenSSL builds outside of Nix (e.g. uv's python-build-standalone via nix-ld)
+  # default to /etc/ssl/cert.pem, which NixOS doesn't provide
+  environment.etc."ssl/cert.pem".source = "/etc/ssl/certs/ca-certificates.crt";
+
   programs = {
     nix-ld = {
       enable = true;
