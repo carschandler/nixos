@@ -1,34 +1,32 @@
 {
   pkgs,
-  lib,
-  config,
   inputs,
   ...
 }:
+let
+  # Same nixpkgs, evaluated with CUDA enabled globally. This is how
+  # cache.nixos-cuda.org builds packages, so CUDA builds come from the cache
+  # instead of compiling for an hour (a local `.override { cudaSupport = true; }`
+  # produces a different derivation that is never cached).
+  cudaPkgs = import inputs.nixpkgs {
+    inherit (pkgs.stdenv.hostPlatform) system;
+    config = {
+      allowUnfree = true;
+      cudaSupport = true;
+    };
+  };
+in
 {
   # required to listen for keyboard shortcuts
   users.users.chan.extraGroups = [ "input" ];
 
-  # have it auto start as a systemd unit with
-  # services.hyprwhspr-rs.enable = true;
-
-  # optional: to enable cuda (for AMD do `rocmSupport` instead of `cudaSupport`)
-  # cuda is unfree so not in the default nixos build caches
-  # I highly recommend adding the cuda build cache to your nixconfig https://discourse.nixos.org/t/cuda-cache-for-nix-community/56038
   services.hyprwhspr-rs = {
     enable = true;
     package = pkgs.hyprwhspr-rs.override {
-      # to optimize build time you can skip enabling cudaSupport for one of these two
-      # for whisper do whisper-cpp, for NVIDIA Parakeet do onnxruntime
-      whisper-cpp = pkgs.whisper-cpp.override {
-        cudaSupport = true;
-        cudaPackages = pkgs.cudaPackages // {
-          flags = pkgs.cudaPackages.flags // {
-            cmakeCudaArchitecturesString = "61";
-          };
-        };
-      };
-      onnxruntime = pkgs.onnxruntime.override { cudaSupport = true; };
+      # Parakeet runs through onnxruntime, which is linked in
+      inherit (cudaPkgs) onnxruntime;
+      # whisper-cpp is only put on PATH for the Whisper backend, which we
+      # don't use, so the default (cached, CPU-only) build is fine.
     };
   };
 }
