@@ -23,7 +23,6 @@ in
         ly
         crossmacro
         openrgb
-        hyprwhspr
         t9
       ];
 
@@ -52,6 +51,7 @@ in
         linux-desktop
         t9
         hyprland
+        handy
       ];
 
       home.stateVersion = "22.11";

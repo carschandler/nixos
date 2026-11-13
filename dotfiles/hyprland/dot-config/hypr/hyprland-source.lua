@@ -332,11 +332,10 @@ hl.layer_rule({
 
 -- See https://wiki.hypr.land/Configuring/Basics/Binds/ for more
 
--- hyprwhspr-rs just listens for keypresses but does not actually consume them,
--- so this just makes them do nothing instead of triggering inside underlying
--- applications
-hl.bind("SHIFT + ALT + SPACE", hl.dsp.no_op())
-hl.bind("SUPER + ALT + SPACE", hl.dsp.no_op())
+-- Speech-to-text (Handy). Wayland apps can't grab global shortcuts, so the
+-- compositor triggers it.
+hl.bind("SUPER + ALT + SPACE", hl.dsp.exec_cmd("handy --toggle-transcription"))
+hl.bind("SHIFT + ALT + SPACE", hl.dsp.exec_cmd("handy --cancel"))
 
 -- App launch binds (launchMod)
 hl.bind(launchMod .. " + W", hl.dsp.exec_cmd(webbrowser))
