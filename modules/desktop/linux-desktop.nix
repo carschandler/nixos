@@ -1,0 +1,317 @@
+{ config, ... }:
+let
+  inherit (config.meta) fonts;
+  inherit (config.flake.modules) homeManager;
+in
+{
+  # GUI Linux desktop: XDG setup, apps, terminals, GTK/Qt theming
+  flake.modules.homeManager.linux-desktop =
+    {
+      pkgs,
+      config,
+      ...
+    }:
+    let
+      xdgUserDir = "${config.home.homeDirectory}/xdg";
+      dotfiles = "${config.home.homeDirectory}/nixos/dotfiles";
+    in
+    {
+      imports = [ homeManager.fonts ];
+
+      xdg = {
+        userDirs = {
+          enable = true;
+          createDirectories = true;
+          desktop = "${xdgUserDir}/Desktop";
+          documents = "${xdgUserDir}/Documents";
+          download = "${xdgUserDir}/Downloads";
+          music = "${xdgUserDir}/Music";
+          pictures = "${xdgUserDir}/Pictures";
+          publicShare = "${xdgUserDir}/Public";
+          templates = "${xdgUserDir}/Templates";
+          videos = "${xdgUserDir}/Videos";
+
+          setSessionVariables = true;
+        };
+
+        mimeApps = {
+          enable = true;
+          defaultApplications = {
+            "application/pdf" = [
+              "org.gnome.Evince.desktop"
+              "org.pwmt.zathura.desktop"
+              "firefox.desktop"
+            ];
+            "text/html" = [ "firefox.desktop" ];
+            "x-scheme-handler/http" = [
+              "firefox.desktop"
+              "brave-browser.desktop"
+            ];
+            "x-scheme-handler/https" = [
+              "firefox.desktop"
+              "brave-browser.desktop"
+            ];
+            "x-scheme-handler/about" = [
+              "firefox.desktop"
+              "brave-browser.desktop"
+            ];
+            "x-scheme-handler/unknown" = [
+              "firefox.desktop"
+              "brave-browser.desktop"
+            ];
+            "application/x-extension-htm" = [ "firefox.desktop" ];
+            "application/x-extension-html" = [ "firefox.desktop" ];
+            "application/x-extension-shtml" = [ "firefox.desktop" ];
+            "application/xhtml+xml" = [ "firefox.desktop" ];
+            "application/x-extension-xhtml" = [ "firefox.desktop" ];
+            "application/x-extension-xht" = [ "firefox.desktop" ];
+            "image/png" = [ "imv.desktop" ];
+            "image/jpeg" = [ "imv.desktop" ];
+          }
+          //
+            pkgs.lib.genAttrs
+              [
+                "text/plain"
+                "text/javascript"
+                "application/javascript"
+                "text/markdown"
+                "text/x-script.python"
+                "text/rust"
+              ]
+              (_: [
+                "nvim.desktop"
+                "Helix.desktop"
+                "code.desktop"
+              ]);
+        };
+
+        terminal-exec = {
+          enable = true;
+          settings = {
+            default = [
+              "org.wezfurlong.wezterm.desktop"
+              "foot.desktop"
+              "Alacritty.desktop"
+            ];
+          };
+        };
+
+        portal = {
+          enable = true;
+          extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+          config = {
+            common = {
+              default = [ "gtk" ];
+            };
+            hyprland = {
+              default = [
+                "hyprland"
+                "gtk"
+              ];
+            };
+            sway = {
+              default = [
+                "wlr"
+                "gtk"
+              ];
+            };
+          };
+        };
+      };
+
+      home.packages = with pkgs; [
+        # terminal emulators
+        # alacritty below
+        foot
+        # kitty below
+        # TODO: install terminfo automatically https://wezterm.org/faq.html#how-do-i-enable-undercurl-curly-underlines
+        wezterm
+
+        # gui apps
+        _1password-gui
+        ungoogled-chromium
+        discord
+        dig
+        emacs-pgtk
+        evince
+        feh
+        gimp3
+        imv
+        libreoffice-fresh
+        meld
+        nautilus
+        obsidian
+        # Some time around Spotify v1.2.86.502.g8cd7fb22, the runtime flags which
+        # used to make the app run in Wayland mode stopped working and it reverted
+        # back to X... as a temporary fix we just unset the DISPLAY variable when
+        # running it to force it to Wayland.
+        (pkgs.symlinkJoin {
+          name = "${pkgs.spotify.name}-wrapped";
+          paths = [ pkgs.spotify ];
+          nativeBuildInputs = [ pkgs.makeWrapper ];
+          postBuild = ''
+            wrapProgram $out/bin/spotify \
+              --unset DISPLAY
+          '';
+        })
+
+        thunderbird
+        vlc
+        thunar
+        zathura
+        # zotero
+
+        # hardware utils
+        mesa-demos
+        playerctl
+        usbutils
+        usb-reset
+        wl-clipboard
+      ];
+
+      services.cliphist.enable = true;
+
+      xdg.configFile = {
+        "rofi/rounded-template.rasi".source = ./rofi/rounded-template.rasi;
+        foot.source = config.lib.file.mkOutOfStoreSymlink "${dotfiles}/foot/dot-config/foot";
+      };
+
+      # programs.thunderbird = {
+      #   enable = true;
+      #   profiles.chan = {
+      #     isDefault = true;
+      #   };
+      # };
+
+      programs = {
+        kitty =
+          let
+            monospaceFont = fonts.monospace.name;
+          in
+          {
+            enable = true;
+            themeFile = "gruvbox-dark";
+            settings = {
+              font_family = "${monospaceFont}";
+              bold_font = "${monospaceFont} Bold";
+              italic_font = "${monospaceFont} Italic";
+              bold_italic_font = "${monospaceFont} Bold Italic";
+              font_size = 12;
+              background_opacity = "0.9";
+            };
+          };
+
+        alacritty = {
+          enable = true;
+          theme = "gruvbox_dark";
+          settings = {
+            window = {
+              padding = {
+                x = 5;
+                y = 5;
+              };
+              dynamic_padding = true;
+              opacity = 0.9;
+            };
+            colors = {
+              draw_bold_text_with_bright_colors = true;
+            };
+          };
+        };
+
+        ghostty = {
+          enable = true;
+        };
+
+        rofi = {
+          enable = true;
+          theme = ./rofi/rounded-blue-dark.rasi;
+        };
+
+        vscode = {
+          enable = true;
+          package = pkgs.vscode.fhs;
+        };
+
+        firefox = {
+          enable = true;
+          package = pkgs.firefox.override {
+            nativeMessagingHosts = [ pkgs.tridactyl-native ];
+            cfg = {
+              speechSynthesisSupport = true;
+            };
+          };
+          configPath = "${config.xdg.configHome}/mozilla/firefox";
+          # profiles.chan = {
+          #   isDefault = true;
+          #   userChrome = ''
+          #     @-moz-document url("chrome://browser/content/browser.xul") {
+          #       #TabsToolbar {
+          #         visibility: collapse !important;
+          #         margin-bottom: 21px !important;
+          #       }
+          #
+          #       #sidebar-box[sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"] #sidebar-header {
+          #         visibility: collapse !important;
+          #       }
+          #     }
+          #   '';
+          # };
+        };
+
+        obs-studio = {
+          enable = true;
+        };
+      };
+
+      gtk = {
+        enable = true;
+        font = {
+          name = fonts.sans.name;
+          size = 12;
+        };
+        # theme = {
+        #   name = "Adwaita";
+        #   # package = pkgs.adw-gtk3;
+        # };
+        cursorTheme = {
+          name = "Adwaita";
+          package = pkgs.adwaita-icon-theme;
+        };
+        # iconTheme = {
+        #   name = "Adwaita";
+        #   package = pkgs.adwaita-icon-theme;
+        # };
+        # gtk3.extraConfig = {
+        #   gtk-application-prefer-dark-theme = 1;
+        # };
+        # gtk4.extraConfig = {
+        #   gtk-application-prefer-dark-theme = 1;
+        # };
+
+        # New default behavior as of 26.05
+        gtk4.theme = null;
+      };
+
+      dconf.settings = {
+        "org/gnome/desktop/interface" = {
+          color-scheme = "prefer-dark";
+        };
+      };
+
+      # home.sessionVariables.GTK_THEME = "Adwaita:dark";
+
+      qt = {
+        enable = true;
+        platformTheme.name = "gtk3";
+        style.name = "adwaita-dark";
+        style.package = pkgs.adwaita-qt;
+      };
+
+      # For Electron apps
+      home.sessionVariables = {
+        DEFAULT_BROWSER = "firefox";
+        BROWSER = "firefox";
+      };
+    };
+}

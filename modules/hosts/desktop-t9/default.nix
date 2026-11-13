@@ -1,49 +1,60 @@
+{ config, inputs, ... }:
+let
+  inherit (config.flake.modules) nixos homeManager;
+in
 {
-  lib,
-  pkgs,
-  config,
-  inputs,
-  ...
-}:
+  configurations.nixos.desktop-t9.module =
+    { config, pkgs, ... }:
+    {
+      imports = with nixos; [
+        inputs.disko.nixosModules.disko
+        ./_hardware-configuration.nix
+        ./_disko.nix
+        workstation
+        nvidia
+        hyprland
+        lanzaboote
+        zfs
+        docker
+        ssh-server
+        tailscale
+        tailscale-exit-node
+        podman
+        ly
+        crossmacro
+        openrgb
+        hyprwhspr
+        t9
+      ];
 
-{
-  imports = [ ../shared ];
+      users.users.chan.hashedPassword = "$y$j9T$uxCqrhaofIQdeJERyH4ZB/$d7LgPgp3CLQNSKnkLYKLZqrXS/F3gqfMDKglePFWmWB";
 
-  services = {
-    tailscale.enable = true;
-    openssh.enable = true;
+      boot.lanzaboote.pkiBundle = "/keep/secureboot";
+
+      services.openssh.ports = [
+        22
+        3022
+      ];
+
+      hardware.nvidia = {
+        package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
+        powerManagement.enable = true;
+      };
+
+      system.stateVersion = "25.05";
+    };
+
+  configurations.home."chan@desktop-t9" = {
+    system = "x86_64-linux";
+    module = {
+      imports = with homeManager; [
+        base
+        linux-desktop
+        t9
+        hyprland
+      ];
+
+      home.stateVersion = "22.11";
+    };
   };
-
-  users.users.chan = {
-    isNormalUser = true;
-    home = "/home/chan";
-    description = "Cars Chandler (T9)";
-    extraGroups = [
-      "wheel"
-      "networkmanager"
-      "video"
-    ];
-    initialHashedPassword = "$y$j9T$3F0wnFpeirh.ucFK101Z6/$Nk6T1in2qPfMCrai/x.tnIplqhtFP9AOzbmuSCVZ5R5";
-  };
-
-  environment.systemPackages = [
-    pkgs.postman
-    pkgs.slack
-    pkgs.thunderbird
-    pkgs.mesa-demos
-  ];
-
-  networking = {
-    hostName = "desktop-t9";
-  };
-
-  hardware.graphics = {
-    enable = true;
-  };
-
-  nixpkgs.config.allowUnfree = true;
-
-  time.timeZone = "America/Chicago";
-
-  system.stateVersion = "25.05";
 }

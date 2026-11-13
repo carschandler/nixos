@@ -1,23 +1,10 @@
 {
-  inputs,
-  config,
-  lib,
-  ...
-}:
-let
-  eachUser = users: fn: builtins.map fn users;
-in
-{
-  flake.users = rec {
+  meta.users = rec {
     main = {
       username = "chan";
       name = "Cars Chandler";
     };
+    # Users allowed to SSH in and added to admin-ish groups (docker, incus-admin, ...)
     admins = [ main.username ];
-    guests = [ ];
-  };
-
-  flake.modules.nixos.users = {
-    users.mutableUsers = false;
   };
 }

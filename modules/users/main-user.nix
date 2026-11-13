@@ -1,31 +1,29 @@
-{
-  inputs,
-  config,
-  lib,
-  ...
-}:
+# The primary account. Hosts still set their own password hash.
+{ config, ... }:
+let
+  inherit (config.meta.users) main;
+in
 {
   flake.modules.nixos.main-user = {
-    users.mutableUsers = false;
-    users.users.${config.flake.users.main.username} = {
+    users.users.${main.username} = {
       isNormalUser = true;
-      home = "/home/${config.flake.users.main.username}";
-      description = config.flake.users.main.name;
+      home = "/home/${main.username}";
+      description = main.name;
       extraGroups = [ "wheel" ];
-      hashedPassword = "$y$j9T$uxCqrhaofIQdeJERyH4ZB/$d7LgPgp3CLQNSKnkLYKLZqrXS/F3gqfMDKglePFWmWB";
     };
+  };
+
+  flake.modules.darwin.main-user = {
+    system.primaryUser = main.username;
   };
 
   flake.modules.homeManager.main-user =
     { pkgs, ... }:
     {
       home = {
-        username = config.flake.users.main;
+        inherit (main) username;
         homeDirectory =
-          if pkgs.stdenv.isDarwin then
-            "/Users/${config.flake.users.main}"
-          else
-            "/home/${config.flake.users.main}";
+          if pkgs.stdenv.hostPlatform.isDarwin then "/Users/${main.username}" else "/home/${main.username}";
       };
     };
 }

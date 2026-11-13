@@ -1,6 +1,6 @@
-{ ... }:
 {
-  flake.fonts =
+  # Font choices shared by every config; read as `config.meta.fonts.<role|name>`
+  meta.fonts =
     let
       mkSystemFont =
         {

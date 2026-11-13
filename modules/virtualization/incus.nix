@@ -1,44 +1,12 @@
-{
-  inputs,
-  config,
-  lib,
-  ...
-}:
+{ config, ... }:
 {
   flake.modules.nixos.incus = {
     virtualisation.incus.enable = true;
+    # Required for incus, but causes problems for docker (specifically docker
+    # compose), so don't combine the two.
     networking.nftables.enable = true;
-    users.groups.incus-admin.members = config.flake.users.admins;
-    # virtualisation.incus.preseed = {
-    #   networks = [
-    #     {
-    #       config = {
-    #         "ipv4.address" = "10.0.0.1/24";
-    #         "ipv4.nat" = "true";
-    #       };
-    #       name = "docker0";
-    #       type = "bridge";
-    #     }
-    #   ];
-    #   profiles = [
-    #     {
-    #       devices = {
-    #         eth0 = {
-    #           name = "eth0";
-    #           network = "docker0";
-    #           type = "nic";
-    #         };
-    #         root = {
-    #           path = "/";
-    #           pool = "default";
-    #           size = "20GiB";
-    #           type = "disk";
-    #         };
-    #       };
-    #     }
-    #   ];
-    # };
+    # Let instances reach the host for DHCP/DNS
+    networking.firewall.trustedInterfaces = [ "incusbr0" ];
+    users.users.${config.meta.users.main.username}.extraGroups = [ "incus-admin" ];
   };
-
-
 }

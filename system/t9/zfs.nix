@@ -1,4 +1,0 @@
-{ ... }:
-{
-  boot.zfs.forceImportRoot = false;
-}
