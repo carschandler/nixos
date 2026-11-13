@@ -24,9 +24,6 @@
         loader.systemd-boot.enable = lib.mkForce false;
 
         lanzaboote.enable = true;
-
-        # To decrypt LUKS using TPM, this must be enabled
-        initrd.systemd.enable = true;
       };
 
       environment.etc."sbctl/sbctl.conf" = {
