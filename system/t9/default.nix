@@ -104,6 +104,10 @@
     enable = true;
   };
 
+  virtualisation.podman = {
+    enable = true;
+  };
+
   # Tailscale + firewall: open the WireGuard UDP port, trust the tailscale0
   # interface, and loosen reverse-path filtering so Tailscale's asymmetric
   # (encrypted-in / decrypted-out) traffic is not dropped.
@@ -153,6 +157,7 @@
     pkgs.overskride
     pkgs.nvtopPackages.nvidia
     # inputs.wezterm.packages.x86_64-linux.default
+    pkgs.podman-compose
   ];
 
   networking = {
