@@ -137,7 +137,7 @@ in
         feh
         gimp3
         imv
-        libreoffice-fresh
+        libreoffice
         meld
         nautilus
         obsidian

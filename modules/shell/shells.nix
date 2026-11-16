@@ -52,6 +52,8 @@
 
         nushell = {
           enable = true;
+          # Export home.sessionVariables like the other shells do
+          loadSessionVariables = true;
           extraConfig = ''
             $env.config.completions.algorithm = "fuzzy"
             $env.edit_mode = "vi"
