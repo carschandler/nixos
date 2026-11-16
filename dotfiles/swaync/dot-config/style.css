@@ -500,3 +500,10 @@
 .widget-inhibitors > button:hover {
   background: @noti-bg-hover;
 }
+
+/* GTK >= 4.24 only blurs when the client requests it (ext-background-effect-v1);
+   Hyprland layer rules alone no longer enable blur for swaync. */
+.control-center,
+.floating-notifications {
+  backdrop-filter: blur(20px);
+}
