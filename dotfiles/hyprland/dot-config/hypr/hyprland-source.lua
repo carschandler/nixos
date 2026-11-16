@@ -82,7 +82,7 @@ hl.env("GDK_SCALE", "1.5")
 
 hl.on("hyprland.start", function()
 	hl.exec_cmd(
-		"hyprctl setcursor macOS 28 & swaync & bash /home/chan/nixos/dotfiles/hyprland/dot-config/hypr/launch_hyprpaper.sh"
+		"hyprctl setcursor macOS 28 & bash /home/chan/nixos/dotfiles/hyprland/dot-config/hypr/launch_hyprpaper.sh"
 	)
 	hl.exec_cmd("systemctl --user start hyprpolkitagent")
 end)
