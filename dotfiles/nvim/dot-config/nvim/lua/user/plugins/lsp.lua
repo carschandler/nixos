@@ -19,7 +19,13 @@ return {
               },
               workspace = {
                 -- Make the server aware of Neovim runtime files
-                library = vim.api.nvim_get_runtime_file("", true),
+                library = vim.list_extend(
+                  vim.api.nvim_get_runtime_file("", true),
+                  -- Hyprland Lua API stubs (present on NixOS hosts with programs.hyprland)
+                  vim.uv.fs_stat("/run/current-system/sw/share/hypr/stubs")
+                      and { "/run/current-system/sw/share/hypr/stubs" }
+                    or {}
+                ),
                 -- Prevent the LS from prompting about workspace every time on
                 -- startup
                 checkThirdParty = false,
