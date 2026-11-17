@@ -334,8 +334,9 @@ hl.layer_rule({
 
 -- Speech-to-text (Handy). Wayland apps can't grab global shortcuts, so the
 -- compositor triggers it.
+hl.bind("SHIFT + ALT + SPACE", hl.dsp.exec_cmd("handy --toggle-transcription"), { release = false })
+hl.bind("SHIFT + ALT + SPACE", hl.dsp.exec_cmd("handy --toggle-transcription"), { release = true })
 hl.bind("SUPER + ALT + SPACE", hl.dsp.exec_cmd("handy --toggle-transcription"))
-hl.bind("SHIFT + ALT + SPACE", hl.dsp.exec_cmd("handy --cancel"))
 
 -- App launch binds (launchMod)
 hl.bind(launchMod .. " + W", hl.dsp.exec_cmd(webbrowser))
