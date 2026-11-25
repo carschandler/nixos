@@ -5,20 +5,29 @@ local keyword_length_or_manual = function(len)
 end
 
 return {
-  "Saghen/blink.cmp",
+  "saghen/blink.cmp",
   cond = not vim.g.vscode,
   -- optional: provides snippets for the snippet source
   dependencies = {
+    "saghen/blink.lib",
     "rafamadriz/friendly-snippets",
     -- { "L3MON4D3/LuaSnip", version = "v2.*" },
   },
 
-  -- use a release tag to download pre-built binaries
-  -- version = "v0.*",
-  -- AND/OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
-  -- build = 'cargo build --release',
-  -- If you use nix, you can build from source using latest nightly rust with:
-  build = "nix run .#build-plugin",
+  -- V2 has no `build-plugin` flake app any more. Build the flake's package
+  -- (which compiles the Rust fuzzy lib with Nix's toolchain) and copy the
+  -- resulting library into the plugin's lib/ directory.
+  build = function(plugin)
+    local out = vim.system(
+      { "nix", "build", ".#blink-cmp", "--no-link", "--print-out-paths" },
+      { cwd = plugin.dir, text = true }
+    ):wait()
+    assert(out.code == 0, out.stderr)
+    local store = vim.trim(out.stdout)
+    vim.fn.mkdir(plugin.dir .. "/lib", "p")
+    local cp = vim.system({ "sh", "-c", ("cp -L %s/lib/libblink_cmp_fuzzy.* lib/"):format(store) }, { cwd = plugin.dir }):wait()
+    assert(cp.code == 0, cp.stderr)
+  end,
 
   ---@module 'blink.cmp'
   ---@type blink.cmp.Config
