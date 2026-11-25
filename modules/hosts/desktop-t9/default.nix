@@ -51,7 +51,6 @@ in
         linux-desktop
         t9
         hyprland
-        handy
       ];
 
       home.stateVersion = "22.11";

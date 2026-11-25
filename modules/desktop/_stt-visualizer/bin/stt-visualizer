@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# Launches the STT visualizer overlay. The @...@ placeholders are filled in by
+# package.nix at build time.
+#
+# Env:
+#   STT_VISUALIZER_DIR  run shell.qml (+ RainbowGradient.qml) from this directory
+#                       instead of the store copy, for live tuning: quickshell
+#                       hot-reloads on save. Stop the service first.
+#   HANDY_WAVE_*        tunables, see wave-feed and shell.qml.
+set -euo pipefail
+
+dir="${STT_VISUALIZER_DIR:-@share@}"
+export HANDY_WAVE_FEED="${HANDY_WAVE_FEED:-@feed@}"
+export HANDY_WAVE_WATCH="${HANDY_WAVE_WATCH:-@watch@}"
+
+exec @quickshell@ --path "$dir/shell.qml" "$@"

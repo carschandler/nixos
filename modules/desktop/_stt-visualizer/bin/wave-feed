@@ -1,0 +1,69 @@
+#!/usr/bin/env bash
+# Streams microphone spectrum frames to stdout, one line per frame:
+#   "v0;v1;...;vN-1;"   (integers 0..1000, low -> high frequency)
+# Consumed by shell.qml.
+#
+# Env:
+#   HANDY_WAVE_SOURCE  PipeWire source node.name (default: current default mic)
+#   HANDY_WAVE_BARS    number of frequency bands (default: 48)
+#   HANDY_WAVE_AUTOSENS  1 = cava adapts its sensitivity to the signal, 0 = fixed (default: 0)
+#   HANDY_WAVE_SENS      fixed sensitivity in percent when autosens=0 (default: 2000)
+set -euo pipefail
+
+bars="${HANDY_WAVE_BARS:-48}"
+autosens="${HANDY_WAVE_AUTOSENS:-0}"
+sens="${HANDY_WAVE_SENS:-2000}"
+source_name="${HANDY_WAVE_SOURCE:-}"
+if [[ -z "$source_name" ]]; then
+  source_name="$(wpctl inspect @DEFAULT_AUDIO_SOURCE@ 2>/dev/null \
+    | sed -n 's/.*node\.name = "\(.*\)"/\1/p' | head -n1 || true)"
+fi
+: "${source_name:=auto}"
+
+cfg="$(mktemp --suffix=.cava)"
+# Clean up only our own children (never the process group: that would take the
+# parent overlay down with us). `wait` below is interruptible by TERM.
+trap 'rm -f "$cfg"; pkill -P $$ 2>/dev/null || true' EXIT
+trap 'exit 0' TERM INT HUP
+
+cat > "$cfg" <<CFG
+[general]
+bars = $bars
+framerate = 60
+autosens = $autosens
+sensitivity = $sens
+lower_cutoff_freq = 80
+higher_cutoff_freq = 8000
+
+[input]
+method = pipewire
+source = $source_name
+
+[output]
+method = raw
+raw_target = /dev/stdout
+data_format = ascii
+ascii_max_range = 1000
+bar_delimiter = 59
+frame_delimiter = 10
+
+[smoothing]
+noise_reduction = 55
+CFG
+
+# Soft noise gate and frame dedupe, so the consumer does no work while quiet.
+# The gate SUBTRACTS the floor and rescales (0 at GATE, 1000 at 1000) instead of
+# a hard cutoff: a band hovering around the threshold then changes smoothly
+# rather than flipping between 0 and GATE (which looked like flicker).
+gate="${HANDY_WAVE_GATE:-30}"
+cava -p "$cfg" | awk -F";" -v gate="$gate" '{
+  out = ""
+  for (i = 1; i < NF; i++) {
+    v = ($i + 0 - gate) * 1000 / (1000 - gate)
+    if (v < 0) v = 0
+    out = out sprintf("%d", v + 0.5) ";"
+  }
+  if (out != prev) { print out; fflush() }
+  prev = out
+}' &
+wait $!

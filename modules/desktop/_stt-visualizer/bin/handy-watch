@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+# Prints "active" when Handy holds a microphone capture stream open (i.e. it is
+# recording) and "idle" when it doesn't. One line per transition, plus the
+# initial state. Event-driven via `pw-dump -m`; exits when PipeWire goes away
+# (the caller / systemd restarts it).
+#
+# Env:
+#   HANDY_WAVE_MATCH  case-insensitive regex matched against the stream's
+#                     application.name / node.name (default: handy)
+set -euo pipefail
+
+match="${HANDY_WAVE_MATCH:-handy}"
+
+# Clean up only our own children (never the process group). `wait` at the end
+# is interruptible by TERM, so we exit promptly when the parent stops us.
+trap 'pkill -P $$ 2>/dev/null || true' EXIT
+trap 'exit 0' TERM INT HUP
+
+pw-dump -m | jq -c --unbuffered -n --arg match "$match" '
+  def is_handy:
+    .info.props as $p
+    | ($p["media.class"] == "Stream/Input/Audio")
+      and ((($p["application.name"] // "") + " " + ($p["node.name"] // "")) | test($match; "i"));
+
+  foreach (inputs | .[]) as $o ({ids: {}, last: null};
+    if $o.info == null then .ids |= del(.[($o.id | tostring)])    # removed (no type on removals)
+    elif $o.type == "PipeWire:Interface:Node" then
+      if ($o.info.props // null) != null then
+        if ($o | is_handy) then .ids[($o.id | tostring)] = true
+        else .ids |= del(.[($o.id | tostring)]) end
+      else . end                                                    # partial update: keep
+    else . end
+    | (if (.ids | length) > 0 then "active" else "idle" end) as $now
+    | .emit = (if $now != .last then $now else null end)
+    | .last = $now;
+    .emit | select(. != null))
+' | jq -r --unbuffered '.' &
+wait $!

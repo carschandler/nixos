@@ -1,6 +1,8 @@
 { config, ... }:
 let
   inherit (config.meta) fonts;
+  # The home-manager module below shadows `config`, so grab these here.
+  inherit (config.flake.modules) homeManager;
 in
 {
   flake.modules.nixos.hyprland = {
@@ -31,6 +33,10 @@ in
       dotfiles = "${config.home.homeDirectory}/nixos/dotfiles";
     in
     {
+      # Handy + the recording visualizer: the compositor binds the Handy
+      # shortcut (hyprland-source.lua), so every Hyprland machine needs both.
+      imports = [ homeManager.stt ];
+
       xdg.configFile = {
         "hypr/hyprland-source.lua".source =
           config.lib.file.mkOutOfStoreSymlink "${dotfiles}/hyprland/dot-config/hypr/hyprland-source.lua";
